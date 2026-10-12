@@ -30,6 +30,7 @@ FILES = {
     'workbench.desktop.main.js': APP + r'\out\vs\workbench\workbench.desktop.main.js',
     'workbench.glass.main.js': APP + r'\out\vs\workbench\workbench.glass.main.js',
     'cursor-agent-exec-main.js': APP + r'\extensions\cursor-agent-exec\dist\main.js',
+    'cursor-agent-host-main.js': APP + r'\extensions\cursor-agent-host\dist\main.js',
     'cursor-local-agent-runtime-main.js': APP + r'\extensions\cursor-local-agent-runtime\dist\main.js',
     'product.json': APP + r'\product.json',
 }
@@ -57,7 +58,7 @@ if _commit:
         if not os.path.exists(CACHE_NLS_ROOT_TARGET) and os.path.exists(FILES['nls.messages.json']):
             shutil.copy2(FILES['nls.messages.json'], CACHE_NLS_ROOT_TARGET)
 BUNDLE_FILES = ['workbench.desktop.main.js', 'workbench.glass.main.js']
-RUNTIME_FILES = BUNDLE_FILES + ['cursor-agent-exec-main.js', 'cursor-local-agent-runtime-main.js']
+RUNTIME_FILES = BUNDLE_FILES + ['cursor-agent-exec-main.js', 'cursor-agent-host-main.js', 'cursor-local-agent-runtime-main.js']
 PATCH_SCRIPTS = ['patch_fixes.py', 'patch_glass2.py', 'patch_settings.py', 'patch_dropdowns.py',
                   'patch_extensions.py', 'patch_localized_calls.py', 'patch_values.py', 'patch_extra.py',
                   'patch_cursor_ui_tm.py', 'patch_settings_gaps.py', 'patch_statusbar_stats.py', 'patch_help_menu_labels.py',
@@ -559,6 +560,42 @@ if ok:
     for name in FILES:
         shutil.copy2(name, os.path.join('ceviri-son-hali', name))
     log('ceviri-son-hali/ guncellendi')
+    try:
+        import sqlite3
+        _db_path = os.path.join(os.path.expanduser('~'), 'AppData', 'Roaming', 'Cursor', 'User', 'globalStorage', 'state.vscdb')
+        if os.path.exists(_db_path):
+            _conn = sqlite3.connect(_db_path)
+            _cur = _conn.cursor()
+            _key = "src.vs.platform.reactivestorage.browser.reactiveStorageServiceImpl.persistentStorage.applicationUser"
+            _cur.execute("SELECT value FROM ItemTable WHERE key = ?", (_key,))
+            _row = _cur.fetchone()
+            if _row:
+                _data = json.loads(_row[0])
+                _modes = _data.get("composerState", {}).get("modes4", [])
+                _desc_map = {
+                    "agent": "Planlayın, arayın, düzenlemeler yapın, komutlar çalıştırın",
+                    "triage": "Yetkilendirilen alt ajanlarla uzun erimli görevleri koordine edin",
+                    "plan": "Görevleri gerçekleştirmek için ayrıntılı planlar oluşturun",
+                    "background": "Ajanları arka planda çalıştırın",
+                    "chat": "Kod tabanınız hakkında Cursor'a sorular sorun",
+                    "spec": "Uygulama adımları içeren yapılandırılmış planlar oluşturun",
+                    "debug": "Çalışma zamanı izlerini kullanarak hataları sistematik olarak teşhis edin ve düzeltin",
+                    "multitask": "Birden fazla görevi paralel olarak çalıştırın ve koordine edin",
+                }
+                _changed = False
+                for _m in _modes:
+                    _mid = _m.get("id")
+                    if _mid in _desc_map and _m.get("description") != _desc_map[_mid]:
+                        _m["description"] = _desc_map[_mid]
+                        _changed = True
+                if _changed:
+                    _new_val = json.dumps(_data, ensure_ascii=False)
+                    _cur.execute("UPDATE ItemTable SET value = ? WHERE key = ?", (_new_val, _key))
+                    _conn.commit()
+                    log("state.vscdb: modes4 Turkcelestirildi")
+            _conn.close()
+    except Exception as _e:
+        log("state.vscdb guncelleme uyarisi: %s" % _e)
 else:
     io.open('apply_report.txt', 'w', encoding='utf-8').write('\n'.join(report))
     sys.exit(5)

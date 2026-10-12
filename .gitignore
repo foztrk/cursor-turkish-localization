@@ -8,6 +8,7 @@
 workbench.desktop.main.js
 workbench.glass.main.js
 cursor-agent-exec-main.js
+cursor-agent-host-main.js
 cursor-local-agent-runtime-main.js
 orijinal-*/
 referans-*/

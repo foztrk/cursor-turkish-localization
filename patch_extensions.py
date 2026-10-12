@@ -17,7 +17,7 @@ REPS = [
     ('{id:"memories",label:"Memories"}', '{id:"memories",label:"Anılar"}'),
 ]
 
-FILES = ['cursor-agent-exec-main.js', 'cursor-local-agent-runtime-main.js']
+FILES = ['cursor-agent-exec-main.js', 'cursor-agent-host-main.js', 'cursor-local-agent-runtime-main.js']
 
 def patch_claude_code():
     ext_dir = os.path.expanduser(r'~/.cursor/extensions')

@@ -4,7 +4,7 @@
 <div align="center">
 
 [![GitHub License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Tested On Cursor](https://img.shields.io/badge/Cursor%20Version-v3.23.23-purple.svg)](https://cursor.com)
+[![Tested On Cursor](https://img.shields.io/badge/Cursor%20Version-v3.24.12-purple.svg)](https://cursor.com)
 [![Rules Translated](https://img.shields.io/badge/Translated%20Rules%20%26%20Props-4%2C620%2B-brightgreen.svg)](nls-tm.json)
 [![Integrity Verified](https://img.shields.io/badge/IntegrityService-100%25%20Verified-blue.svg)](#-mimar%C3%AE-ve-b%C3%BCt%C3%BCnl%C3%BCk-integrityservice)
 [![GitHub Stars](https://img.shields.io/github/stars/gmzoztr/cursor-turkish-localization?style=social)](https://github.com/gmzoztr/cursor-turkish-localization)
