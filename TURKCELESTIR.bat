@@ -31,7 +31,7 @@ echo   TAMAMLANDI. Cursor'i acabilirsiniz.
 echo.
 echo   ⭐ Projeyi faydali bulduysaniz GitHub'da bir Yildiz (Star)
 echo      vererek projeye destek olmayi unutmayin!
-echo      https://github.com/gmzoztr/cursor-turkish-localization
+echo      https://github.com/foztrk/cursor-turkish-localization
 echo.
 echo   Rapor            : apply_report.txt
 echo   Yeni/eksik metin  : YENI-EKLENENLER.txt
@@ -39,7 +39,7 @@ echo ============================================================
 echo.
 set "OPEN_STAR=E"
 set /p OPEN_STAR="  ⭐ Projeyi tarayicida acip Yildiz vermek ister misiniz? (E/h): "
-if /i not "%OPEN_STAR%"=="h" if /i not "%OPEN_STAR%"=="hayir" start https://github.com/gmzoztr/cursor-turkish-localization
+if /i not "%OPEN_STAR%"=="h" if /i not "%OPEN_STAR%"=="hayir" start https://github.com/foztrk/cursor-turkish-localization
 goto :EXIT
 
 :FAILURE

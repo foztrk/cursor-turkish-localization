@@ -112,7 +112,7 @@ def run_pipeline():
     print("  KURULUM TAMAMLANDI! CURSOR ARTIK %100 TÜRKÇE.")
     print("\n  ⭐ Projeyi faydalı bulduysanız GitHub'da bir Yıldız (Star)")
     print("     vererek destek olmayı unutmayın:")
-    print("     https://github.com/gmzoztr/cursor-turkish-localization")
+    print("     https://github.com/foztrk/cursor-turkish-localization")
     print("=" * 65)
     return True
 

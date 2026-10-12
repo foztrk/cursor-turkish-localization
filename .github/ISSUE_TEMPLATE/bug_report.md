@@ -3,7 +3,7 @@ name: "🐛 Hata / Eksik Çeviri Bildirimi (Bug Report)"
 description: "Cursor arayüzünde eksik, hatalı bir çeviri veya yamalama sorunu bildirin."
 title: "[HATA] "
 labels: ["bug", "triage"]
-assignees: ["gmzoztr"]
+assignees: ["foztrk"]
 ---
 
 **Hata Açıklaması (Description):**

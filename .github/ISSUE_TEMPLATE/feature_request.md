@@ -3,7 +3,7 @@ name: "✨ Yeni Özellik & Çeviri Önerisi (Feature Request)"
 description: "Yeni bir Cursor özelliği veya terminoloji standardı için iyileştirme önerin."
 title: "[ÖNERİ] "
 labels: ["enhancement", "translation"]
-assignees: ["gmzoztr"]
+assignees: ["foztrk"]
 ---
 
 **Öneri Özeti (Summary):**

@@ -7,13 +7,13 @@
 [![Tested On Cursor](https://img.shields.io/badge/Cursor%20Version-v3.24.12-purple.svg)](https://cursor.com)
 [![Rules Translated](https://img.shields.io/badge/Translated%20Rules%20%26%20Props-4%2C620%2B-brightgreen.svg)](nls-tm.json)
 [![Integrity Verified](https://img.shields.io/badge/IntegrityService-100%25%20Verified-blue.svg)](#-mimar%C3%AE-ve-b%C3%BCt%C3%BCnl%C3%BCk-integrityservice)
-[![GitHub Stars](https://img.shields.io/github/stars/gmzoztr/cursor-turkish-localization?style=social)](https://github.com/gmzoztr/cursor-turkish-localization)
+[![GitHub Stars](https://img.shields.io/github/stars/foztrk/cursor-turkish-localization?style=social)](https://github.com/foztrk/cursor-turkish-localization)
 [![Maintenance Commitment](https://img.shields.io/badge/Maintenance-Day--0%20SLA-orange.svg)](#-open-letter--proposal-to-the-cursor--anysphere-team)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Cross--Platform-lightgrey.svg)](#-kurulum-installation)
 
-[📥 **Tek Tıkla İndir (Releases)**](https://github.com/gmzoztr/cursor-turkish-localization/releases/latest) • 
-[⭐ **Yıldız Ver (Star)**](https://github.com/gmzoztr/cursor-turkish-localization) • 
-[💬 **Geri Bildirim / Hata Bildir**](https://github.com/gmzoztr/cursor-turkish-localization/issues) • 
+[📥 **Tek Tıkla İndir (Releases)**](https://github.com/foztrk/cursor-turkish-localization/releases/latest) • 
+[⭐ **Yıldız Ver (Star)**](https://github.com/foztrk/cursor-turkish-localization) • 
+[💬 **Geri Bildirim / Hata Bildir**](https://github.com/foztrk/cursor-turkish-localization/issues) • 
 [🏛️ **Proposal for Anysphere**](#-open-letter--proposal-to-the-cursor--anysphere-team)
 
 </div>
@@ -55,9 +55,9 @@ To solve this, we engineered this **end-to-end localization infrastructure**:
    We are eager to collaborate with Anysphere either as a **Localization & Developer Experience Engineer**, **Contractor**, or **Turkish Community Lead**. We can ensure Turkish developers receive native support, seamless onboarding, and continuous documentation for Cursor.
 
 📩 **Let's Connect:**
-- **Core Team Inquiry Form:** [Open an Official Inquiry](https://github.com/gmzoztr/cursor-turkish-localization/issues/new?template=official_inquiry.md)
+- **Core Team Inquiry Form:** [Open an Official Inquiry](https://github.com/foztrk/cursor-turkish-localization/issues/new?template=official_inquiry.md)
 - **Direct Email:** `abdurrahmanavci@gmail.com`
-- **GitHub:** [@gmzoztr](https://github.com/gmzoztr)
+- **GitHub:** [@foztrk](https://github.com/foztrk)
 
 ---
 
@@ -90,7 +90,7 @@ To solve this, we engineered this **end-to-end localization infrastructure**:
 ## 🚀 Kurulum (Installation)
 
 ### Yöntem 1: Tek Tıkla Kurulum Paketi (.zip - Önerilen)
-1. **[Releases](https://github.com/gmzoztr/cursor-turkish-localization/releases/latest)** sayfasından en son paketi (`Cursor_Turkce_Yama_v3.23.23.zip`) indirin.
+1. **[Releases](https://github.com/foztrk/cursor-turkish-localization/releases/latest)** sayfasından en son paketi (`Cursor_Turkce_Yama_v3.24.12.zip`) indirin.
 2. ZIP arşivini bir klasöre çıkartın.
 3. Cursor'ı tamamen kapatın.
 4. `TURKCELESTIR.bat` dosyasına çift tıklayın ve Yönetici iznini (UAC) onaylayın.
@@ -98,7 +98,7 @@ To solve this, we engineered this **end-to-end localization infrastructure**:
 
 ### Yöntem 2: Git ile Kurulum
 ```bash
-git clone https://github.com/gmzoztr/cursor-turkish-localization.git
+git clone https://github.com/foztrk/cursor-turkish-localization.git
 cd cursor-turkish-localization
 TURKCELESTIR.bat
 ```
@@ -163,9 +163,9 @@ cursor-turkish-localization/
 
 ## 🤝 Katkıda Bulunma & İletişim
 
-* **Sorun veya Hata Bildir:** [Issues](https://github.com/gmzoztr/cursor-turkish-localization/issues)
-* **Topluluk Tartışmaları:** [Discussions](https://github.com/gmzoztr/cursor-turkish-localization/discussions)
-* **Pull Request:** [Pull Requests](https://github.com/gmzoztr/cursor-turkish-localization/pulls)
+* **Sorun veya Hata Bildir:** [Issues](https://github.com/foztrk/cursor-turkish-localization/issues)
+* **Topluluk Tartışmaları:** [Discussions](https://github.com/foztrk/cursor-turkish-localization/discussions)
+* **Pull Request:** [Pull Requests](https://github.com/foztrk/cursor-turkish-localization/pulls)
 
 ## 📄 Lisans (License)
 Bu proje [MIT Lisansı](LICENSE) altında lisanslanmıştır.

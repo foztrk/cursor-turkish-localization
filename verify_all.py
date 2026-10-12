@@ -111,7 +111,7 @@ def verify_all():
     overall_ok = (len(mismatches) == 0 and len(missing_files) == 0 and all_targets_ok)
     if overall_ok:
         print("  SONUÇ: %100 DOĞRULANDI — Cursor Türkçe Yaması Kusursuz Aktif!")
-        print("  ⭐ Destek olmak için: https://github.com/gmzoztr/cursor-turkish-localization")
+        print("  ⭐ Destek olmak için: https://github.com/foztrk/cursor-turkish-localization")
     else:
         print("  SONUÇ: UYARILAR MEVCUT — Lütfen yukarıdaki hataları inceleyin.")
     print("=" * 65)

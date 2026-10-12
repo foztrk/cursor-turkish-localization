@@ -3,7 +3,7 @@ name: "🏛️ Official Inquiry / Core Team Inquiry (Anysphere / Cursor Team)"
 description: "Direct contact form for the Cursor / Anysphere team regarding native integration, partnership, or community leadership."
 title: "[OFFICIAL] Inquiry from Anysphere / Cursor Team"
 labels: ["official-inquiry", "partnership"]
-assignees: ["gmzoztr"]
+assignees: ["foztrk"]
 ---
 
 ### Message from the Anysphere / Cursor Team
