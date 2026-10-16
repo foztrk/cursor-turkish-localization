@@ -294,8 +294,8 @@ STATIC = {
     '"It won\'t be able to control any of your computers. To use it again, authorize it as a new device."': '"Bilgisayarlarınızın hiçbirini denetleyemez. Tekrar kullanmak için yeni bir cihaz olarak yetkilendirin."',
     '"Remote Control runs on a cloud agent, which requires data storage that your current privacy mode disables"': '"Uzaktan Denetim, geçerli gizlilik modunuzun devre dışı bıraktığı veri depolamayı gerektiren bir bulut ajanında çalışır"',
     # Self-Hosted Workers (Kullanıcı Ayarlar Görseli 1)
-    'sectionTitle:"Self-Hosted Workers"': 'sectionTitle:"Kendi Barındırılan Çalışanlar"',
-    'workersLabel:"Enable local self-hosted workers"': 'workersLabel:"Yerel kendi barındırılan çalışanları etkinleştir"',
+    'sectionTitle:"Self-Hosted Workers"': 'sectionTitle:"Yerel Çalıştırıcılar"',
+    'workersLabel:"Enable local self-hosted workers"': 'workersLabel:"Yerel çalıştırıcıları etkinleştir"',
     'workersDescription:"Allow cloud agents to run in your local environment."': 'workersDescription:"Bulut ajanlarının yerel ortamınızda çalışmasına izin verin."',
     'label:"Offline"': 'label:"Çevrimdışı"',
     'label:"Connecting\\u2026"': 'label:"Bağlanıyor…"',
@@ -498,8 +498,8 @@ OVERLAY = r'''
     ["It won’t be able to control any of your computers. To use it again, authorize it as a new device.", "Bilgisayarlarınızın hiçbirini denetleyemez. Tekrar kullanmak için yeni bir cihaz olarak yetkilendirin."],
     ["It won't be able to control any of your computers. To use it again, authorize it as a new device.", "Bilgisayarlarınızın hiçbirini denetleyemez. Tekrar kullanmak için yeni bir cihaz olarak yetkilendirin."],
     ["Remote Control runs on a cloud agent, which requires data storage that your current privacy mode disables", "Uzaktan Denetim, geçerli gizlilik modunuzun devre dışı bıraktığı veri depolamayı gerektiren bir bulut ajanında çalışır"],
-    ["Self-Hosted Workers", "Kendi Barındırılan Çalışanlar"],
-    ["Enable local self-hosted workers", "Yerel kendi barındırılan çalışanları etkinleştir"],
+    ["Self-Hosted Workers", "Yerel Çalıştırıcılar"],
+    ["Enable local self-hosted workers", "Yerel çalıştırıcıları etkinleştir"],
     ["Allow cloud agents to run in your local environment.", "Bulut ajanlarının yerel ortamınızda çalışmasına izin verin."],
     ["Offline", "Çevrimdışı"],
     ["Connecting…", "Bağlanıyor…"],
@@ -676,7 +676,18 @@ OVERLAY = r'''
     ["Select branch", "Dal seç"],
     ["Select Branch", "Dal seç"],
     ["Select Agent Branch", "Ajan dalını seç"],
+    ["Loading...", "Yükleniyor..."],
+    ["Loading…", "Yükleniyor…"],
+    ["Searching...", "Aranıyor..."],
+    ["Searching…", "Aranıyor…"],
+    ["Loading more...", "Daha fazla yükleniyor..."],
+    ["Load more", "Daha fazla yükle"],
+    ["No branches found", "Dal bulunamadı"],
+    ["No branches available", "Kullanılabilir dal yok"],
     ["This PC (Remote Control)", "Bu Bilgisayar (Uzaktan Kumanda)"],
+    ["This PC (Self-Hosted Worker)", "Bu Bilgisayar (Yerel Çalıştırıcı)"],
+    ["Bu Bilgisayar (Self-Hosted Worker)", "Bu Bilgisayar (Yerel Çalıştırıcı)"],
+    ["Self-Hosted Worker", "Yerel Çalıştırıcı"],
     ["Remote Control", "Uzaktan Denetim"],
     ["Control agents on this machine from your phone, web, and other devices", "Bu makinedeki ajanları telefonunuzdan, web'den ve diğer cihazlardan denetleyin"],
     ["Control agents on this machine from your phone, web, and other devices.", "Bu makinedeki ajanları telefonunuzdan, web'den ve diğer cihazlardan denetleyin."],
@@ -1370,6 +1381,8 @@ OVERLAY = r'''
     if (key.startsWith("Kullan /")) key = "Use /" + key.slice("Kullan /".length);
     if (key.startsWith("Hata Ayıklama Modu ")) key = "Debug Mode " + key.slice("Hata Ayıklama Modu ".length);
     if (key.startsWith("Hata Ayıklama Mod ")) key = "Debug Mode " + key.slice("Hata Ayıklama Mod ".length);
+    // Tema adları orijinal İngilizce bırakılır (yalnızca "System" -> "Sistem" çevrilir)
+    if (key.startsWith("Cursor Light") || key.startsWith("Cursor Dark")) return null;
     if (translations.has(key)) return translations.get(key);
     let matchToolsRes = key.match(/^(\d+)\s+tools?,\s*(\d+)\s+resources?\s+enabled$/i);
     if (matchToolsRes) return `${matchToolsRes[1]} araç, ${matchToolsRes[2]} kaynak etkin`;
@@ -1841,11 +1854,11 @@ OVERLAY = r'''
       for (const attr of attrs) {
         const value = el.getAttribute && el.getAttribute(attr);
         const translated = translateValue(value);
-        if (translated) el.setAttribute(attr, translated);
+        if (translated && translated !== value) el.setAttribute(attr, translated);
       }
       if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
         const translated = translateValue(el.placeholder);
-        if (translated) el.placeholder = translated;
+        if (translated && translated !== el.placeholder) el.placeholder = translated;
       }
     }
     const textRoot = root?.nodeType === Node.TEXT_NODE ? root.parentElement : root;
@@ -1857,7 +1870,7 @@ OVERLAY = r'''
       if (!parent || parent.closest(protectedSelector)) continue;
       const value = textNode.nodeValue.trim();
       const translated = translateValue(value);
-      if (translated) textNode.nodeValue = textNode.nodeValue.replace(value, translated);
+      if (translated && translated !== value) textNode.nodeValue = textNode.nodeValue.replace(value, translated);
     }
   };
   // Ana ekranin altindaki donen ipuclari React tarafindan parcalara ayrilir.
@@ -2043,10 +2056,6 @@ OVERLAY = r'''
     ["no thinking", "düşünme yok"],
     ["Claude Sonnet 4 No Thinking", "Claude Sonnet 4 Düşünme Yok"],
     ["Cloud", "Bulut"], ["Local", "Yerel"], ["Team Pool", "Ekip Havuzu"],
-    ["Cursor Light", "Cursor Açık"],
-    ["Cursor Light Colorblind (Beta)", "Cursor Açık — Renk Körlüğü (Beta)"],
-    ["Cursor Dark", "Cursor Koyu"],
-    ["Cursor Dark High Contrast", "Cursor Koyu Yüksek Karşıtlık"],
     // Otomasyon context menüsü
     ["Edit Details", "Ayrıntıları Düzenle"],
     ["Duplicate", "Çoğalt"],
