@@ -56,9 +56,9 @@ STATIC = {
     'placeholder:"Add memory notes..."': 'placeholder:"Haf\\u0131za notlar\\u0131 ekleyin..."',
     'className:Ie({rootClass:"ui-automations-memories-modal__field-label",stylexStyles:dQt(),className:"automations-memories-modal__field-label"}).className,children:"Content"}': 'className:Ie({rootClass:"ui-automations-memories-modal__field-label",stylexStyles:dQt(),className:"automations-memories-modal__field-label"}).className,children:"\\u0130\\xe7erik"}',
     'disabled:i.isLoadingMemory||u!==null||!i.isDirty,children:"Reset"}': 'disabled:i.isLoadingMemory||u!==null||!i.isDirty,children:"S\\u0131f\\u0131rla"}',
-    'children:u==="delete"?"Deleting...":i.feedback.kind==="delete-confirmation"?"Confirm delete":"Delete"': 'children:u==="delete"?"Siliniyor...":i.feedback.kind==="delete-confirmation"?"Silmeyi onayla":"Sil"',
+    'children:u==="delete"?"Deleting...":i.feedback.kind==="delete-confirmation"?"Confirm delete":"Delete"': 'children:u==="delete"?"Siliniyor...":i.feedback.kind==="delete-confirmation"?"Silmeyi Onayla":"Sil"',
     'children:"Failed to load memory content. Please try again later."': 'children:"Haf\\u0131za i\\xe7eri\\u011fi y\\xfcklenemedi. L\\xfctfen daha sonra tekrar deneyin."',
-    'E=i.isLoadingFiles?"Loading...":"Select a file"': 'E=i.isLoadingFiles?"Y\\xfckleniyor...":"Bir dosya se\\xe7in"',
+    'E=i.isLoadingFiles?"Loading...":"Select a file"': 'E=i.isLoadingFiles?"Y\\xfckleniyor...":"Bir Dosya Se\\xe7in"',
     'u==="save"?"Saving...":"Save"': 'u==="save"?"Kaydediliyor...":"Kaydet"',
     'offerTitle:"Use your skills with Cloud Agents",offerDescription:"Sync your local skills to use them with Cloud Agents. Any changes will update automatically.",offerAction:"Sync",offerDismiss:"Not now"': 'offerTitle:"Becerilerinizi Bulut Ajanlar\\u0131 ile Kullan\\u0131n",offerDescription:"Yerel becerilerinizi Bulut Ajanlar\\u0131 ile kullanmak i\\xe7in e\\u015fitleyin. T\\xfcm de\\u011fi\\u015fiklikler otomatik olarak g\\xfcncellenir.",offerAction:"E\\u015fitle",offerDismiss:"\\u015eimdi De\\u011fil"',
     '"Syncing your skills\\u2026"': '"Becerileriniz e\\u015fitleniyor\\u2026"',
@@ -143,7 +143,7 @@ STATIC = {
     'label:"Create Branch, Commit & Push"': 'label:"Dal Oluştur, İşle ve Gönder"',
     'loadingLabel:"Creating Branch..."': 'loadingLabel:"Dal Oluşturuluyor..."',
     'case"create":return t.branchName?`Create ${t.branchName}`:"Create Branch"': 'case"create":return t.branchName?`${t.branchName} Dalını Oluştur`:"Dal Oluştur"',
-    'case"load-more":return"Load more"': 'case"load-more":return"Daha fazla yükle"',
+    'case"load-more":return"Load more"': 'case"load-more":return"Daha Fazla Yükle"',
     'label:e.length===1?"1 File Changed":`${e.length} Files Changed`': 'label:e.length===1?"1 Dosya Değişti":`${e.length} Dosya Değişti`',
     'Ee(8841,"&&Open View...")': 'Ee(8841,"Görünümü &&Aç...")',
     'Ee(8840,"Open View")': 'Ee(8840,"Görünümü Aç")',
@@ -154,10 +154,10 @@ STATIC = {
     '"E&&xit"': '"Çı&&kış"',
     '"Build Plan"': '"Plan Oluştur"',
     '"Second Opinion"': '"İkinci Görüş"',
-    'children:"Create repo"': 'children:"Depo oluştur"',
-    'children:"Create repository"': 'children:"Depo oluştur"',
-    '"Create repo"': '"Depo oluştur"',
-    '"Create repository"': '"Depo oluştur"',
+    'children:"Create repo"': 'children:"Depo Oluştur"',
+    'children:"Create repository"': 'children:"Depo Oluştur"',
+    '"Create repo"': '"Depo Oluştur"',
+    '"Create repository"': '"Depo Oluştur"',
     '"Select Repository"': '"Depo Seç"',
     '"Select Workspace"': '"Çalışma Alanı Seç"',
     '"What should we name your repository?"': '"Deponuzun adı ne olsun?"',
@@ -181,7 +181,7 @@ STATIC = {
     '`Archived (${W.length})`:"Archived"': '`Arşivlenenler (${W.length})`:"Arşivlenenler"',
     '`Archived (${B.length})`:"Archived"': '`Arşivlenenler (${B.length})`:"Arşivlenenler"',
     '?"Restore":"Archive"': '?"Geri Yükle":"Arşivle"',
-    '?"Restore cloud agent":"Archive cloud agent"': '?"Bulut ajanını geri yükle":"Bulut ajanını arşivle"',
+    '?"Restore cloud agent":"Archive cloud agent"': '?"Bulut Ajanını Geri Yükle":"Bulut Ajanını Arşivle"',
     '?"Unpin":"Pin"': '?"Sabitlemeyi Kaldır":"Sabitle"',
     'if (key === "New Agent (Ctrl+N) [Alt] Replace Agent")': 'if (key === "New Agent (Ctrl+N) [Alt] Replace Agent" || key === "Yeni Ajan (Ctrl+N) [Alt] Replace Agent" || key.includes("[Alt] Replace Agent"))',
     '"Add File to Codex Thread"': '"Dosyayı Codex Konusuna Ekle"',
@@ -190,7 +190,7 @@ STATIC = {
     'title:"Add to Codex Thread"': 'title:"Codex Konusuna Ekle"',
     'class:"breadcrumbs-action-btn",children:"Undo File"': 'class:"breadcrumbs-action-btn",children:"Dosyayı Geri Al"',
     'class:"breadcrumbs-action-btn",children:"Keep File"': 'class:"breadcrumbs-action-btn",children:"Dosyayı Koru"',
-    'class:"breadcrumbs-action-btn",children:"Keep all changes"': 'class:"breadcrumbs-action-btn",children:"Tüm değişiklikleri koru"',
+    'class:"breadcrumbs-action-btn",children:"Keep all changes"': 'class:"breadcrumbs-action-btn",children:"Tüm Değişiklikleri Koru"',
     'class:"breadcrumbs-action-btn",children:"Review Next File"': 'class:"breadcrumbs-action-btn",children:"Sonraki Dosyayı İncele"',
     'p()?"Undo":"Undo All"': 'p()?"Geri Al":"Tümünü Geri Al"',
     'p()?"Keep":"Keep All"': 'p()?"Koru":"Tümünü Koru"',
@@ -223,8 +223,8 @@ STATIC = {
     '<span class=composer-questionnaire-toolbar-answered-hint> of <!> answered': '<span class=composer-questionnaire-toolbar-answered-hint> / <!> yanıtlandı',
     '("<span>Continue")': '("<span>Devam Et")',
     'class:"composer-skip-button",keybinding:"Esc",style:{"padding-right":0},children:"Skip"': 'class:"composer-skip-button",keybinding:"Esc",style:{"padding-right":0},children:"Atla"',
-    'hintText:"Previous question"': 'hintText:"Önceki soru"',
-    'hintText:"Next question"': 'hintText:"Sonraki soru"',
+    'hintText:"Previous question"': 'hintText:"Önceki Soru"',
+    'hintText:"Next question"': 'hintText:"Sonraki Soru"',
     'placeholder=Other...': 'placeholder=Diğer...',
     'textInputPlaceholder:"Other..."': 'textInputPlaceholder:"Diğer..."',
     'label:"Other..."': 'label:"Diğer..."',
@@ -283,7 +283,7 @@ STATIC = {
     '"Couldn\'t unregister some computers. Try again."': '"Bazı bilgisayarların kaydı silinemedi. Tekrar deneyin."',
     '"Paired Devices"': '"Eşleştirilmiş Cihazlar"',
     '"No devices are currently paired with this computer."': '"Şu anda bu bilgisayarla eşleştirilmiş cihaz yok."',
-    '"Unnamed device"': '"Adsız cihaz"',
+    '"Unnamed device"': '"Adsız Cihaz"',
     '"Disconnect"': '"Bağlantıyı Kes"',
     '"&&Disconnect"': '"&&Bağlantıyı Kes"',
     '"Disconnect from All Computers"': '"Tüm Bilgisayarlardan Bağlantıyı Kes"',
@@ -295,7 +295,7 @@ STATIC = {
     '"Remote Control runs on a cloud agent, which requires data storage that your current privacy mode disables"': '"Uzaktan Denetim, geçerli gizlilik modunuzun devre dışı bıraktığı veri depolamayı gerektiren bir bulut ajanında çalışır"',
     # Self-Hosted Workers (Kullanıcı Ayarlar Görseli 1)
     'sectionTitle:"Self-Hosted Workers"': 'sectionTitle:"Yerel Çalıştırıcılar"',
-    'workersLabel:"Enable local self-hosted workers"': 'workersLabel:"Yerel çalıştırıcıları etkinleştir"',
+    'workersLabel:"Enable local self-hosted workers"': 'workersLabel:"Yerel Çalıştırıcıları Etkinleştir"',
     'workersDescription:"Allow cloud agents to run in your local environment."': 'workersDescription:"Bulut ajanlarının yerel ortamınızda çalışmasına izin verin."',
     'label:"Offline"': 'label:"Çevrimdışı"',
     'label:"Connecting\\u2026"': 'label:"Bağlanıyor…"',
@@ -364,12 +364,12 @@ OVERLAY = r'''
     ["Deleting", "Siliniyor"],
     ["Deleted", "Silindi"],
     ["Ran", "Çalıştırıldı"],
-    ["Add a follow-up", "Takip mesajı ekle"],
-    ["Add a follow up", "Takip mesajı ekle"],
+    ["Add a follow-up", "Takip Mesajı Ekle"],
+    ["Add a follow up", "Takip Mesajı Ekle"],
     ["Ask follow-ups in the worktree", "Çalışma ağacında takip mesajları sorun"],
-    ["Send follow-up", "Takip mesajı gönder"],
+    ["Send follow-up", "Takip Mesajı Gönder"],
     ["Cycle Effort", "Çaba Düzeyini Değiştir"],
-    ["Cycle effort", "Çaba düzeyini değiştir"],
+    ["Cycle effort", "Çaba Düzeyini Değiştir"],
     ["Switch Model and Retry", "Model Değiştir ve Yeniden Dene"],
     ["OUTLINE", "ANA HAT"],
     ["Outline", "Ana Hat"],
@@ -383,8 +383,8 @@ OVERLAY = r'''
     ["Problems", "Sorunlar"],
     ["EXTENSIONS", "UZANTILAR"],
     ["Extensions", "Uzantılar"],
-    ["Create repo", "Depo oluştur"],
-    ["Create repository", "Depo oluştur"],
+    ["Create repo", "Depo Oluştur"],
+    ["Create repository", "Depo Oluştur"],
     ["Create Repository", "Depo Oluştur"],
     ["Select Repository", "Depo Seç"],
     ["Select Workspace", "Çalışma Alanı Seç"],
@@ -394,7 +394,7 @@ OVERLAY = r'''
     ["context used", "bağlam kullanıldı"],
     ["Context", "Bağlam"],
     ["Context Window", "Bağlam Penceresi"],
-    ["Context window", "Bağlam penceresi"],
+    ["Context window", "Bağlam Penceresi"],
     ["context window", "bağlam penceresi"],
     ["500k context window", "500 bin bağlam penceresi"],
     ["500K context window", "500 bin bağlam penceresi"],
@@ -404,7 +404,7 @@ OVERLAY = r'''
     ["SpaceXAI's most powerful model, built for complex coding and knowledge work.", "SpaceXAI'ın karmaşık kodlama ve bilgi işleri için tasarlanmış en güçlü modeli."],
     ["SpaceXAI's most powerful model, great for complex coding and knowledge work.", "SpaceXAI'ın karmaşık kodlama ve bilgi işleri için tasarlanmış en güçlü modeli."],
     ["Significantly faster but consumes more usage", "Belirgin şekilde daha hızlıdır ancak daha fazla kullanım tüketir"],
-    ["Restore defaults", "Varsayılanlara sıfırla"],
+    ["Restore defaults", "Varsayılanlara Sıfırla"],
     ["tokens", "belirteç"],
     ["Cloud Agent Approval Banners While Focused", "Odaklanmışken Bulut Ajanı Onay Banner'ları"],
     ["Also show the approval banner while Cursor is focused; the request card in the agent conversation always shows", "Cursor odaktayken de onay banner'ını göster; ajan konuşmasındaki istek kartı her zaman gösterilir"],
@@ -418,11 +418,11 @@ OVERLAY = r'''
     ["Exit", "Çıkış"],
     ["Build Plan", "Plan Oluştur"],
     ["Add File to Codex Thread", "Dosyayı Codex Konusuna Ekle"],
-    ["Add file to Codex thread", "Dosyayı Codex konusuna ekle"],
+    ["Add file to Codex thread", "Dosyayı Codex Konusuna Ekle"],
     ["Add to Codex Thread", "Codex Konusuna Ekle"],
     ["Undo File", "Dosyayı Geri Al"],
     ["Keep File", "Dosyayı Koru"],
-    ["Keep all changes", "Tüm değişiklikleri koru"],
+    ["Keep all changes", "Tüm Değişiklikleri Koru"],
     ["Review Next File", "Sonraki Dosyayı İncele"],
     ["Undo All", "Tümünü Geri Al"],
     ["Keep All", "Tümünü Koru"],
@@ -435,8 +435,8 @@ OVERLAY = r'''
     ["Archive", "Arşivle"],
     ["Pin", "Sabitle"],
     ["Unpin", "Sabitlemeyi Kaldır"],
-    ["Restore cloud agent", "Bulut ajanını geri yükle"],
-    ["Archive cloud agent", "Bulut ajanını arşivle"],
+    ["Restore cloud agent", "Bulut Ajanını Geri Yükle"],
+    ["Archive cloud agent", "Bulut Ajanını Arşivle"],
     ["Questions", "Sorular"],
     ["Continue", "Devam Et"],
     ["Skip", "Atla"],
@@ -446,8 +446,8 @@ OVERLAY = r'''
     ["Reject", "Reddet"],
     ["Input needed", "Girdi gerekli"],
     ["Open Claude Code", "Claude Code'u Aç"],
-    ["Previous question", "Önceki soru"],
-    ["Next question", "Sonraki soru"],
+    ["Previous question", "Önceki Soru"],
+    ["Next question", "Sonraki Soru"],
     ["Add more optional details", "İsteğe bağlı ek ayrıntılar ekleyin"],
     ["Add more optional details...", "İsteğe bağlı ek ayrıntılar ekleyin..."],
     ["Agent complete", "Ajan tamamlandı"],
@@ -476,7 +476,7 @@ OVERLAY = r'''
     ["briefly", "kısaca"],
     ["Düşündü kısaca", "Kısaca düşündü"],
     ["Restore Checkpoint", "Kontrol Noktasına Geri Dön"],
-    ["Restore checkpoint", "Kontrol noktasına geri dön"],
+    ["Restore checkpoint", "Kontrol Noktasına Geri Dön"],
     ["Allow agents on this computer to be controlled from your other devices", "Bu bilgisayardaki ajanların diğer cihazlarınızdan denetlenmesine izin verin"],
     ["Register eligible computers when you sign in", "Oturum açtığınızda uygun bilgisayarları kaydet"],
     ["Computer Name", "Bilgisayar Adı"],
@@ -490,7 +490,7 @@ OVERLAY = r'''
     ["Couldn't unregister some computers. Try again.", "Bazı bilgisayarların kaydı silinemedi. Tekrar deneyin."],
     ["Paired Devices", "Eşleştirilmiş Cihazlar"],
     ["No devices are currently paired with this computer.", "Şu anda bu bilgisayarla eşleştirilmiş cihaz yok."],
-    ["Unnamed device", "Adsız cihaz"],
+    ["Unnamed device", "Adsız Cihaz"],
     ["Disconnect", "Bağlantıyı Kes"],
     ["Disconnect from All Computers", "Tüm Bilgisayarlardan Bağlantıyı Kes"],
     ["It won’t be able to control this computer until it’s authorized here again.", "Burada tekrar yetkilendirilene kadar bu bilgisayarı denetleyemez."],
@@ -499,7 +499,7 @@ OVERLAY = r'''
     ["It won't be able to control any of your computers. To use it again, authorize it as a new device.", "Bilgisayarlarınızın hiçbirini denetleyemez. Tekrar kullanmak için yeni bir cihaz olarak yetkilendirin."],
     ["Remote Control runs on a cloud agent, which requires data storage that your current privacy mode disables", "Uzaktan Denetim, geçerli gizlilik modunuzun devre dışı bıraktığı veri depolamayı gerektiren bir bulut ajanında çalışır"],
     ["Self-Hosted Workers", "Yerel Çalıştırıcılar"],
-    ["Enable local self-hosted workers", "Yerel çalıştırıcıları etkinleştir"],
+    ["Enable local self-hosted workers", "Yerel Çalıştırıcıları Etkinleştir"],
     ["Allow cloud agents to run in your local environment.", "Bulut ajanlarının yerel ortamınızda çalışmasına izin verin."],
     ["Offline", "Çevrimdışı"],
     ["Connecting…", "Bağlanıyor…"],
@@ -520,17 +520,17 @@ OVERLAY = r'''
     ["Search projects, agents, Canvas, files, actions...", "Projelerde, ajanlarda, Tuval'de, dosyalarda ve eylemlerde ara..."],
     ["No projects found", "Proje bulunamadı"],
     ["Browse Files", "Dosyalara Göz At"],
-    ["System prompt", "Sistem istemi"],
-    ["Tool definitions", "Araç tanımları"],
-    ["MCP & dynamic tools", "MCP ve dinamik araçlar"],
-    ["Subagent definitions", "Alt ajan tanımları"],
-    ["Summarized conversation", "Özetlenmiş konuşma"],
-    ["User rules", "Kullanıcı kuralları"],
+    ["System prompt", "Sistem İstemi"],
+    ["Tool definitions", "Araç Tanımları"],
+    ["MCP & dynamic tools", "MCP ve Dinamik Araçlar"],
+    ["Subagent definitions", "Alt Ajan Tanımları"],
+    ["Summarized conversation", "Özetlenmiş Konuşma"],
+    ["User rules", "Kullanıcı Kuralları"],
     ["Chat Width", "Sohbet Genişliği"],
     ["Set the maximum width of Agent conversations", "Ajan konuşmalarının azami genişliğini ayarlayın"],
     ["Narrow", "Dar"],
     ["Wide", "Geniş"],
-    ["Chat width", "Sohbet genişliği"],
+    ["Chat width", "Sohbet Genişliği"],
     ["Search skills, context, chats...", "Becerilerde, bağlamda ve sohbetlerde ara..."],
     ["Search custom modes...", "Özel modlarda ara..."],
     ["Search MCPs...", "MCP'lerde ara..."],
@@ -546,7 +546,7 @@ OVERLAY = r'''
     ["Fork Chat", "Sohbeti Çatalla"],
     ["Maximize Chat", "Sohbeti Büyüt"],
     ["Second Opinion", "İkinci Görüş"],
-    ["Copy cursor.com link", "cursor.com bağlantısını kopyala"],
+    ["Copy cursor.com link", "cursor.com Bağlantısını Kopyala"],
     ["Share", "Paylaş"],
     ["Runs", "Çalıştırmalar"],
     ["Stop All Runs", "Tüm Çalıştırmaları Durdur"],
@@ -561,14 +561,14 @@ OVERLAY = r'''
     ["Add memory notes...", "Hafıza notları ekleyin..."],
     ["Content", "İçerik"],
     ["Reset", "Sıfırla"],
-    ["Confirm delete", "Silmeyi onayla"],
+    ["Confirm delete", "Silmeyi Onayla"],
     ["Deleting...", "Siliniyor..."],
     ["Saving...", "Kaydediliyor..."],
-    ["Select a file", "Bir dosya seçin"],
-    ["Memory file", "Hafıza dosyası"],
-    ["Discard draft", "Taslağı at"],
+    ["Select a file", "Bir Dosya Seçin"],
+    ["Memory file", "Hafıza Dosyası"],
+    ["Discard draft", "Taslağı At"],
     ["Failed to load memory content. Please try again later.", "Hafıza içeriği yüklenemedi. Lütfen daha sonra tekrar deneyin."],
-    ["Click Confirm delete to delete this memory file.", "Bu hafıza dosyasını silmek için Silmeyi onayla düğmesine tıklayın."],
+    ["Click Confirm delete to delete this memory file.", "Bu hafıza dosyasını silmek için Silmeyi Onayla düğmesine tıklayın."],
     ["Memory changed elsewhere. Loaded latest content.", "Hafıza başka bir yerde değiştirildi. En son içerik yüklendi."],
     ["Memory tool is disabled for this automation", "Bu otomasyon için hafıza aracı devre dışı"],
     ["Save this automation to enable and configure memory notes", "Hafıza notlarını etkinleştirmek ve yapılandırmak için bu otomasyonu kaydedin"],
@@ -580,18 +580,18 @@ OVERLAY = r'''
     ["Failed to delete", "Silme işlemi başarısız oldu"],
     ["Automation", "Otomasyon"],
     ["Edit Automation", "Otomasyonu Düzenle"],
-    ["Scheduled run", "Zamanlanmış çalıştırma"],
-    ["Test run", "Test çalıştırması"],
-    ["Run summary", "Çalıştırma özeti"],
+    ["Scheduled run", "Zamanlanmış Çalıştırma"],
+    ["Test run", "Test Çalıştırması"],
+    ["Run summary", "Çalıştırma Özeti"],
     ["Search Triggers...", "Tetikleyicilerde Ara..."],
     ["Search automations", "Otomasyonlarda ara"],
     ["Search environments", "Ortamlarda ara"],
     ["Save and Enable", "Kaydet ve Etkinleştir"],
     ["Save or discard changes before continuing", "Devam etmeden önce değişiklikleri kaydedin veya atın"],
     ["Unsaved Changes", "Kaydedilmemiş Değişiklikler"],
-    ["View details", "Ayrıntıları görüntüle"],
+    ["View details", "Ayrıntıları Görüntüle"],
     ["Webhook Triggered", "Web Kancası Tetiklendi"],
-    ["Webhook triggered", "Web kancası tetiklendi"],
+    ["Webhook triggered", "Web Kancası Tetiklendi"],
     ["Incident Triggered", "Olay Tetiklendi"],
     ["Incident Acknowledged", "Olay Onaylandı"],
     ["Incident Resolved", "Olay Çözüldü"],
@@ -607,23 +607,23 @@ OVERLAY = r'''
     ["Turn Remote Control on again to reset this computer", "Bu bilgisayarı sıfırlamak için Uzaktan Denetim'i tekrar açın"],
     ["Trusted Devices", "Güvenilen Cihazlar"],
     ["No other devices are approved for Remote Control yet", "Henüz Uzaktan Denetim için onaylanmış başka cihaz yok"],
-    ["Unnamed device", "Adsız cihaz"],
+    ["Unnamed device", "Adsız Cihaz"],
     ["Enable Remote Control for this computer", "Bu bilgisayar için Uzaktan Denetim'i etkinleştir"],
     ["Search repositories...", "Depolarda ara..."],
     ["Search repositories", "Depolarda ara"],
     ["Search repositories, environments...", "Depolarda ve ortamlarda ara..."],
     ["Search repositories and environments", "Depolarda ve ortamlarda ara"],
     ["No Repository", "Depo Yok"],
-    ["No repository", "Depo yok"],
+    ["No repository", "Depo Yok"],
     ["No repositories available", "Kullanılabilir depo yok"],
     ["Loading repositories...", "Depolar yükleniyor..."],
-    ["Select repository", "Depo seç"],
-    ["Start from scratch", "Sıfırdan başla"],
+    ["Select repository", "Depo Seç"],
+    ["Start from scratch", "Sıfırdan Başla"],
     ["MCPs", "MCP'ler"],
     ["Create Branch", "Dal Oluştur"],
-    ["Create branch", "Dal oluştur"],
+    ["Create branch", "Dal Oluştur"],
     ["Update Branch", "Dalı Güncelle"],
-    ["Load more", "Daha fazla yükle"],
+    ["Load more", "Daha Fazla Yükle"],
     ["1 File Changed", "1 Dosya Değişti"],
     ["Files Changed", "Dosya Değişti"],
     ["File Changed", "Dosya Değişti"],
@@ -636,15 +636,15 @@ OVERLAY = r'''
     ["Restart to Update", "Güncellemek için Yeniden Başlat"],
     ["Restart to update", "Güncellemek için Yeniden Başlat"],
     ["Attempt Update", "Güncellemeyi Dene"],
-    ["Show Console", "Konsolu göster"],
+    ["Show Console", "Konsolu Göster"],
     ["Enter a URL above, or instruct the Agent to navigate and use the browser", "Yukarıya bir URL girin veya Ajan'a gezinmesini ve tarayıcıyı kullanmasını söyleyin"],
-    ["Add files", "Dosya ekle"],
+    ["Add files", "Dosya Ekle"],
     ["Click or hold Ctrl M to dictate", "Dikte etmek için Ctrl M'ye tıklayın veya basılı tutun"],
-    ["Edit Icon", "Simgeyi düzenle"],
+    ["Edit Icon", "Simgeyi Düzenle"],
     ["No destinations available", "Kullanılabilir hedef yok"],
     ["No compatible environments are currently available", "Şu anda uyumlu ortam yok"],
-    ["Copy Agent ID", "Ajan kimliğini kopyala"],
-    ["Copy Transcript", "Dökümü kopyala"],
+    ["Copy Agent ID", "Ajan Kimliğini Kopyala"],
+    ["Copy Transcript", "Dökümü Kopyala"],
     ["Data Sharing Enabled", "Veri Paylaşımı Etkin"],
     ["Privacy Mode", "Gizlilik Modu"],
     ["Privacy Mode (Legacy)", "Gizlilik Modu (Eski)"],
@@ -657,14 +657,14 @@ OVERLAY = r'''
     ["Project", "Proje"],
     ["Repos", "Depolar"],
     ["Create a focused chat where Agents coordinate work", "Ajanların çalışmaları koordine ettiği odaklanmış bir sohbet oluşturun"],
-    ["Project name", "Proje adı"],
+    ["Project name", "Proje Adı"],
     ["Meet Grok Bot", "Grok Bot ile Tanışın"],
     ["AI teammates you can give real work to", "Gerçek işler verebileceğiniz yapay zekâ ekip arkadaşları"],
     ["Get Grok Bot", "Grok Bot'u Edin"],
     ["Dismiss", "Kapat"],
     ["Model used to build this plan", "Bu planı oluşturan model"],
-    ["Build Locally", "Yerel olarak derle"],
-    ["Parallel Build", "Paralel derle"],
+    ["Build Locally", "Yerel Olarak Derle"],
+    ["Parallel Build", "Paralel Derle"],
     ["New Chat", "Yeni Sohbet"],
     ["Open Local Links in Cursor Browser", "Yerel Bağlantıları Cursor Tarayıcısında Aç"],
     ["Open Web Links in Cursor Browser", "Web Bağlantılarını Cursor Tarayıcısında Aç"],
@@ -673,25 +673,25 @@ OVERLAY = r'''
     ["Show Apps", "Uygulamalar Panelini Göster"],
     ["Recents", "Son Kullanılanlar"],
     ["Search branches...", "Dallarda ara..."],
-    ["Select branch", "Dal seç"],
-    ["Select Branch", "Dal seç"],
-    ["Select Agent Branch", "Ajan dalını seç"],
+    ["Select branch", "Dal Seç"],
+    ["Select Branch", "Dal Seç"],
+    ["Select Agent Branch", "Ajan Dalını Seç"],
     ["Loading...", "Yükleniyor..."],
     ["Loading…", "Yükleniyor…"],
     ["Searching...", "Aranıyor..."],
     ["Searching…", "Aranıyor…"],
-    ["Loading more...", "Daha fazla yükleniyor..."],
-    ["Load more", "Daha fazla yükle"],
+    ["Loading more...", "Daha Fazla Yükleniyor..."],
+    ["Load more", "Daha Fazla Yükle"],
     ["No branches found", "Dal bulunamadı"],
     ["No branches available", "Kullanılabilir dal yok"],
-    ["This PC (Remote Control)", "Bu Bilgisayar (Uzaktan Kumanda)"],
+    ["This PC (Remote Control)", "Bu Bilgisayar (Uzaktan Denetim)"],
     ["This PC (Self-Hosted Worker)", "Bu Bilgisayar (Yerel Çalıştırıcı)"],
     ["Bu Bilgisayar (Self-Hosted Worker)", "Bu Bilgisayar (Yerel Çalıştırıcı)"],
     ["Self-Hosted Worker", "Yerel Çalıştırıcı"],
     ["Remote Control", "Uzaktan Denetim"],
     ["Control agents on this machine from your phone, web, and other devices", "Bu makinedeki ajanları telefonunuzdan, web'den ve diğer cihazlardan denetleyin"],
     ["Control agents on this machine from your phone, web, and other devices.", "Bu makinedeki ajanları telefonunuzdan, web'den ve diğer cihazlardan denetleyin."],
-    ["Select Instance", "Örnek seç"],
+    ["Select Instance", "Örnek Seç"],
     ["Remote Machines", "Uzak Makineler"],
     ["Search This PC...", "Bu bilgisayarda ara..."],
     ["Search This PC…", "Bu bilgisayarda ara…"],
@@ -702,7 +702,7 @@ OVERLAY = r'''
     ["No environments", "Ortam yok"],
     ["Cursor Default", "Cursor Varsayılan"],
     ["Queue", "Kuyruk"],
-    ["Send Immediately", "Hemen gönder"],
+    ["Send Immediately", "Hemen Gönder"],
     ["Send immediately without interrupting", "Çalışmayı kesmeden hemen gönder"],
     ["Steer the Agent without stopping it", "Ajanı durdurmadan yönlendir"],
     ["Send immediately by interrupting", "Çalışmayı keserek hemen gönder"],
@@ -714,9 +714,9 @@ OVERLAY = r'''
     ["Search Remote Machines...", "Uzak Makinelerde Ara..."],
     ["Search Remote Machines…", "Uzak Makinelerde Ara…"],
     ["Search...", "Ara..."],
-    ["Automation filters", "Otomasyon filtreleri"],
-    ["Automation template filters", "Otomasyon şablonu filtreleri"],
-    ["All Runs", "Tüm çalıştırmalar"],
+    ["Automation filters", "Otomasyon Filtreleri"],
+    ["Automation template filters", "Otomasyon Şablonu Filtreleri"],
+    ["All Runs", "Tüm Çalıştırmalar"],
     ["Use Find critical bugs template", "Kritik hataları bul şablonunu kullan"],
     ["Use Scan codebase for vulnerabilities template", "Kod tabanını güvenlik açıklarına karşı tara şablonunu kullan"],
     ["Use Generate docs template", "Belgeler oluştur şablonunu kullan"],
@@ -738,8 +738,8 @@ OVERLAY = r'''
     ["Choose Custom Sound…", "Özel Ses Seç…"],
     ["Preview", "Önizle"],
     ["Default Sound", "Varsayılan Ses"],
-    ["Add keyword", "Anahtar sözcük ekle"],
-    ["Remove submit", "Gönder sözcüğünü kaldır"],
+    ["Add keyword", "Anahtar Sözcük Ekle"],
+    ["Remove submit", "Gönder Sözcüğünü Kaldır"],
     ["Third-Party Imports", "Üçüncü Taraf İçe Aktarımları"],
     ["Improve Cursor for everyone", "Cursor'u herkes için geliştirin"],
     [". Prompts and limited telemetry may also be shared with model providers when you explicitly select their models", ". İstemler ve sınırlı telemetri, modellerini açıkça seçtiğiniz sağlayıcılarla da paylaşılabilir"],
@@ -849,10 +849,10 @@ OVERLAY = r'''
     ["Test run", "Test Çalıştırması"],
     ["Toggle automation enabled state", "Otomasyonun etkinliğini aç veya kapat"],
     ["Remove Memories", "Anıları Kaldır"],
-    ["More actions", "Diğer eylemler"],
-    ["Automation filters", "Otomasyon filtreleri"],
-    ["Automation template filters", "Otomasyon şablonu filtreleri"],
-    ["Automation detail sections", "Otomasyon ayrıntı bölümleri"],
+    ["More actions", "Diğer Eylemler"],
+    ["Automation filters", "Otomasyon Filtreleri"],
+    ["Automation template filters", "Otomasyon Şablonu Filtreleri"],
+    ["Automation detail sections", "Otomasyon Ayrıntı Bölümleri"],
     ["Account", "Hesap"],
     ["Configure", "Yapılandır"],
     ["Agent Conversations", "Ajan Konuşmaları"],
@@ -861,8 +861,8 @@ OVERLAY = r'''
     ["Motion", "Hareket"],
     ["Decrease", "Azalt"],
     ["Increase", "Artır"],
-    ["Tint hue", "Renk tonu"],
-    ["Tint intensity", "Renk tonu yoğunluğu"],
+    ["Tint hue", "Renk Tonu"],
+    ["Tint intensity", "Renk Tonu Yoğunluğu"],
     ["Steer a running agent without stopping it", "Çalışan ajanı durdurmadan yönlendirin"],
     ["set New Messages to Send Immediately in your Agent settings", "Ajanlar ayarlarındaki Yeni Mesajlar seçeneğini Hemen Gönder olarak ayarlayın"],
     ["set Yeni Mesajlar to Send Immediately in your Ajanlar settings", "Ajanlar ayarlarındaki Yeni Mesajlar seçeneğini Hemen Gönder olarak ayarlayın"],
@@ -882,7 +882,7 @@ OVERLAY = r'''
     ["Environment", "Ortam"],
     ["Untitled", "Adsız"],
     ["You have view-only access. Contact the owner or a team admin to edit this automation.", "Yalnızca görüntüleme erişiminiz var. Bu otomasyonu düzenlemek için sahibiyle veya ekip yöneticisiyle iletişime geçin."],
-    ["Select repository", "Depo seç"],
+    ["Select repository", "Depo Seç"],
     ["By", "Oluşturan"],
     ["Triggers", "Tetikleyiciler"],
     ["Add Trigger", "Tetikleyici Ekle"],
@@ -892,15 +892,15 @@ OVERLAY = r'''
     ["Manage", "Yönet"],
     ["Delete", "Sil"],
     ["Settings", "Ayarlar"],
-    ["Find critical bugs", "Kritik hataları bul"],
+    ["Find critical bugs", "Kritik Hataları Bul"],
     ["Analyze recent commits for high-severity correctness bugs and submit safe fixes", "Son değişikliklerdeki ciddi doğruluk hatalarını inceleyin ve güvenli düzeltmeler gönderin"],
     ["Scheduled", "Zamanlandı"],
     ["Send Slack", "Slack'e Gönder"],
-    ["Scan codebase for vulnerabilities", "Kod tabanını güvenlik açıklarına karşı tara"],
+    ["Scan codebase for vulnerabilities", "Kod Tabanını Güvenlik Açıklarına Karşı Tara"],
     ["Review the full repository on a schedule and alert on validated high-impact security issues", "Tüm depoyu belirli aralıklarla inceleyin ve doğrulanmış yüksek etkili güvenlik sorunlarında uyarı alın"],
-    ["Generate docs", "Belgeler oluştur"],
+    ["Generate docs", "Belgeler Oluştur"],
     ["Create and update developer documentation for recently changed or under-documented code", "Yakın zamanda değişen veya yetersiz belgelenmiş kod için geliştirici belgeleri oluşturun ve güncelleyin"],
-    ["Add test coverage", "Test kapsamı ekle"],
+    ["Add test coverage", "Test Kapsamı Ekle"],
     ["Switch Model", "Model Değiştir"],
     ["Search or Paste Link", "Ara veya Bağlantı Yapıştır"],
     ["High Contrast", "Yüksek Karşıtlık"],
@@ -934,53 +934,53 @@ OVERLAY = r'''
     ,["Microsoft Azure MCP and Skills integration for cloud resource management, deployments, and Azure services. Manage your Azure infrastructure, monitor applications, and deploy resources directly from Cursor.", "Bulut kaynaklarını, dağıtımları ve Azure hizmetlerini yönetmek için Microsoft Azure MCP ve beceri entegrasyonu. Azure altyapınızı yönetin, uygulamaları izleyin ve kaynakları doğrudan Cursor'dan dağıtın."]
     ,["Railway agent skills and MCP server for deploying, configuring, monitoring, and troubleshooting apps and infrastructure on Railway from Cursor. Manage services, environments, deployments, databases, object storage, networking, and observability.", "Cursor üzerinden Railway'de uygulama ve altyapı dağıtma, yapılandırma, izleme ve sorun giderme için ajan becerileri ile MCP sunucusu. Hizmetleri, ortamları, dağıtımları, veritabanlarını, nesne depolamayı, ağı ve gözlemlenebilirliği yönetin."]
     ,["Review recent changes and add tests for high-risk logic that lacks adequate coverage", "Son değişiklikleri inceleyin ve yeterli kapsamı olmayan yüksek riskli mantık için testler ekleyin"]
-    ,["Find vulnerabilities", "Güvenlik açıklarını bul"]
+    ,["Find vulnerabilities", "Güvenlik Açıklarını Bul"]
     ,["Review pull requests for exploitable security issues and flag only validated findings before merge", "Pull request'leri istismar edilebilir güvenlik sorunları açısından inceleyin ve birleştirmeden önce yalnızca doğrulanmış bulguları işaretleyin"]
-    ,["PR opened", "PR açıldı"]
+    ,["PR opened", "PR Açıldı"]
     ,["PR Comment", "PR Yorumu"]
-    ,["Assign PR reviewers", "PR inceleyicileri ata"]
+    ,["Assign PR reviewers", "PR İnceleyicileri Ata"]
     ,["Assign reviewers based on code changes and auto-approve low-risk PRs", "Kod değişikliklerine göre inceleyiciler atayın ve düşük riskli PR'ları otomatik onaylayın"]
-    ,["PR pushed", "PR gönderildi"]
+    ,["PR pushed", "PR Gönderildi"]
     ,["Request Reviewers", "İnceleyici İste"]
-    ,["Autofix PR review comments", "PR inceleme yorumlarını otomatik düzelt"]
+    ,["Autofix PR review comments", "PR İnceleme Yorumlarını Otomatik Düzelt"]
     ,["Take a first pass at addressing inline review comments on PR diffs", "PR farklarındaki satır içi inceleme yorumlarını çözmek için ilk geçişi yapın"]
-    ,["PR review comment", "PR inceleme yorumu"]
-    ,["Monitor engineering invariants", "Mühendislik değişmezlerini izle"]
+    ,["PR review comment", "PR İnceleme Yorumu"]
+    ,["Monitor engineering invariants", "Mühendislik Değişmezlerini İzle"]
     ,["Re-check critical repository invariants on a schedule and alert only when a rule regresses", "Kritik depo değişmezlerini belirli aralıklarla yeniden denetleyin ve yalnızca bir kural gerilediğinde uyarın"]
     ,["Auto Import for Python", "Python için Otomatik İçe Aktarma"]
     ,["Partial Accepts", "Kısmi Kabuller"]
     ,["User", "Kullanıcı"]
     ,["Team", "Ekip"]
     ,["Always respond in Turkish", "Her zaman Türkçe yanıt ver"]
-    ,["Home workspace guidance", "Ana çalışma alanı yönergeleri"]
+    ,["Home workspace guidance", "Ana Çalışma Alanı Yönergeleri"]
     ,["Interact with local Chrome browser session (only on explicit user approval after being asked to inspect, debug, or interact with a page open in Chrome)", "Yerel Chrome tarayıcı oturumuyla etkileşim kurar (yalnızca açık bir Chrome sayfasını inceleme, hata ayıklama veya sayfayla etkileşim isteği için kullanıcıdan açık onay alındığında)"]
     ,["See the user's ENTIRE Windows desktop live (all windows — Comet, IDE, terminal, data) via a local screenshot. Use BEFORE acting on the Sentos/Comet flow and whenever the user references what's on their screen, so you never act blind on stale context.", "Kullanıcının TÜM Windows masaüstünü yerel ekran görüntüsüyle canlı görür. Sentos/Comet akışında işlem yapmadan ve kullanıcı ekrandakine atıfta bulunduğunda eski bağlama göre işlem yapmamak için kullanılır."]
     ,["Perform a read-only, defect-first review of a specified code change and return every actionable finding. Use when another agent delegates review of uncommitted changes, a base-branch diff, a commit, or custom review instructions.", "Belirtilen kod değişikliğini salt okunur ve hata odaklı inceler; uygulanabilir tüm bulguları döndürür. Kaydedilmemiş değişiklikler, dal farkı, commit veya özel inceleme talimatları devredildiğinde kullanılır."]
     ,["Plugin that includes the Figma MCP server and Skills for common workflows", "Yaygın iş akışları için Figma MCP sunucusu ve becerilerini içeren eklenti"]
     ,["Skills for NVIDIAs ecosystem spans GPU acceleration, CUDA, AI agents, inference, robotics, Physical AI, Omniverse, and simulation. This plugin helps you understand the pieces, choose a path, validate your setup, and build practical NVIDIA-powered workflows.", "NVIDIA ekosistemi için GPU hızlandırma, CUDA, yapay zekâ ajanları, çıkarım, robotik, Fiziksel Yapay Zekâ, Omniverse ve simülasyon becerileri. Bileşenleri anlamanıza, yol seçmenize, kurulumu doğrulamanıza ve NVIDIA destekli pratik iş akışları oluşturmanıza yardımcı olur."]
-    ,["Remediate dependency vulnerabilities", "Bağımlılık güvenlik açıklarını gider"]
+    ,["Remediate dependency vulnerabilities", "Bağımlılık Güvenlik Açıklarını Gider"]
     ,["Triage dependency-vulnerability tickets from Linear and open upgrade PRs when the fix is safe", "Linear'daki bağımlılık güvenlik açığı kayıtlarını önceliklendirin ve düzeltme güvenliyse yükseltme PR'ları açın"]
-    ,["Issue created", "Sorun oluşturuldu"]
-    ,["Fix bugs reported in Slack", "Slack'te bildirilen hataları düzelt"]
+    ,["Issue created", "Sorun Oluşturuldu"]
+    ,["Fix bugs reported in Slack", "Slack'te Bildirilen Hataları Düzelt"]
     ,["Monitor a Slack channel for bug reports, investigate the codebase, and fix with a PR", "Hata bildirimleri için bir Slack kanalını izleyin, kod tabanını inceleyin ve bir PR ile düzeltin"]
-    ,["New message in channel", "Kanalda yeni mesaj"]
-    ,["Triage failed GitHub Actions", "Başarısız GitHub Actions çalıştırmalarını incele"]
+    ,["New message in channel", "Kanalda Yeni Mesaj"]
+    ,["Triage failed GitHub Actions", "Başarısız GitHub Actions Çalıştırmalarını İncele"]
     ,["Investigate failed or cancelled workflow runs and report findings in Slack", "Başarısız veya iptal edilmiş iş akışı çalıştırmalarını inceleyin ve bulguları Slack'te bildirin"]
-    ,["Workflow run completed", "İş akışı tamamlandı"]
-    ,["Fix CI failures", "CI hatalarını düzelt"]
+    ,["Workflow run completed", "İş Akışı Tamamlandı"]
+    ,["Fix CI failures", "CI Hatalarını Düzelt"]
     ,["Detect CI failures on main and automatically open PRs", "Ana daldaki CI hatalarını algılayın ve otomatik olarak PR açın"]
-    ,["Checks completed", "Denetimler tamamlandı"]
-    ,["Investigate PagerDuty incidents", "PagerDuty olaylarını incele"]
+    ,["Checks completed", "Denetimler Tamamlandı"]
+    ,["Investigate PagerDuty incidents", "PagerDuty Olaylarını İncele"]
     ,["Investigate incidents using Datadog and code context", "Datadog ve kod bağlamını kullanarak olayları inceleyin"]
-    ,["Incident triggered", "Olay tetiklendi"]
-    ,["Investigate Sentry issues", "Sentry sorunlarını incele"]
+    ,["Incident triggered", "Olay Tetiklendi"]
+    ,["Investigate Sentry issues", "Sentry Sorunlarını İncele"]
     ,["Investigate errors from Sentry, identify root causes, and propose fixes", "Sentry hatalarını inceleyin, temel nedenleri belirleyin ve düzeltmeler önerin"]
-    ,["Any issue event", "Herhangi bir sorun olayı"]
-    ,["Investigate top Datadog errors", "Önemli Datadog hatalarını incele"]
+    ,["Any issue event", "Herhangi Bir Sorun Olayı"]
+    ,["Investigate top Datadog errors", "Önemli Datadog Hatalarını İncele"]
     ,["Investigate recurring production errors from Datadog, identify root causes, and propose fixes", "Datadog'daki yinelenen üretim hatalarını inceleyin, temel nedenleri belirleyin ve düzeltmeler önerin"]
-    ,["Triage Linear issues", "Linear sorunlarını önceliklendir"]
+    ,["Triage Linear issues", "Linear Sorunlarını Önceliklendir"]
     ,["Triage new issues by investigating bugs, planning feature requests, and opening PRs for easy fixes", "Yeni sorunları; hataları inceleyerek, özellik isteklerini planlayarak ve kolay düzeltmeler için PR açarak önceliklendirin"]
-    ,["Summarize changes daily", "Değişiklikleri günlük özetle"]
+    ,["Summarize changes daily", "Değişiklikleri Günlük Özetle"]
     ,["Post a daily Slack digest summarizing notable repository changes and risks from the previous day", "Önceki günün önemli depo değişikliklerini ve risklerini özetleyen günlük bir Slack özeti gönderin"]
     ,["Customer Health Monitoring Agent", "Müşteri Sağlığı İzleme Ajanı"]
     ,["Find at-risk customers using usage analytics, call notes, Slack escalations, and Linear blockers", "Kullanım analizleri, görüşme notları, Slack bildirimleri ve Linear engelleriyle risk altındaki müşterileri bulun"]
@@ -992,8 +992,8 @@ OVERLAY = r'''
     ,["Analyze Stripe revenue, churn signals, and product pricing opportunities", "Stripe gelirini, müşteri kaybı sinyallerini ve ürün fiyatlandırma fırsatlarını analiz edin"]
     ,["Slack Digest Agent", "Slack Özet Ajanı"]
     ,["Summarize important DMs, mentions, and the user's top active Slack channels", "Önemli özel mesajları, bahsetmeleri ve kullanıcının en etkin Slack kanallarını özetleyin"]
-    ,["Investigate environment setup failures", "Ortam kurulum hatalarını incele"]
-    ,["Monitor environment build health", "Ortam derleme sağlığını izle"]
+    ,["Investigate environment setup failures", "Ortam Kurulum Hatalarını İncele"]
+    ,["Monitor environment build health", "Ortam Derleme Sağlığını İzle"]
     ,["Health check of your cloud environment's builds with root cause analysis for failed builds", "Bulut ortamı derlemelerinizin sağlığını denetleyin ve başarısız derlemelerin temel nedenlerini analiz edin"]
     ,["Archive", "Arşivle"]
     ,["Pin", "Sabitle"]
@@ -1021,8 +1021,9 @@ OVERLAY = r'''
     ,["Recent Agents", "Son Ajanlar"]
     ,["Recent Files", "Son Dosyalar"]
     ,["Recent", "Son Kullanılanlar"]
+    ,["Current", "Mevcut"]
     ,["Older", "Daha Eski"]
-    ,["Filter results", "Sonuçları filtrele"]
+    ,["Filter results", "Sonuçları Filtrele"]
     ,["Draft", "Taslak"]
     ,["Search actions...", "Eylemlerde ara..."]
     ,["Search Cursor settings...", "Cursor ayarlarında ara..."]
@@ -1041,59 +1042,61 @@ OVERLAY = r'''
     ,["On-Demand", "İsteğe Bağlı"]
     ,["Account Label", "Hesap Etiketi"]
     ,["Add Folder", "Klasör Ekle"]
-    ,["Add or search model", "Model ekle veya ara"]
+    ,["Add or search model", "Model Ekle veya Ara"]
     ,["Add Plugins", "Eklenti Ekle"]
     ,["Add Project Item to Chat", "Proje Öğesini Sohbete Ekle"]
-    ,["Add weekly recap email", "Haftalık özet e-postası ekle"]
-    ,["Add-habit keyboard flow", "Alışkanlık ekleme klavye akışı"]
-    ,["Back to tasks", "Görevlere dön"]
-    ,["Build options", "Derleme seçenekleri"]
+    ,["Add weekly recap email", "Haftalık Özet E-postası Ekle"]
+    ,["Add-habit keyboard flow", "Alışkanlık Ekleme Klavye Akışı"]
+    ,["Back to tasks", "Görevlere Dön"]
+    ,["Build options", "Derleme Seçenekleri"]
     ,["Clear Forced Skill Migration Banner", "Zorunlu Beceri Taşıma Başlığını Temizle"]
     ,["Close Customize", "Özelleştir'i Kapat"]
     ,["Close Pane", "Bölmeyi Kapat"]
-    ,["Close subscriptions tray", "Abonelikler tepsisini kapat"]
-    ,["Collapse queue", "Kuyruğu daralt"]
-    ,["Confirm VS Code import", "VS Code içe aktarımını onayla"]
-    ,["Copy artifact", "Yapıtı kopyala"]
+    ,["Close subscriptions tray", "Abonelikler Tepsisini Kapat"]
+    ,["Collapse queue", "Kuyruğu Daralt"]
+    ,["Dismiss queue", "Kuyruğu Kapat"]
+    ,["Remove from queue", "Kuyruktan Çıkar"]
+    ,["Confirm VS Code import", "VS Code İçe Aktarımını Onayla"]
+    ,["Copy artifact", "Yapıtı Kopyala"]
     ,["Debug: Open Skill Publishing Logs", "Hata Ayıklama: Beceri Yayımlama Günlüklerini Aç"]
-    ,["Delete automation", "Otomasyonu sil"]
-    ,["Delete old chats", "Eski sohbetleri sil"]
-    ,["Dismiss outage alert", "Kesinti uyarısını kapat"]
+    ,["Delete automation", "Otomasyonu Sil"]
+    ,["Delete old chats", "Eski Sohbetleri Sil"]
+    ,["Dismiss outage alert", "Kesinti Uyarısını Kapat"]
     ,["Edit Fetch Domain Allowlist, one domain per line", "Getirme alan adı izin listesini düzenle; her satıra bir alan adı"]
-    ,["Edit MCP server", "MCP sunucusunu düzenle"]
-    ,["Expand full chat", "Sohbetin tamamını genişlet"]
+    ,["Edit MCP server", "MCP Sunucusunu Düzenle"]
+    ,["Expand full chat", "Sohbetin Tamamını Genişlet"]
     ,["Failed to Apply Suggestion", "Öneri Uygulanamadı"]
     ,["Failed to collect conversation history", "Konuşma geçmişi alınamadı"]
-    ,["File filters", "Dosya filtreleri"]
-    ,["Install MCP server", "MCP sunucusunu yükle"]
-    ,["Loading Cloud Agents settings", "Bulut Ajanları ayarları yükleniyor"]
-    ,["Move to folder", "Klasöre taşı"]
-    ,["Open project", "Projeyi aç"]
-    ,["Open Pull Request Externally", "PR'ı dışarıda aç"]
-    ,["Open video preview", "Video önizlemesini aç"]
-    ,["Project notes selection actions", "Proje notu seçim eylemleri"]
-    ,["Queued message actions", "Kuyruğa alınan mesaj eylemleri"]
-    ,["Remove Account", "Hesabı kaldır"]
-    ,["Remove screenshot", "Ekran görüntüsünü kaldır"]
-    ,["Remove Subscription", "Aboneliği kaldır"]
-    ,["Restore edits to the latest checkpoint", "Düzenlemeleri son kontrol noktasına geri yükle"]
+    ,["File filters", "Dosya Filtreleri"]
+    ,["Install MCP server", "MCP Sunucusunu Yükle"]
+    ,["Loading Cloud Agents settings", "Bulut Ajanları Ayarları Yükleniyor"]
+    ,["Move to folder", "Klasöre Taşı"]
+    ,["Open project", "Projeyi Aç"]
+    ,["Open Pull Request Externally", "PR'ı Dışarıda Aç"]
+    ,["Open video preview", "Video Önizlemesini Aç"]
+    ,["Project notes selection actions", "Proje Notu Seçim Eylemleri"]
+    ,["Queued message actions", "Kuyruğa Alınan Mesaj Eylemleri"]
+    ,["Remove Account", "Hesabı Kaldır"]
+    ,["Remove screenshot", "Ekran Görüntüsünü Kaldır"]
+    ,["Remove Subscription", "Aboneliği Kaldır"]
+    ,["Restore edits to the latest checkpoint", "Düzenlemeleri Son Kontrol Noktasına Geri Yükle"]
     ,["Save", "Kaydet"]
-    ,["Save All Files", "Tüm dosyaları kaydet"]
+    ,["Save All Files", "Tüm Dosyaları Kaydet"]
     ,["Search files", "Dosyalarda ara"]
     ,["Search fonts", "Yazı tiplerinde ara"]
     ,["Search history or enter a URL", "Geçmişte ara veya URL gir"]
     ,["Search MCPs", "MCP'lerde ara"]
     ,["Search pull requests", "PR'larda ara"]
     ,["Share", "Paylaş"]
-    ,["Share link", "Paylaşım bağlantısı"]
-    ,["Stack options", "Yığın seçenekleri"]
-    ,["Update Access", "Erişimi güncelle"]
-    ,["Updating privacy settings", "Gizlilik ayarları güncelleniyor"]
-    ,["Upgrade to a Pro account", "Pro hesaba yükselt"]
-    ,["Upload profile image", "Profil resmi yükle"]
+    ,["Share link", "Paylaşım Bağlantısı"]
+    ,["Stack options", "Yığın Seçenekleri"]
+    ,["Update Access", "Erişimi Güncelle"]
+    ,["Updating privacy settings", "Gizlilik Ayarları Güncelleniyor"]
+    ,["Upgrade to a Pro account", "Pro Hesaba Yükselt"]
+    ,["Upload profile image", "Profil Resmi Yükle"]
     ,["Claude Code: Open", "Claude Code'u Aç"]
     ,["Switch Agent Mode (Ctrl+.)", "Ajan Modunu Değiştir (Ctrl+.)"]
-    ,["Show context usage", "Bağlam kullanımını göster"]
+    ,["Show context usage", "Bağlam Kullanımını Göster"]
     ,["Tab AI Stats (Today): 0/0 lines (0%)", "Sekme Yapay Zekâ İstatistikleri (Bugün): 0/0 satır (%0)"]
     ,["Command Palette...", "Komut Paleti..."]
     ,["View: Open View...", "Görünüm: Görünüm Aç..."]
@@ -1108,7 +1111,7 @@ OVERLAY = r'''
     ,["Choose a model or use the cost- and availability-aware default", "Bir model seçin veya maliyet ve kullanılabilirliği gözeten varsayılanı kullanın"]
     ,["Choose which models appear in the model picker", "Model seçicide hangi modellerin görüneceğini seçin"]
     ,["Continue Interrupted Agents", "Kesintiye Uğrayan Ajanlara Devam Et"]
-    ,["Reset to default sound", "Varsayılan sese sıfırla"]
+    ,["Reset to default sound", "Varsayılan Sese Sıfırla"]
     ,["The agent process restarted or the remote connection dropped before this message was sent. Retry to send it again.", "Bu mesaj gönderilmeden önce ajan işlemi yeniden başladı veya uzak bağlantı kesildi. Yeniden göndermeyi deneyin."]
     ,["Upgrade Available", "Yükseltme Mevcut"]
     ,["your Anthropic key", "Anthropic anahtarınız"]
@@ -1116,12 +1119,22 @@ OVERLAY = r'''
     ,["your OpenAI key", "OpenAI anahtarınız"]
     ,["Add Workspace", "Çalışma Alanı Ekle"]
     ,["Any Repo", "Herhangi Bir Depo"]
-    ,["More self-hosted machines", "Daha fazla kendi barındırdığınız makine"]
-    ,["Remove From Queue", "Kuyruktan Kaldır"]
+    ,["More self-hosted machines", "Diğer Yerel Çalıştırıcı Makineleri"]
+    ,["Remove From Queue", "Kuyruktan Çıkar"]
     ,["Remove from merge queue?", "Birleştirme kuyruğundan kaldırılsın mı?"]
-    ,["Self-Hosted Machines", "Kendi Barındırdığınız Makineler"]
+    ,["Self-Hosted Machines", "Yerel Çalıştırıcı Makineleri"]
+    ,["Run in", "Şurada Çalıştır"]
+    ,["Run on this machine", "Bu Makinede Çalıştır"]
+    ,["Run on Cursor servers", "Cursor Sunucularında Çalıştır"]
+    ,["Run on members' machines", "Üyelerin Makinelerinde Çalıştır"]
+    ,["Dismiss worker offline banner", "Çalıştırıcı Çevrimdışı Bildirimini Kapat"]
+    ,["Start voice conversation", "Sesli Sohbet Başlat"]
+    ,["End voice conversation", "Sesli Sohbeti Bitir"]
+    ,["Voice conversation in progress", "Sesli Sohbet Devam Ediyor"]
+    ,["Enter a valid Git branch name", "Geçerli bir Git dal adı girin"]
+    ,["Enter a branch name", "Bir dal adı girin"]
     ,["Remote", "Uzak"]
-    ,["Start from scratch", "Sıfırdan başla"]
+    ,["Start from scratch", "Sıfırdan Başla"]
     ,["Sor Cursor to find a prior conversation, veya summarize across conversations", "Önceki bir konuşmayı bulması veya konuşmalar arasında özetleme yapması için Cursor'a sorun"]
     ,["Adjust Plan", "Planı Ayarla"]
     ,["Additional usage beyond limits consumes Other Models quota or on-demand spend.", "Sınırları aşan ek kullanım, Diğer Modeller kotasından veya isteğe bağlı harcamadan düşer."]
@@ -1154,8 +1167,8 @@ OVERLAY = r'''
     ,["Show Less", "Daha Az Göster"]
     ,["Show More", "Daha Fazla Göster"]
     ,["Show Warnings", "Uyarıları Göster"]
-    ,["Show message in multiple lines", "Mesajı birden çok satırda göster"]
-    ,["Show message in single line", "Mesajı tek satırda göster"]
+    ,["Show message in multiple lines", "Mesajı Birden Çok Satırda Göster"]
+    ,["Show message in single line", "Mesajı Tek Satırda Göster"]
     ,["No source control providers registered.", "Kayıtlı kaynak denetimi sağlayıcısı yok."]
     ,["Canvas is no longer available", "Tuval artık kullanılamıyor"]
     ,["Could not open Canvas", "Tuval açılamadı"]
@@ -1171,7 +1184,7 @@ OVERLAY = r'''
     ,["Debug Mode", "Hata Ayıklama Modu"]
     ,["Select", "Seç"]
     ,["Results", "Sonuçlar"]
-    ,["New agent", "Yeni ajan"]
+    ,["New agent", "Yeni Ajan"]
     ,["or", "veya"]
     ,["Change Filter", "Filtreyi Değiştir"]
     ,["Ctrl+ğ or Ctrl+ü Filtreyi Değiştir", "Ctrl+ğ veya Ctrl+ü ile filtreyi değiştir"]
@@ -1194,7 +1207,7 @@ OVERLAY = r'''
     ,["Payments", "Ödemeler"]
     ,["Agent Orchestration", "Ajan Orkestrasyonu"]
     ,["Canvas", "Tuval"]
-    ,["Filter by source: All", "Kaynağa göre filtrele: Tümü"]
+    ,["Filter by source: All", "Kaynağa Göre Filtrele: Tümü"]
     ,["Plugins in Customize", "Özelleştir'deki Eklentiler"]
     ,["Open Plugins in Customize", "Özelleştir'de Eklentileri Aç"]
     ,["Add to Cursor", "Cursor'a Ekle"]
@@ -1202,25 +1215,25 @@ OVERLAY = r'''
   const attrs = ["aria-label", "title", "placeholder", "data-placeholder", "aria-placeholder"];
   const modelTooltipReplacements = [
     ["Cycle Effort", "Çaba Düzeyini Değiştir"],
-    ["Cycle effort", "Çaba düzeyini değiştir"],
+    ["Cycle effort", "Çaba Düzeyini Değiştir"],
     ["Switch Model", "Model Değiştir"],
-    ["Switch model", "Model değiştir"],
-    ["Add a follow up", "Takip mesajı ekle"],
-    ["Add a follow-up", "Takip mesajı ekle"],
+    ["Switch model", "Model Değiştir"],
+    ["Add a follow up", "Takip Mesajı Ekle"],
+    ["Add a follow-up", "Takip Mesajı Ekle"],
     ["Model used to build this plan", "Bu planı oluşturan model"],
-    ["Select element", "Öğe seç"],
-    ["Take Screenshot", "Ekran görüntüsü al"],
-    ["Capture Area Screenshot", "Alan ekran görüntüsü al"],
-    ["Hard Reload", "Zorla yenile"],
-    ["Copy Current URL", "Geçerli URL'yi kopyala"],
-    ["Clear Cookies", "Çerezleri temizle"],
-    ["Clear Cache", "Önbelleği temizle"],
+    ["Select element", "Öğe Seç"],
+    ["Take Screenshot", "Ekran Görüntüsü Al"],
+    ["Capture Area Screenshot", "Alan Ekran Görüntüsü Al"],
+    ["Hard Reload", "Zorla Yenile"],
+    ["Copy Current URL", "Geçerli URL'yi Kopyala"],
+    ["Clear Cookies", "Çerezleri Temizle"],
+    ["Clear Cache", "Önbelleği Temizle"],
     ["Enter a URL above, or instruct the Agent to navigate and use the browser", "Yukarıya bir URL girin veya Ajan'a gezinmesini ve tarayıcıyı kullanmasını söyleyin"],
-    ["Build Locally", "Yerel olarak derle"],
-    ["Parallel Build", "Paralel derle"],
+    ["Build Locally", "Yerel Olarak Derle"],
+    ["Parallel Build", "Paralel Derle"],
     ["Build", "Derle"],
     ["Zoom", "Yakınlaştırma"],
-    ["Reset zoom", "Yakınlaştırmayı sıfırla"],
+    ["Reset zoom", "Yakınlaştırmayı Sıfırla"],
     ["Coding model from Moonshot AI for long-horizon software engineering", "Uzun süreli yazılım mühendisliği için Moonshot AI kodlama modeli"],
     ["A smaller, faster GPT-5.4 model. Great for simpler coding tasks.", "Daha küçük ve hızlı bir GPT-5.4 modeli. Daha basit kodlama görevleri için idealdir."],
     ["Anthropic's earlier flagship model, great for difficult tasks.", "Anthropic'in önceki amiral gemisi modeli; zor görevler için idealdir."],
@@ -1884,7 +1897,7 @@ OVERLAY = r'''
       while ((textNode = walker.nextNode())) {
         const value = textNode.nodeValue.trim();
         const translated = translateValue(value);
-        if (translated) textNode.nodeValue = textNode.nodeValue.replace(value, translated);
+        if (translated && translated !== value) textNode.nodeValue = textNode.nodeValue.replace(value, translated);
       }
     });
   };
@@ -1902,7 +1915,7 @@ OVERLAY = r'''
       if (rect.bottom < innerHeight - 140 || rect.top > innerHeight) continue;
       const value = textNode.nodeValue.trim();
       const translated = translateValue(value);
-      if (translated) textNode.nodeValue = textNode.nodeValue.replace(value, translated);
+      if (translated && translated !== value) textNode.nodeValue = textNode.nodeValue.replace(value, translated);
     }
   };
   // Dönen ipuçlarının güncel DOM'u sınıf adı taşımıyor ve cümleyi
@@ -2017,10 +2030,10 @@ OVERLAY = r'''
     ["Claude Sonnet 4.6 High", "Claude Sonnet 4.6 Yüksek"],
     ["Claude Sonnet 4.5 High", "Claude Sonnet 4.5 Yüksek"],
     ["Cycle Effort", "Çaba Düzeyini Değiştir"],
-    ["Cycle effort", "Çaba düzeyini değiştir"],
+    ["Cycle effort", "Çaba Düzeyini Değiştir"],
     ["Switch Model and Retry", "Model Değiştir ve Yeniden Dene"],
     ["Switch Model", "Model Değiştir"],
-    ["Switch model", "Model değiştir"],
+    ["Switch model", "Model Değiştir"],
     ["Kimi K3 Max", "Kimi K3 Azami"],
     ["Effort", "Çaba"], ["Low", "Düşük"], ["Medium", "Orta"],
     ["High", "Yüksek"], ["Fast", "Hızlı"], ["Context", "Bağlam"],
@@ -2059,7 +2072,7 @@ OVERLAY = r'''
     // Otomasyon context menüsü
     ["Edit Details", "Ayrıntıları Düzenle"],
     ["Duplicate", "Çoğalt"],
-    ["Copy as JSON", "JSON olarak kopyala"],
+    ["Copy as JSON", "JSON Olarak Kopyala"],
     // Silme onay diyaloğu
     ["This cannot be undone.", "Bu işlem geri alınamaz."],
     ["This cannot be undone", "Bu işlem geri alınamaz"],
@@ -2077,7 +2090,7 @@ OVERLAY = r'''
     ["AI & Agent Trust Boundaries", "YZ ve Ajan Güven Sınırları"],
     ["Logout", "Çıkış Yap"],
     ["Add Another Account", "Başka Hesap Ekle"],
-    ["Allow all", "Tümüne izin ver"],
+    ["Allow all", "Tümüne İzin Ver"],
     ["Allow All", "Tümüne İzin Ver"],
     ["Reads", "Okumalar"],
     ["Writes", "Yazmalar"],
