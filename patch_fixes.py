@@ -89,6 +89,17 @@ REPS = [
     ('"aria-label":"Public Profile"', '"aria-label":"Herkese Açık Profil"'),
     ('label:"Email",children:Cw("span",{className:"glass-b3', 'label:"E-posta",children:Cw("span",{className:"glass-b3'),
     ('actionTitle:"Configure Team MCP Servers"', 'actionTitle:"Ekip MCP Sunucularını Yapılandır"'),
+    # Mikrofon / Dikte ve Sesli Giris ipuclari (React kbd/degisken yapisina dokunmadan)
+    ('children:["Click or hold ",', 'children:["Dikte etmek için tıklayın veya ",'),
+    ('," to dictate"]}', '," tuşuna basılı tutun"]}'),
+    ('`Voice Input (${', '`Sesli Giriş (${'),
+    ('"Starting voice input\\u2026"', '"Sesli Giriş Başlatılıyor\\u2026"'),
+    ('"Voice input unavailable"', '"Sesli Giriş Kullanılamıyor"'),
+    ('"Start voice input"', '"Sesli Girişi Başlat"'),
+    ('"Send voice input"', '"Sesli Girişi Gönder"'),
+    ('"Cancel recording"', '"Kaydı İptal Et"'),
+    ('"Stop voice recording"', '"Ses Kaydını Durdur"'),
+    ('"Voice chat is using the microphone"', '"Sesli sohbet mikrofonu kullanıyor"'),
 ]
 
 if __name__ == '__main__':
