@@ -20,6 +20,7 @@ MAIN_REPS = [
     ('newComposerActionLabel??"New Agent"', 'newComposerActionLabel??"Yeni Ajan"'),
     ('this.createComposerMenuItem(s,`Agent ${i+1}`)', 'this.createComposerMenuItem(s,`Ajan ${i+1}`)'),
     ('r.name||`Agent ${s+1}`', 'r.name||`Ajan ${s+1}`'),
+    ('label:r.label,enabled:!1})', 'label:r.label==="No Repo"?"Depo Yok":r.label,enabled:!1})'),
 
     # Harici Baglanti Diyalogu
     ('buttons:["Cancel","Open"],defaultId:0,cancelId:0,title:"Open External Link",message:"Do you want to open this link?",detail:`${e}\n\nThis will open in an external application.`',

@@ -162,12 +162,22 @@ REPS = [
     ('"This PC (Yerel Çalıştırıcı)"', '"Bu Bilgisayar (Yerel Çalıştırıcı)"'),
     ('"This PC (Uzaktan Denetim)"', '"Bu Bilgisayar (Uzaktan Denetim)"'),
     ('"Search This PC..."', '"Bu Bilgisayarda Ara..."'),
+
+    # === Sistem Tepsisi ve Proje Seçici "No Repo" -> "Depo Yok" ===
+    ('="No Repo"', '="Depo Yok"'),
+    ('TPs="No-repo Automations"', 'TPs="Deposuz Otomasyonlar"'),
+    ('"No-repo Automations"', '"Deposuz Otomasyonlar"'),
 ]
 
 REGEX_REPS = [
     # Jenerik "This PC" / "This Mac" -> "Bu Bilgisayar" / "Bu Mac" eşleşmesi (tüm sürümlerde çalışır)
     (re.compile(r'([a-zA-Z0-9_$]+)\?"This PC":([a-zA-Z0-9_$]+)\?"This Mac":"This Computer"'),
      r'\1?"Bu Bilgisayar":\2?"Bu Mac":"Bu Bilgisayar"'),
+    # Sistem Tepsisi ve Proje Seçicide "No Repo" -> "Depo Yok" (minified değişken atamaları)
+    (re.compile(r'([a-zA-Z0-9_$]+)="No Repo"'),
+     r'\1="Depo Yok"'),
+    (re.compile(r'([a-zA-Z0-9_$]+)="No-repo Automations"'),
+     r'\1="Deposuz Otomasyonlar"'),
     # Mikrofon aygıt etiketleri: "Default - ..." -> "Varsayılan - ...", "Communications - ..." -> "İletişim - ..."
     (re.compile(r'label:([a-zA-Z0-9_$]+)\.label\|\|`Microphone \$\{([a-zA-Z0-9_$]+)\+1\}`'),
      r'label:(\1.label?\1.label.replace(/^Default - /,"Varsayılan - ").replace(/^Communications - /,"İletişim - "):`Mikrofon ${\2+1}`)'),
