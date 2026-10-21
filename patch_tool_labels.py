@@ -6,7 +6,7 @@ standardinda Turkcelestirir.
 import io
 import re
 
-# tool-action-labels.js icindeki 56+ aracin Turkce karsiliklari
+# tool-action-labels.js icindeki 76+ aracin Turkce karsiliklari
 TOOL_ACTIONS_TR = {
     "shellToolCall": {"loading": "Çalıştırılıyor", "completed": "Çalıştırıldı", "error": "Çalıştır"},
     "deleteToolCall": {"loading": "Siliniyor", "completed": "Silindi", "error": "Sil"},
@@ -29,7 +29,13 @@ TOOL_ACTIONS_TR = {
     "sendToAgentToolCall": {"loading": "Ajana Mesaj Gönderiliyor", "completed": "Ajana Mesaj Gönderildi", "error": "Ajana Mesaj Gönder"},
     "readAgentTranscriptToolCall": {"loading": "Döküm Okunuyor", "completed": "Döküm Okundu", "error": "Dökümü Oku"},
     "createAgentToolCall": {"loading": "Ajan Oluşturuluyor", "completed": "Ajan Oluşturuldu", "error": "Ajan Oluştur"},
+    "createProjectToolCall": {"loading": "Proje Oluşturuluyor", "completed": "Proje Oluşturuldu", "error": "Proje Oluştur"},
     "stopAgentToolCall": {"loading": "Ajan Durduruluyor", "completed": "Ajan Durduruldu", "error": "Ajanı Durdur"},
+    "listTrackedTasksToolCall": {"loading": "Görevler Listeleniyor", "completed": "Görevler Listelendi", "error": "Görevleri Listele"},
+    "createTrackedTasksToolCall": {"loading": "Görevler Oluşturuluyor", "completed": "Görevler Oluşturuldu", "error": "Görevleri Oluştur"},
+    "updateTrackedTasksToolCall": {"loading": "Görevler Güncelleniyor", "completed": "Görevler Güncellendi", "error": "Görevleri Güncelle"},
+    "deleteTrackedTasksToolCall": {"loading": "Görevler Siliniyor", "completed": "Görevler Silindi", "error": "Görevleri Sil"},
+    "updateTrackedTaskStatusesToolCall": {"loading": "Görev Durumları Güncelleniyor", "completed": "Görev Durumları Güncellendi", "error": "Görev Durumlarını Güncelle"},
     "listMcpResourcesToolCall": {"loading": "Kaynaklar Listeleniyor", "completed": "Kaynaklar Listelendi", "error": "Kaynakları Listele"},
     "readMcpResourceToolCall": {"loading": "Kaynak Okunuyor", "completed": "Kaynak Okundu", "error": "Kaynağı Oku"},
     "applyAgentDiffToolCall": {"loading": "Fark Uygulanıyor", "completed": "Fark Uygulandı", "error": "Farkı Uygula"},
@@ -66,6 +72,8 @@ TOOL_ACTIONS_TR = {
     "sendMessageToolCall": {"loading": "Mesaj Gönderiliyor", "completed": "Mesaj Gönderildi", "error": "Mesaj Gönder"},
     "sendToUserToolCall": {"loading": "Mesaj Gönderiliyor", "completed": "Mesaj Gönderildi", "error": "Mesaj Gönder"},
     "setActiveBranchToolCall": {"loading": "Üstveri Güncelleniyor", "completed": "Üstveri Güncellendi", "error": "Üstveriyi Güncelle"},
+    "updateOriginPrCodeTourToolCall": {"loading": "Kod Turu Güncelleniyor", "completed": "Kod Turu Güncellendi", "error": "Kod Turunu Güncelle"},
+    "getOriginPrCodeTourToolCall": {"loading": "Kod Turu Okunuyor", "completed": "Kod Turu Okundu", "error": "Kod Turunu Oku"},
     "writeCanvasToolCall": {"loading": "Canvas'a Yazılıyor", "completed": "Canvas'a Yazıldı", "error": "Canvas'a Yaz"},
     "readCanvasToolCall": {"loading": "Canvas Okunuyor", "completed": "Canvas Okundu", "error": "Canvas'ı Oku"},
     "recordCiInvestigationFindingsToolCall": {"loading": "CI Bulguları Kaydediliyor", "completed": "CI Bulguları Kaydedildi", "error": "CI Bulgularını Kaydet"},
@@ -121,28 +129,23 @@ def patch_file(fname):
     orig_len = len(content)
     total_reps = 0
 
-    # 1. tool-action-labels.js icindeki ana nesneyi degistir
+    # 1. tool-action-labels.js icindeki ana nesneyi degistir (jenerik regex: her Cursor surumunde calisir)
     mod_idx = content.find('tool-action-labels.js')
     if mod_idx != -1:
-        # Desktop icin nxs ve c4l
-        m_desk = re.search(r'(nxs=\{shellToolCall:\{.*?\}\}),(c4l=\{loading:".*?"\})', content[mod_idx:mod_idx+7000])
-        if m_desk:
-            old_nxs, old_c4l = m_desk.group(1), m_desk.group(2)
-            new_nxs = build_tool_dict_str('nxs')
-            new_c4l = build_create_dict_str('c4l')
-            content = content[:mod_idx] + content[mod_idx:].replace(old_nxs, new_nxs, 1).replace(old_c4l, new_c4l, 1)
+        m = re.search(r'([a-zA-Z0-9_$]+=\{shellToolCall:\{.*?\}\}),([a-zA-Z0-9_$]+=\{loading:".*?"\})', content[mod_idx:mod_idx+10000])
+        if m:
+            old_tool_dict, old_create_dict = m.group(1), m.group(2)
+            tool_var = old_tool_dict.split('=', 1)[0]
+            create_var = old_create_dict.split('=', 1)[0]
+
+            new_tool_dict = build_tool_dict_str(tool_var)
+            new_create_dict = build_create_dict_str(create_var)
+
+            content = content[:mod_idx] + content[mod_idx:].replace(old_tool_dict, new_tool_dict, 1).replace(old_create_dict, new_create_dict, 1)
             total_reps += 2
-            print(f'[{fname}] Desktop tool-action-labels basariyla guncellendi.')
+            print(f'[{fname}] tool-action-labels ({tool_var}, {create_var}) basariyla guncellendi.')
         else:
-            # Glass icin jva ve DHh
-            m_glass = re.search(r'(jva=\{shellToolCall:\{.*?\}\}),(DHh=\{loading:".*?"\})', content[mod_idx:mod_idx+7000])
-            if m_glass:
-                old_jva, old_dhh = m_glass.group(1), m_glass.group(2)
-                new_jva = build_tool_dict_str('jva')
-                new_dhh = build_create_dict_str('DHh')
-                content = content[:mod_idx] + content[mod_idx:].replace(old_jva, new_jva, 1).replace(old_dhh, new_dhh, 1)
-                total_reps += 2
-                print(f'[{fname}] Glass tool-action-labels basariyla guncellendi.')
+            print(f'[{fname}] UYARI: tool-action-labels regex eslesmesi bulunamadi.')
 
     # 2. Ek durum ve dusunme etiketleri
     for old_s, new_s in EXTRA_REPS:

@@ -1,7 +1,7 @@
 # 🧠 Codebase Memory & Bilgi Grafiği (Knowledge Graph) — Cursor Desktop Türkçe Yerelleştirme ve Mimarî Altyapısı
 
-> **Son Güncelleme:** 2026-10-20  
-> **Sürüm:** Cursor Desktop v3.24.18 (Commit: `be4c9e5350d77747b42cd467cbd3370a753d4640`)  
+> **Son Güncelleme:** 2026-10-21  
+> **Sürüm:** Cursor Desktop v3.26.13 (Commit: `3bfec373749d3d4a53a151283022d49743ab50b0`)  
 > **Konum:** `C:\Users\Work-D\cursor-turkish-localization`  
 > **Durum:** Canlıda Aktif & %100 Doğrulanmış (`[OK_VERIFIED]`)  
 > **Bütünlük (IntegrityService):** %100 Eşleşme (Bozuk Kurulum Uyarısı Sıfır)
