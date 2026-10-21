@@ -10,6 +10,7 @@ Turkcelestirir.
 import io
 import os
 import sys
+import re
 
 DEFAULT_MOLTEN_APP = r"C:\Program Files\cursor\resources\app"
 
@@ -33,6 +34,13 @@ MOLTEN_REPLACEMENTS = [
 ]
 
 
+MOLTEN_REGEX_REPS = [
+    # Mikrofon aygıt etiketleri: "Default - ..." -> "Varsayılan - ...", "Communications - ..." -> "İletişim - ..."
+    (re.compile(r'label:([a-zA-Z0-9_$]+)\.label\|\|`Microphone \$\{([a-zA-Z0-9_$]+)\+1\}`'),
+     r'label:(\1.label?\1.label.replace(/^Default - /,"Varsayılan - ").replace(/^Communications - /,"İletişim - "):`Mikrofon ${\2+1}`)'),
+]
+
+
 def patch_molten_dir(molten_dir):
     if not os.path.exists(molten_dir):
         return 0, 0
@@ -46,6 +54,9 @@ def patch_molten_dir(molten_dir):
             with io.open(p, "r", encoding="utf-8") as f:
                 content = f.read()
             mods = 0
+            for pat, rep in MOLTEN_REGEX_REPS:
+                content, c = pat.subn(rep, content)
+                mods += c
             for old_s, new_s in MOLTEN_REPLACEMENTS:
                 c = content.count(old_s)
                 if c:
