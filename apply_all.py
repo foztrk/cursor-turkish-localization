@@ -32,6 +32,7 @@ FILES = {
     'cursor-agent-exec-main.js': APP + r'\extensions\cursor-agent-exec\dist\main.js',
     'cursor-agent-host-main.js': APP + r'\extensions\cursor-agent-host\dist\main.js',
     'cursor-local-agent-runtime-main.js': APP + r'\extensions\cursor-local-agent-runtime\dist\main.js',
+    'main.js': APP + r'\out\main.js',
     'product.json': APP + r'\product.json',
 }
 
@@ -58,13 +59,13 @@ if _commit:
         if not os.path.exists(CACHE_NLS_ROOT_TARGET) and os.path.exists(FILES['nls.messages.json']):
             shutil.copy2(FILES['nls.messages.json'], CACHE_NLS_ROOT_TARGET)
 BUNDLE_FILES = ['workbench.desktop.main.js', 'workbench.glass.main.js']
-RUNTIME_FILES = BUNDLE_FILES + ['cursor-agent-exec-main.js', 'cursor-agent-host-main.js', 'cursor-local-agent-runtime-main.js']
+RUNTIME_FILES = BUNDLE_FILES + ['cursor-agent-exec-main.js', 'cursor-agent-host-main.js', 'cursor-local-agent-runtime-main.js', 'main.js']
 PATCH_SCRIPTS = ['patch_fixes.py', 'patch_glass2.py', 'patch_settings.py', 'patch_dropdowns.py',
                   'patch_extensions.py', 'patch_localized_calls.py', 'patch_values.py', 'patch_extra.py',
                   'patch_cursor_ui_tm.py', 'patch_settings_gaps.py', 'patch_statusbar_stats.py', 'patch_help_menu_labels.py',
                   'patch_remaining_ui.py',
                   'fix_all_corrupt_and_gaps.py', 'patch_steer_and_behavior.py', 'patch_hook_tip.py',
-                  'patch_tool_labels.py']
+                  'patch_tool_labels.py', 'patch_main_process.py']
 report = []
 OVERLAY_MARKERS = [
     'CURSOR_TR_UI_PATCH_V5', 'CURSOR_TR_UI_EXPANSION_V1',

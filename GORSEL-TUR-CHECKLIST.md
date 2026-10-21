@@ -98,3 +98,29 @@
 
 Agent placeholder ve kartlar, plan etiketleri, Title/Status Bar, Git boş paragraf, Terminal sekmeleri, Extensions arama/Yükle artık Türkçe.
 2026-09-25: NLS/CLP önbelleği uyarısı giderildi; kutu ve Work-PC canlı yama dosyaları birebir aynı; Agents Window (yan menü, yer tutucu, öneri kartları) 3.22.7'de Türkçe — tek istisna `This Computer` (A).
+
+
+## 2026-10-20 — Cursor 3.24.18 Turu ve Son Kazanımlar
+
+- [x] **Cursor 3.24.18 (Commit: `be4c9e5350d77747b42cd467cbd3370a753d4640`):** Tam uyumluluk ve `[OK_VERIFIED]` canlı kurulum.
+- [x] **Windows Sistem Tepsisi (Tray Menu - `patch_main_process.py`):**
+  - `Clear All Notifications` ➔ `Tüm Bildirimleri Temizle`
+  - `Open Cursor` ➔ `Cursor'ı Aç`
+  - `Settings` ➔ `Ayarlar`
+  - `Quit` ➔ `Çıkış`
+  - `No recent agents` ➔ `Son Kullanılan Ajan Yok`
+  - `Unread` ➔ `Okunmamış`
+  - `Agent ${i+1}` ➔ `Ajan ${i+1}`
+  - `${e} more unread` ➔ `${e} okunmamış daha`
+  - `New Agent` (varsayılan) ➔ `Yeni Ajan`
+- [x] **Model Araç ve Durum Çıktıları (`patch_tool_labels.py`):**
+  - 68 araç çağrısının `{loading, completed, error}` sözlüğü `===` mantık kontrolleri bozulmadan Başlık Düzeni (Title Case) standardıyla Türkçeleştirildi (`Çalıştırılıyor`/`Çalıştırıldı`, `Okunuyor`/`Okundu`, `Düzenleniyor`/`Düzenlendi`, `Siliniyor`/`Silindi`, `Dosyalar Aranıyor`/`Dosyalar Arandı`, `Plan Hazırlanıyor`/`Plan Hazırlandı`, vb.).
+  - Düşünme etiketleri: `Thinking`/`Düşünülüyor`, `Thought`/`Düşündü`, `Planning next moves`/`Sonraki Adımlar Planlanıyor`, `Wrapping up`/`Toparlanıyor`, `Wait skipped`/`Bekleme Atlandı`, `Generating`/`Üretiliyor`.
+  - Yapılacaklar listesi durumları: `to-do list` ➔ `görev listesi`, `Updating` ➔ `Güncelleniyor`, `Cleared` ➔ `Temizlendi`, `Checked` ➔ `Kontrol Edildi`.
+- [x] **Sesli Dikte ve Mikrofon Koruması (`patch_fixes.py`):**
+  - `Click or hold [Ctrl] [M] to dictate` ➔ `Dikte etmek için tıklayın veya [Ctrl] [M] tuşuna basılı tutun` (React `<kbd>` JSX yapısı ve kısayol değişkeni bozulmadan).
+  - `Voice Input (${shortcut})` ➔ `Sesli Giriş (${kısayol})`, `Sesli Girişi Başlat`.
+- [x] **Başlık Düzeni (Title Case) Kuralı:**
+  - Tüm menü, buton ve kısa eylem etiketleri (`Kuyruktan Çıkar`, `Kuyruğu Kapat`, `Dosya Ekle`, `Bu Makinede Çalıştır`, `Cursor Sunucularında Çalıştır`, `Sesli Sohbet Başlat`) AI çevirisi yapaylığından arındırılarak Title Case yapıldı.
+- [x] **Electron Ana Süreç Entegrasyonu:**
+  - `out/main.js` dosyası `apply_all.py` orkestrasyonuna eklendi; harici link onay diyalogları (`Harici Bağlantıyı Aç`, `İptal`/`Aç`) ana süreçte çözüldü.

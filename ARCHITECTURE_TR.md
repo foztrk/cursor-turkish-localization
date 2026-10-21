@@ -1,9 +1,9 @@
-﻿# 🧠 Codebase Memory & Bilgi Grafiği (Knowledge Graph) — Cursor Desktop Türkçe Yerelleştirme ve Mimarî Altyapısı
+# 🧠 Codebase Memory & Bilgi Grafiği (Knowledge Graph) — Cursor Desktop Türkçe Yerelleştirme ve Mimarî Altyapısı
 
-> **Son Güncelleme:** 2026-09-18  
-> **Sürüm:** Cursor Desktop v3.21.9+ (Commit: `9998796a6096ce83d83a9332bfe7473b985db750`)  
+> **Son Güncelleme:** 2026-10-20  
+> **Sürüm:** Cursor Desktop v3.24.18 (Commit: `be4c9e5350d77747b42cd467cbd3370a753d4640`)  
 > **Konum:** `C:\Users\Work-D\cursor-turkish-localization`  
-> **Durum:** Canlıda Aktif & %100 Doğrulanmış (4.540+ Kural ve AST Özelliği)  
+> **Durum:** Canlıda Aktif & %100 Doğrulanmış (`[OK_VERIFIED]`)  
 > **Bütünlük (IntegrityService):** %100 Eşleşme (Bozuk Kurulum Uyarısı Sıfır)
 
 ---
@@ -18,26 +18,27 @@ graph TD
     A --> E["resources/app/extensions (Özel Cursor Ajan Eklentileri)"]
 
     subgraph "Arayüz ve Çalışma Zamanı Katmanı"
-        C --> F["out/nls.messages.json (Çekirdek NLS Sözlüğü)"]
-        C --> G["out/vs/workbench/workbench.desktop.main.js (VS Code Çekirdek Editörü)"]
-        C --> H["out/vs/workbench/workbench.glass.main.js (Tescilli Cursor Glass/AI Arayüzü)"]
-        E --> I["cursor-agent-exec/dist/main.js (Ajan Yürütücüsü)"]
-        E --> J["cursor-local-agent-runtime/dist/main.js (Yerel Ajan Motoru)"]
+        C --> F["out/main.js (Electron Ana Süreci & Windows Sistem Tepsisi / Tray)"]
+        C --> G["out/nls.messages.json (Çekirdek NLS Sözlüğü)"]
+        C --> H["out/vs/workbench/workbench.desktop.main.js (VS Code Çekirdek Editörü)"]
+        C --> I["out/vs/workbench/workbench.glass.main.js (Tescilli Cursor Glass/AI Arayüzü)"]
+        E --> J["cursor-agent-exec/dist/main.js (Ajan Yürütücüsü)"]
+        E --> K["cursor-local-agent-runtime/dist/main.js (Yerel Ajan Motoru)"]
     end
 
     subgraph "Yama Motoru ve Altyapı"
-        K["nls-tm.json (1.302 Anahtar)"] --> L["apply_all.py (Ana Orkestratör)"]
-        M["cursor-ui-tm.json (432 Kural)"] --> L
-        N["tr2/m*.json (1.836 AST Prop)"] --> L
-        O["patch_menu_gaps.py (Menü, Dal, Diff)"] --> L
-        P["fix_all_corrupt_and_gaps.py (Bütünlük & Boşluklar)"] --> L
-        L --> Q["single_click_patcher.py / TURKCELESTIR.bat"]
-        Q --> C
-        Q --> D
-        Q --> B
-        R["verify_all.py (Tam Doğrulama Motoru)"] --> B
-        R --> C
-        R --> D
+        L["nls-tm.json (1.302 Anahtar)"] --> M["apply_all.py (Ana Orkestratör)"]
+        N["cursor-ui-tm.json (432+ Kural)"] --> M
+        O["patch_tool_labels.py (Model Araç Çıktıları 68 Araç & Düşünme)"] --> M
+        P["patch_main_process.py (Tray Menüsü & Harici Link Diyaloğu)"] --> M
+        Q["patch_fixes.py (Mikrofon/Dikte, Sekmeler, NLS Fallback)"] --> M
+        R["patch_menu_gaps.py (Menü, Dal, Diff, Model Tooltip)"] --> M
+        S["fix_all_corrupt_and_gaps.py (Bütünlük & Boşluklar)"] --> M
+        T["patch_steer_and_behavior.py (Steer/Queue/Interrupt)"] --> M
+        M --> U["TURKCELESTIR.bat"]
+        U --> C
+        U --> D
+        U --> B
     end
 ```
 
@@ -48,12 +49,15 @@ graph TD
 | Düğüm / Dosya | Rol ve İşlev | Enjekte Edilen / Yamalanan Mantık |
 | :--- | :--- | :--- |
 | **`product.json`** | Cursor sürüm, commit ve bütünlük tablosu | `checksums` anahtarındaki tüm dosyaların SHA-256 Base64 hash'leri yamalı dosyalarla birebir eşitlenir (`IntegrityService` bypass). |
+| **`out/main.js`** | Electron Ana Süreci & Windows Sistem Tepsisi | Sağ alt bildirim alanı menüsü (`Tüm Bildirimleri Temizle`, `Cursor'ı Aç`, `Ayarlar`, `Çıkış`, `Son Kullanılan Ajan Yok`) ve harici link onay diyalogları. |
 | **`clp\*.tr\...\nls.messages.json`** | Electron'un okuduğu aktif dil önbelleği | Dil paketi seçildiğinde Electron ana `out\nls.messages.json` yerine bu önbelleği okur. Burası senkronize edilmeden üst menüler Türkçeleşmez. |
 | **`workbench.desktop.main.js`** | Standart VS Code çekirdek arayüzü | Masaüstü menüleri (`title.value`), boş editör filigranları (`Dosyaya Git`, `Terminali Göster`), git durum çubuğu ve modal pencereler. |
-| **`workbench.glass.main.js`** | Cursor'ın tescilli yapay zekâ katmanı | Composer, Chat, Agent Steer/Behavior, Context hapları, model seçicileri, dinamik TreeWalker ve MutationObserver betikleri. |
+| **`workbench.glass.main.js`** | Cursor'ın tescilli yapay zekâ katmanı | Composer, Chat, Agent Steer/Behavior, Context hapları, model seçicileri, `tool-action-labels.js` eylem sözlüğü ve düşünme durumları. |
+| **`patch_tool_labels.py`** | Model araç ve düşünme durumu motoru | 68 araç çağrısının (`shellToolCall`, `readToolCall`, `editToolCall`, vb.) ekrana basılan `{loading, completed, error}` metinleri ile düşünme etiketleri (`Thinking`/`Düşünülüyor`, `Thought`/`Düşündü`). |
+| **`patch_main_process.py`** | Ana süreç (Main Process) ve Tray yamalayıcısı | `out/main.js` içindeki Sistem Tepsisi (Tray Menu) öğeleri ve harici link diyalogları. |
+| **`patch_fixes.py`** | Bağlamlı tekil düzeltmeler | Mikrofon/Sesli dikte ipuçları (React `<kbd>` yapısına dokunmadan), sekme menüleri, bildirim merkezi NLS fallback'leri. |
 | **`patch_menu_gaps.py`** | Menü, dal seçici ve diff kartı motoru | Native Windows menü çubuğu başlıkları (`Dosya`, `Düzen`, `Görünüm`, vb.), dal seçici (`+ Dal Oluştur`), diff kartı (`9 Dosya Değişti`). |
 | **`fix_all_corrupt_and_gaps.py`** | Güvenlik ve kritik boşluk giderici | Checksum hesaplama, durum çubuğu kural onarımı ve güncelleyici pencereleri (`Yeni güncelleme mevcut`). |
-| **`verify_all.py`** | Bütünlük doğrulama motoru | 6/6 checksum doğrulaması, CLP varlık kontrolü ve JS bundle sözdizimi denetimi (`node --check`). |
 
 ---
 
@@ -65,21 +69,23 @@ graph TD
 
 ### 🚨 2. IntegrityService ve SHA-256 Base64 Bütünlük Kontrolü
 * **Problem:** Cursor başlatılırken `IntegrityService` arka planda çalışır ve `product.json` içerisindeki `checksums` sözlüğünü kontrol eder. Herhangi bir JS veya JSON dosyası 1 bayt bile değişmişse, kullanıcıya *"Your installation appears to be corrupt"* modalı gösterilir ve uzantı eşitlemesi kısıtlanır.
-* **Çözüm:** `fix_all_checksums.py`, yama işlemi bittikten hemen sonra tüm çıktı dosyalarının ham baytlarını okur, `hashlib.sha256().digest()` alır ve Base64 çıktısını (dolgu `=` karakterleri budanmış olarak) `product.json` dosyasına yazar. Böylece Cursor kendisini orijinal ve kusursuz olarak algılar.
+* **Çözüm:** `apply_all.py`, yama işlemi bittikten hemen sonra tüm çıktı dosyalarının ham baytlarını okur, `hashlib.sha256().digest()` alır ve Base64 çıktısını (dolgu `=` karakterleri budanmış olarak) `product.json` dosyasına yazar. Böylece Cursor kendisini orijinal ve kusursuz olarak algılar.
 
-### 🚨 3. React / Glass AST Prop ve TreeWalker Dinamik DOM Katmanı
-* **Problem:** Cursor'ın Composer, Chat ve Agent yüzeyleri (Glass UI), standart HTML DOM yerine React sanal DOM (Virtual DOM) ve JSX fiber ağacı kullanır. Statik metin arama-değiştirme işlemleri React state'i ile çakışıp React bileşeninin çökmesine (`Minified React error #...`) sebep olabilir.
-* **Çözüm:** 
-  1. `tr2/m*.json` ile bileşen AST prop seviyesinde derleme aşaması çevirisi yapıldı.
-  2. Gerçek zamanlı arayüz etkileşimleri için sıfır gecikmeli `MutationObserver` ve `TreeWalker` filtreleri enjekte edildi. Bu sayede React re-render döngüsüne müdahale edilmeden DOM düğümleri canlıda akıcı biçimde Türkçeleştirilir.
+### 🚨 3. Model Araç Çıktıları ve İç Mantık Tuzakları (`tool-action-labels.js`)
+* **Problem:** Model çalışırken ekrana basılan durum çıktıları (`Running`, `Reading`, `Editing`, `Thinking`) kodun bazı yerlerinde satır gruplama mantığında (`e.label === "Task"`, `e.label === "Create plan"`, `e.label === "Ask question"`) doğrudan İngilizce string kontrolü ile denetlenir. Eğer genel arama-değiştirme yapılırsa gruplama mantığı çöker ve sohbet arayüzü bozulur.
+* **Çözüm:** `patch_tool_labels.py`, `===` kontrollerine ve değişken adlarına hiç dokunmadan yalnızca ekrana render edilen `{loading: "...", completed: "...", error: "..."}` sözlüğünü bağlamlı olarak değiştirir. Böylece iç mantık korunurken ekranda kusursuz Türkçe görünür.
 
-### 🚨 4. Menü Çubuğu Title.value Seviyesinde Derin Eleman Yamalama
-* **Problem:** Menü çubuğundaki `File`, `Edit`, `Selection`, `View`, `Go`, `Run`, `Terminal`, `Help` gibi başlıklar `workbench.desktop.main.js` içinde `title.value` objesi olarak saklanır. Basit bir replace işlemi tüm objeyi bozabilir veya menü ID eşleşmesini kırabilir.
-* **Çözüm:** `patch_menu_gaps.py`, `title.value` nesnelerini koruyarak ve yalnızca UI render katmanına müdahale ederek menü kısayollarını (`Alt+D`, `Alt+Z`, vb.) bozmadan yerelleştirmeyi sağlar.
+### 🚨 4. Windows Sistem Tepsisi (Tray Menu) ve Electron Ana Süreç İzolasyonu (`out/main.js`)
+* **Problem:** Sağ alttaki Windows bildirim alanı simgesine tıklandığında açılan menü (`Clear All Notifications`, `Open Cursor`, `Settings`, `Quit`), renderer bundle'larından değil doğrudan Electron'un Node.js ana sürecinden (`out/main.js`) beslenir. Renderer yamaları bu menüye etki edemez.
+* **Çözüm:** `out/main.js` dosyası `apply_all.py` zincirine dahil edildi ve `patch_main_process.py` ile menü yapısı doğrudan ana süreç seviyesinde Türkçeleştirildi.
 
-### 🚨 5. Dinamik Şablon Dizgeleri (${dal}, ${count})
-* **Problem:** Dal seçicide `${dal} Dalını Oluştur` veya diff kartında `${count} Dosya Değişti` gibi dinamik şablonlar statik aramayla yakalanamaz.
-* **Çözüm:** Regex tabanlı akıllı yakalama kalıpları (`Create branch\s+([^\<\"]+)` -> `$1 Dalını Oluştur`, `(\d+)\s+Files?\s+Changed` -> `$1 Dosya Değişti`) kullanılarak dinamik değişkenler bozulmadan Türkçe dilbilgisi kurallarına uygun sıralamaya sokulmuştur.
+### 🚨 5. React `<kbd>` Kısayol Bileşenleri ve Şablon Değişkenleri
+* **Problem:** Mikrofon ve sesli dikte ipuçlarında (`Click or hold [Ctrl] [M] to dictate`, `Voice Input (${shortcut})`) metinler dinamik değişkenler ve React bileşenleriyle parçalı haldedir. Kısayol şablonlarını körlemesine değiştirmek React çalışma zamanı hatalarına yol açar.
+* **Çözüm:** `children:["Click or hold ",` ➔ `children:["Dikte etmek için tıklayın veya ",` ve `," to dictate"]}` ➔ `," tuşuna basılı tutun"]}` şeklinde React DOM ağacına ve değişkenlerine dokunmadan bağlamlı parçalı eşleme yapıldı.
+
+### 🚨 6. Başlık Düzeni (Title Case) ve Yapay Çeviri Önleme Standardı
+* **Problem:** Menü ve butonlarda küçük harfli ("Kuyruktan çıkar", "Dosya ekle") veya makine çevirisi yapaylığı taşıyan metinler kullanıcı deneyimini zedeler.
+* **Çözüm:** Kullanıcının özel kuralı gereğince tüm menü, buton ve kısa eylem etiketleri Başlık Düzeni (Title Case: `Kuyruktan Çıkar`, `Kuyruğu Kapat`, `Dosya Ekle`, `Bu Makinede Çalıştır`) standardına kavuşturuldu.
 
 ---
 
@@ -90,25 +96,22 @@ sequenceDiagram
     autonumber
     actor Dev as Geliştirici / Kullanıcı
     participant Batch as TURKCELESTIR.bat
-    participant Script as single_click_patcher.py
     participant Engine as apply_all.py
     participant Patchers as patch_*.py
-    participant Verifier as verify_all.py
+    participant Node as node --check
     participant Cursor as Cursor Desktop GUI
 
     Dev->>Batch: Çift Tıkla Başlat
-    Batch->>Script: Yönetici Yetkisi ile Çağır
-    Script->>Script: Açık Cursor Süreçlerini Kapat
-    Script->>Engine: apply_all.py Başlat
+    Batch->>Engine: Yönetici Yetkisi ile Çağır
+    Engine->>Engine: Açık Cursor Süreçlerini Kapat
     Engine->>Engine: Orijinal Dosyaları Yedekle (orijinal-<ver>/)
     Engine->>Engine: NLS & CLP Önbelleğini Yamala
-    Engine->>Patchers: tr2/ AST Prop ve Menü Yamalarını Uygula
-    Patchers->>Engine: JS Bundle'lara Enjekte Et
+    Engine->>Patchers: Bundle, Main Process ve Araç Yamalarını Uygula
+    Patchers->>Engine: JS Bundle'lara ve main.js'e Enjekte Et
+    Engine->>Node: Tüm JS Dosyalarının Sözdizimini Doğrula
+    Node-->>Engine: Sözdizimi Geçerli (0 Hata)
     Engine->>Engine: SHA-256 Checksum'ları Hesapla & product.json Güncelle
-    Engine->>Script: Dağıtım Tamamlandı
-    Script->>Verifier: verify_all.py ile Bütünlük Testi
-    Verifier-->>Script: %100 Doğrulandı
-    Script->>Cursor: Bağımsız (Detached) Olarak Başlat
+    Engine->>Cursor: UAC ile Canlı Kurulumu Tamamla
     Cursor-->>Dev: Tam Türkçe Arayüzle Açılır
 ```
 
@@ -118,5 +121,5 @@ sequenceDiagram
 
 * **Bileşen İsimleri:** `Composer`, `Chat`, `Terminal` orijinal korunur ("Besteci" yapılmaz).
 * **Git ve SCM Terimleri:** `Branch` -> `Dal`, `Commit` -> `İşleme / İşle`, `Push` -> `Gönder`, `Pull` -> `Çek`, `Diff` -> `Fark`.
-* **Başlık Düzeni (Title Case):** Tüm menü ve eylem butonları Türkçe büyük harf kuralına uygundur (`Dosyaya Git`, `Terminali Göster`, `Tarayıcıyı Aç`).
+* **Başlık Düzeni (Title Case):** Tüm menü ve eylem butonları Türkçe büyük harf kuralına uygundur (`Dosyaya Git`, `Terminali Göster`, `Tarayıcıyı Aç`, `Tüm Bildirimleri Temizle`).
 * **Türkçe Çoğul Kuralı:** Sayı belirteçlerinden sonra gelen isimlerde çoğul eki kullanılmaz (`9 Dosya Değişti`, `1 Dosya Değişti`).

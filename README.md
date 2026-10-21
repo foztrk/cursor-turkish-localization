@@ -26,7 +26,7 @@
 
 Dünyanın lider yapay zekâ destekli kod editörü olan **Cursor Desktop** için geliştirilmiş **en kapsamlı, modern ve mühendislik tabanlı Türkçe yerelleştirme projesidir**.
 
-Yalnızca statik metinleri değil; Cursor'ın tescilli **Glass UI (React)** bileşenlerini, AST prop katmanlarını, yerel Windows menü çubuğunu, canlı DOM mutasyonlarını ve **IntegrityService SHA-256 bütünlük kontrolünü** kapsayan tam teşekküllü bir yerelleştirme altyapısı sunar.
+Yalnızca statik metinleri değil; Cursor'ın tescilli **Glass UI (React)** bileşenlerini, AST prop katmanlarını, yerel Windows menü çubuğunu, canlı DOM mutasyonlarını, Electron Ana Sürecini (`out/main.js` Sistem Tepsisi) ve **IntegrityService SHA-256 bütünlük kontrolünü** kapsayan tam teşekküllü bir yerelleştirme altyapısı sunar.
 
 ---
 
@@ -63,27 +63,36 @@ To solve this, we engineered this **end-to-end localization infrastructure**:
 
 ## 🌟 Neler İçerir? (Özellikler)
 
-1. **Yerel Menü Çubuğu (Native Menu Bar & NLS Cache):**
+1. **Model Araç ve Durum Çıktıları (Agent Transcripts & Tool Calls):**
+   - Modelin canlı yazışma esnasında ekrana bastığı 68 araç eylemi (`Çalıştırılıyor`/`Çalıştırıldı`, `Okunuyor`/`Okundu`, `Düzenleniyor`/`Düzenlendi`, `Siliniyor`/`Silindi`, `Dosyalar Aranıyor`/`Dosyalar Arandı`, `Plan Hazırlanıyor`, vb.).
+   - Modelin düşünme ve planlama durumları (`Düşünülüyor`/`Düşündü`, `Sonraki Adımlar Planlanıyor`, `Toparlanıyor`, `Üretiliyor`, `Bekleme Atlandı`).
+   - Tüm menü, buton ve kısa eylem etiketlerinde **Başlık Düzeni (Title Case)** standardı.
+2. **Windows Sistem Tepsisi & Dış Bağlantılar (Tray Menu & Main Process):**
+   - Sağ alt bildirim alanındaki Cursor tepsi simgesi sağ tık menüsü (`Tüm Bildirimleri Temizle`, `Cursor'ı Aç`, `Ayarlar`, `Çıkış`, `Son Kullanılan Ajan Yok`, `Yeni Ajan`).
+   - Harici bağlantı açma onay diyaloğu (`Harici Bağlantıyı Aç`, `İptal` / `Aç`).
+3. **Sesli Dikte & Mikrofon Koruması (Voice Input & Dictation):**
+   - React `<kbd>` kısayol bileşenleri korunarak tam Türkçe sesli dikte ipuçları (`Dikte etmek için tıklayın veya [Ctrl] [M] tuşuna basılı tutun`, `Sesli Giriş (${kısayol})`, `Sesli Girişi Başlat`).
+4. **Yerel Menü Çubuğu (Native Menu Bar & NLS Cache):**
    - Üst menü çubuğundaki tüm ana başlıklar (`Dosya`, `Düzen`, `Seçim`, `Görünüm`, `Görünümü Aç...`, `Git`, `Çalıştır`, `Terminal`, `Yardım`).
    - Electron NLS ve CLP önbelleği (`Roaming\Cursor\clp\*.tr`) ile tam senkronizasyon.
-2. **Durum Çubuğu, Ortam & Bağlam (Status Bar, Environment & Context):**
-   - `Depo oluştur` (Create repo) butonu ve çok adımlı depo oluşturma çekmecesi.
+5. **Durum Çubuğu, Ortam & Bağlam (Status Bar, Environment & Context):**
+   - `Depo Oluştur` butonu ve çok adımlı depo oluşturma çekmecesi.
    - Çalışma ortamı göstergesi (`☁ Bulut v` / `Bu Bilgisayar` / `Yerel`).
    - Bağlam ve token kullanım balonu (`% bağlam kullanıldı`, `X / Y belirteç`).
-3. **Yardım & Geliştirici Menüsü (Help & DevTools):**
+6. **Yardım & Geliştirici Menüsü (Help & DevTools):**
    - `Sorun Bildir`, `Geri Bildirim Gönder...`, `Geliştirici Araçlarını Aç/Kapat`, `İşlem Gezginini Aç` vb.
-4. **Boş Editör & Filigran (Watermark & Quick Actions):**
+7. **Boş Editör & Filigran (Watermark & Quick Actions):**
    - `Dosyaya Git`, `Terminali Göster`, `Tarayıcıyı Aç`, `Sohbeti Büyüt`, `Depo Ekle`.
-5. **Dal Seçici & Git Eylemleri (Branch Picker & SCM):**
-   - `+ Dal Oluştur`, `${dal} Dalını Oluştur`, `Daha fazla yükle...`, `Dalı Güncelle`, `Dal Oluştur ve İşle`.
-6. **Fark ve Değişiklik Kartı (Diff & Review Cards):**
+8. **Dal Seçici & Git Eylemleri (Branch Picker & SCM):**
+   - `+ Dal Oluştur`, `${dal} Dalını Oluştur`, `Daha Fazla Yükle...`, `Dalı Güncelle`, `Dal Oluştur ve İşle`.
+9. **Fark ve Değişiklik Kartı (Diff & Review Cards):**
    - `${count} Dosya Değişti` (`X Files Changed`), `1 Dosya Değişti`, diff istatistikleri ve satır özetleri.
-7. **Canlı Güncelleme Bildirimleri (Live Update Notifications):**
-   - `Yeni güncelleme mevcut`, `Sürüme güncelle: v`, `Yenilikler:`, `Daha Sonra`, `Şimdi Yükle`.
-8. **Glass UI, Composer & Agent Runtime:**
-   - Composer çoklu dosya arayüzü, Steer & Agent davranış başlıkları, model seçicileri ve durum çubuğu metrikleri.
-9. **Bütünlük ve Güvenlik (IntegrityService):**
-   - `product.json` Base64 SHA-256 sağlama toplamları otomatik hesaplanır; Cursor asla bozukluk uyarısı vermez.
+10. **Canlı Güncelleme Bildirimleri (Live Update Notifications):**
+    - `Yeni güncelleme mevcut`, `Sürüme güncelle: v`, `Yenilikler:`, `Daha Sonra`, `Şimdi Yükle`.
+11. **Glass UI, Composer & Agent Runtime:**
+    - Composer çoklu dosya arayüzü, Steer & Agent davranış başlıkları, model seçicileri ve durum çubuğu metrikleri.
+12. **Bütünlük ve Güvenlik (IntegrityService):**
+    - `product.json` Base64 SHA-256 sağlama toplamları otomatik hesaplanır; Cursor asla bozukluk uyarısı vermez.
 
 ---
 
@@ -125,7 +134,8 @@ Dilediğiniz an Cursor'ı fabrika ayarlarına döndürmek için:
 
 Cursor, VS Code tabanı üzerine kurulu olmasına rağmen Electron'un derinliklerinde çalışan özel güvenlik ve arayüz katmanlarına sahiptir:
 * **CLP (Compiled Language Pack) Önbelleği:** Electron, dil paketi açıkken Program Files altındaki dosyaları değil, `%APPDATA%\Cursor\clp\<hash>.tr\<commit>\nls.messages.json` dosyasını okur. Yama motorumuz bu önbelleği otomatik olarak derler ve senkronize eder.
-* **IntegrityService:** `product.json` içerisindeki dosyaların Base64 SHA-256 özetleri taranır. `fix_all_checksums.py` modülümüz yamalı dosyaların yeni özetlerini birebir `product.json`'a işleyerek bütünlük uyarısını tamamen ortadan kaldırır.
+* **IntegrityService:** `product.json` içerisindeki dosyaların Base64 SHA-256 özetleri taranır. Yama motorumuz yamalı dosyaların yeni özetlerini birebir `product.json`'a işleyerek bütünlük uyarısını tamamen ortadan kaldırır.
+* **Model Araç ve Durum Çıktıları:** `tool-action-labels.js` eylem sözlüğü üzerinden modelin tüm araç çıktıları (`Running`/`Çalıştırılıyor`, vb.) kodun mantıksal karşılaştırmaları bozulmadan güvenle çevrilir.
 * **React / Glass AST Katmanı:** Glass UI doğrudan HTML üretmez; JSX/React bileşen ağacı üzerinden render edilir. Bu nedenle statik string yerine AST prop eşlemesi (`tr2/m*.json`) ve MutationObserver TreeWalker kullanılır.
 
 Detaylı teknik mimari şeması ve çözüm analizleri için **[ARCHITECTURE_TR.md](ARCHITECTURE_TR.md)** dosyasını inceleyebilirsiniz.
@@ -143,6 +153,9 @@ cursor-turkish-localization/
 ├── apply_all.py                 # Ana orkestrasyon ve otomatik yama motoru
 ├── single_click_patcher.py      # Bağımsız tek tık çalıştırıcı (UAC + Process + Deploy)
 ├── verify_all.py                # Checksum, CLP ve dosya bütünlük test motoru
+├── patch_tool_labels.py         # Model araç eylemleri (68 araç) ve düşünme etiketleri
+├── patch_main_process.py        # out/main.js Sistem Tepsisi (Tray) ve dış bağlantı diyalogları
+├── patch_fixes.py               # Sesli dikte, mikrofon ipuçları, sekme menüleri ve NLS fallback
 ├── patch_menu_gaps.py           # Menü çubuğu, dal seçici, diff kartı ve güncelleme yamaları
 ├── fix_all_corrupt_and_gaps.py  # IntegrityService checksum onarımı ve boşluk giderici
 ├── patch_help_menu_labels.py    # Yardım menüsü ve geliştirici araçları etiketleri

@@ -10,6 +10,8 @@ workbench.glass.main.js
 cursor-agent-exec-main.js
 cursor-agent-host-main.js
 cursor-local-agent-runtime-main.js
+main.js
+deploy_all.ps1
 orijinal-*/
 referans-*/
 deploy-rollback/

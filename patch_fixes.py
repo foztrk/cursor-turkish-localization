@@ -100,6 +100,38 @@ REPS = [
     ('"Cancel recording"', '"Kaydı İptal Et"'),
     ('"Stop voice recording"', '"Ses Kaydını Durdur"'),
     ('"Voice chat is using the microphone"', '"Sesli sohbet mikrofonu kullanıyor"'),
+    # Bildirim Merkezi (Notification Center NLS fallback)
+    (',title:Ae(3838,"Clear All Notifications")', ',title:Ae(3838,"Tüm Bildirimleri Temizle")'),
+    (',title:At(3838,"Clear All Notifications")', ',title:At(3838,"Tüm Bildirimleri Temizle")'),
+    (',title:Ae(3840,"Hide Notifications")', ',title:Ae(3840,"Bildirimleri Gizle")'),
+    (',title:At(3840,"Hide Notifications")', ',title:At(3840,"Bildirimleri Gizle")'),
+    # Hata Ayiklama / Reproduction Steps Arayuzu
+    ('class=debug-logs-title>Debug Logs', 'class=debug-logs-title>Hata Ayıklama Günlükleri'),
+    ('children:"Debug Logs"', 'children:"Hata Ayıklama Günlükleri"'),
+    ('class=debug-logs-empty>Waiting for log entries...', 'class=debug-logs-empty>Günlük girişleri bekleniyor...'),
+    ('class=composer-debug-reproduction-toolbar-title>Reproduction Steps', 'class=composer-debug-reproduction-toolbar-title>Yeniden Oluşturma Adımları'),
+    ('children:"Reproduction Steps"', 'children:"Yeniden Oluşturma Adımları"'),
+    ('children(){return["Proceed",', 'children(){return["İlerle",'),
+    ('fallbackValues:{proceed_instructions:"Issue reproduced, please proceed"', 'fallbackValues:{proceed_instructions:"Sorun yeniden oluşturuldu, lütfen devam edin"'),
+    ('??"Issue reproduced, please proceed"', '??"Sorun yeniden oluşturuldu, lütfen devam edin"'),
+    ('return"Enter additional context about the issue"', 'return"Sorun hakkında ek bağlam girin"'),
+    ('details:"available tools"', 'details:"kullanılabilir araçlar"'),
+    # Ajan Aktivite Ozeti Sayaclari (files, searches, fetches, etc.)
+    ('director${o===1?"y":"ies"}', 'dizin'),
+    ('a=>`${a} file${a===1?"":"s"}`', 'a=>`${a} dosya`'),
+    ('compactText:o?"1 file":void 0', 'compactText:o?"1 dosya":void 0'),
+    ('${e.searches} search${e.searches===1?"":"es"}', '${e.searches} arama'),
+    ('${t.searches} search${t.searches===1?"":"es"}', '${t.searches} arama'),
+    ('${e.fetches} fetch${e.fetches===1?"":"es"}', '${e.fetches} istek'),
+    ('${t.fetches} fetch${t.fetches===1?"":"es"}', '${t.fetches} istek'),
+    ('text:"lints"', 'text:"sorun denetimi"'),
+    ('browser action${s===1?"":"s"}', 'tarayıcı eylemi'),
+    ('ran ${t} command${t===1?"":"s"}', '${t} komut çalıştırıldı'),
+    ('ran ${e} command${e===1?"":"s"}', '${e} komut çalıştırıldı'),
+    ('${t} image${t===1?"":"s"}', '${t} görsel'),
+    ('${e} image${e===1?"":"s"}', '${e} görsel'),
+    ('${t} agent${t===1?"":"s"}', '${t} alt ajan'),
+    ('${e} agent${e===1?"":"s"}', '${e} alt ajan'),
 ]
 
 if __name__ == '__main__':
