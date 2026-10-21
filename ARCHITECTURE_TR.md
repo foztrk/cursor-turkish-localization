@@ -22,16 +22,18 @@ graph TD
         C --> G["out/nls.messages.json (Çekirdek NLS Sözlüğü)"]
         C --> H["out/vs/workbench/workbench.desktop.main.js (VS Code Çekirdek Editörü)"]
         C --> I["out/vs/workbench/workbench.glass.main.js (Tescilli Cursor Glass/AI Arayüzü)"]
+        C --> V["molten/dist/renderer/assets/*.js (Modern Vite/Molten Arayüz Katmanı)"]
         E --> J["cursor-agent-exec/dist/main.js (Ajan Yürütücüsü)"]
         E --> K["cursor-local-agent-runtime/dist/main.js (Yerel Ajan Motoru)"]
     end
 
     subgraph "Yama Motoru ve Altyapı"
-        L["nls-tm.json (1.302 Anahtar)"] --> M["apply_all.py (Ana Orkestratör)"]
+        L["nls-tm.json (1.750+ Anahtar)"] --> M["apply_all.py (Ana Orkestratör)"]
         N["cursor-ui-tm.json (432+ Kural)"] --> M
-        O["patch_tool_labels.py (Model Araç Çıktıları 68 Araç & Düşünme)"] --> M
+        O["patch_tool_labels.py (Model Araç Çıktıları 76+ Araç & Düşünme)"] --> M
         P["patch_main_process.py (Tray Menüsü & Harici Link Diyaloğu)"] --> M
-        Q["patch_fixes.py (Mikrofon/Dikte, Sekmeler, NLS Fallback)"] --> M
+        Q["patch_fixes.py (Ses, Mikrofon, Attach, Bu Bilgisayar)"] --> M
+        W["patch_molten.py (Molten Hakkında, Ses ve Menüler)"] --> M
         R["patch_menu_gaps.py (Menü, Dal, Diff, Model Tooltip)"] --> M
         S["fix_all_corrupt_and_gaps.py (Bütünlük & Boşluklar)"] --> M
         T["patch_steer_and_behavior.py (Steer/Queue/Interrupt)"] --> M
@@ -53,9 +55,11 @@ graph TD
 | **`clp\*.tr\...\nls.messages.json`** | Electron'un okuduğu aktif dil önbelleği | Dil paketi seçildiğinde Electron ana `out\nls.messages.json` yerine bu önbelleği okur. Burası senkronize edilmeden üst menüler Türkçeleşmez. |
 | **`workbench.desktop.main.js`** | Standart VS Code çekirdek arayüzü | Masaüstü menüleri (`title.value`), boş editör filigranları (`Dosyaya Git`, `Terminali Göster`), git durum çubuğu ve modal pencereler. |
 | **`workbench.glass.main.js`** | Cursor'ın tescilli yapay zekâ katmanı | Composer, Chat, Agent Steer/Behavior, Context hapları, model seçicileri, `tool-action-labels.js` eylem sözlüğü ve düşünme durumları. |
-| **`patch_tool_labels.py`** | Model araç ve düşünme durumu motoru | 68 araç çağrısının (`shellToolCall`, `readToolCall`, `editToolCall`, vb.) ekrana basılan `{loading, completed, error}` metinleri ile düşünme etiketleri (`Thinking`/`Düşünülüyor`, `Thought`/`Düşündü`). |
+| **`molten/dist/renderer/assets/*.js`** | Modern Vite/Molten arayüz varlıkları | Hakkında (About Cursor) modalı, modern Ses (Voice) ayarları sayfası, mikrofon ve dil açılır listeleri. |
+| **`patch_tool_labels.py`** | Model araç ve düşünme durumu motoru | 76+ araç çağrısının (`shellToolCall`, `readToolCall`, `editToolCall`, görev takibi vb.) jenerik regex motoruyla ekrana basılan `{loading, completed, error}` metinleri ile düşünme etiketleri (`Thinking`/`Düşünülüyor`, `Thought`/`Düşündü`). |
 | **`patch_main_process.py`** | Ana süreç (Main Process) ve Tray yamalayıcısı | `out/main.js` içindeki Sistem Tepsisi (Tray Menu) öğeleri ve harici link diyalogları. |
-| **`patch_fixes.py`** | Bağlamlı tekil düzeltmeler | Mikrofon/Sesli dikte ipuçları (React `<kbd>` yapısına dokunmadan), sekme menüleri, bildirim merkezi NLS fallback'leri. |
+| **`patch_fixes.py`** | Bağlamlı tekil düzeltmeler | Jenerik Bu Bilgisayar sabitlemesi, Ses ayarları, Mikrofon aygıt önekleri (`Varsayılan - `, `İletişim - `), giriş (+) menüsündeki `Ekle` (Attach) seçeneği, mikrofon/dikte ipuçları. |
+| **`patch_molten.py`** | Molten Vite renderer yamalayıcısı | Vite asset dosyalarını hashlerinden bağımsız tarayarak Hakkında modalındaki `Sürüm Bilgisini Kopyala`, Ses sekmesi ve açılır menü seçeneklerini günceller. |
 | **`patch_menu_gaps.py`** | Menü, dal seçici ve diff kartı motoru | Native Windows menü çubuğu başlıkları (`Dosya`, `Düzen`, `Görünüm`, vb.), dal seçici (`+ Dal Oluştur`), diff kartı (`9 Dosya Değişti`). |
 | **`fix_all_corrupt_and_gaps.py`** | Güvenlik ve kritik boşluk giderici | Checksum hesaplama, durum çubuğu kural onarımı ve güncelleyici pencereleri (`Yeni güncelleme mevcut`). |
 
