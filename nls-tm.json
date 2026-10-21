@@ -1751,5 +1751,9 @@
   "the server's configuration": "sunucunun yapılandırması",
   "your Anthropic key": "Anthropic anahtarınız",
   "your Google AI Studio key": "Google AI Studio anahtarınız",
-  "your OpenAI key": "OpenAI anahtarınız"
+  "your OpenAI key": "OpenAI anahtarınız",
+  "Copy version info": "Sürüm Bilgisini Kopyala",
+  "Copy version": "Sürümü Kopyala",
+  "Copy build date": "Yapı Tarihini Kopyala",
+  "Copied": "Kopyalandı"
 }

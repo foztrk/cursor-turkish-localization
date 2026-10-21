@@ -3,6 +3,7 @@
 # etiketleri, tarayici ayarlari, bozuk karakter onarimi, Connect butonu.
 # apply_all.py tarafindan her yeni surumde yeniden calistirilir.
 import io
+import re
 
 REPS = [
     # Bozuk karakter onarimi (Codex'ten kalan kodlama hatasi)
@@ -132,12 +133,50 @@ REPS = [
     ('${e} image${e===1?"":"s"}', '${e} görsel'),
     ('${t} agent${t===1?"":"s"}', '${t} alt ajan'),
     ('${e} agent${e===1?"":"s"}', '${e} alt ajan'),
+
+    # === Voice (Ses) Ayarları & Mikrofon ===
+    ('="Agent Voice"', '="Ajan Sesi"'),
+    ('title:"Voice"', 'title:"Ses"'),
+    ('accessibleLabel:"Voice"', 'accessibleLabel:"Ses"'),
+    (',voice:"Voice",', ',voice:"Ses",'),
+    ('placeholder:"Choose a voice"', 'placeholder:"Bir ses seçin"'),
+    ('options:[{value:"",label:"System Default"}', 'options:[{value:"",label:"Sistem Varsayılanı"}'),
+    ('{auto:"Auto-detect"', '{auto:"Otomatik Algıla"'),
+    ('description:"Default voice for voice chats. Changing the voice plays a short sample."', 'description:"Sesli sohbetler için varsayılan ses. Sesi değiştirmek kısa bir örnek oynatır."'),
+    ('description:"How quickly the voice speaks in voice chats."', 'description:"Sesin sesli sohbetlerde konuşma hızı."'),
+    ('description:"How quickly the voice speaks in voice chats"', 'description:"Sesin sesli sohbetlerde konuşma hızı"'),
+    ('{description:"Language used in voice chats.",label:"Language",', '{description:"Sesli sohbetlerde kullanılan dil.",label:"Dil",'),
+    ('{label:"Language",description:"Language used in voice chats"', '{label:"Dil",description:"Sesli sohbetlerde kullanılan dil"'),
+    ('{description:"Microphone used in voice chats.",label:"Microphone",', '{description:"Sesli sohbetlerde kullanılan mikrofon.",label:"Mikrofon",'),
+    ('{label:"Microphone",description:"Microphone used in voice chats"', '{label:"Mikrofon",description:"Sesli sohbetlerde kullanılan mikrofon"'),
+    ('voice:{label:"Submit Keywords",description:"Words that send your prompt while you dictate. Voice chats ignore them."}', 'voice:{label:"Gönderme Anahtar Kelimeleri",description:"Dikte ederken isteminizi gönderen kelimeler. Sesli sohbetler bunları yok sayar."}'),
+    ('nd("voice","submit-keywords",{label:"Submit Keywords"', 'nd("voice","submit-keywords",{label:"Gönderme Anahtar Kelimeleri"'),
+    ('description:"Words that send your prompt while you dictate"', 'description:"Dikte ederken isteminizi gönderen kelimeler"'),
+
+    # === Bağlam Ekleme (Attach / Menüler) ===
+    ('{image:"Image",attachments:"Attach","cloud-files":"Attach"}', '{image:"Görsel",attachments:"Ekle","cloud-files":"Ekle"}'),
+    ('searchAliases:we==="Attach"?["File","Files"]:void 0', 'searchAliases:we==="Ekle"?["Dosya","Dosyalar","File","Files"]:void 0'),
+    ('searchAliases:de==="Attach"?["File","Files"]:void 0', 'searchAliases:de==="Ekle"?["Dosya","Dosyalar","File","Files"]:void 0'),
+
+    # === This PC ve Çalıştırıcı Gösterim Fallback'leri ===
+    ('"This PC (Yerel Çalıştırıcı)"', '"Bu Bilgisayar (Yerel Çalıştırıcı)"'),
+    ('"This PC (Uzaktan Denetim)"', '"Bu Bilgisayar (Uzaktan Denetim)"'),
+    ('"Search This PC..."', '"Bu Bilgisayarda Ara..."'),
+]
+
+REGEX_REPS = [
+    # Jenerik "This PC" / "This Mac" -> "Bu Bilgisayar" / "Bu Mac" eşleşmesi (tüm sürümlerde çalışır)
+    (re.compile(r'([a-zA-Z0-9_$]+)\?"This PC":([a-zA-Z0-9_$]+)\?"This Mac":"This Computer"'),
+     r'\1?"Bu Bilgisayar":\2?"Bu Mac":"Bu Bilgisayar"'),
 ]
 
 if __name__ == '__main__':
     for fname in ['workbench.desktop.main.js', 'workbench.glass.main.js']:
         s = io.open(fname, encoding='utf-8').read()
         n = 0
+        for pat, rep in REGEX_REPS:
+            s, c = pat.subn(rep, s)
+            n += c
         for a, b in REPS:
             c = s.count(a)
             if c:

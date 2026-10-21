@@ -447,9 +447,6 @@ env_strings_glass = [
     (r'\xB7 Cloud',
      r'\xB7 Bulut',
      "tooltip dot Bulut"),
-    ('function JK(){return Sa?"This PC":or?"This Mac":"This Computer"}',
-     'function JK(){return Sa?"Bu Bilgisayar":or?"Bu Mac":"Bu Bilgisayar"}',
-     "JK This PC to Bu Bilgisayar"),
     ('{id:"cloud",label:"Cloud"},{id:"local",label:"Local"}',
      '{id:"cloud",label:"Bulut"},{id:"local",label:"Yerel"}',
      "Environment section headers Bulut/Yerel"),
@@ -517,16 +514,24 @@ env_strings_glass = [
      '"Takip ettiğiniz Origin pull request\'leri birleştirildiğinde, kapatıldığında, incelendiğinde veya CI başarısız olduğunda bildirim gönder"',
      "Origin Notifications description"),
 ]
+glass, n = regex_replace(
+    glass,
+    r'function ([a-zA-Z0-9_$]+)\(\)\{return ([a-zA-Z0-9_$]+)\?"This PC":([a-zA-Z0-9_$]+)\?"This Mac":"This Computer"\}',
+    r'function \1(){return \2?"Bu Bilgisayar":\3?"Bu Mac":"Bu Bilgisayar"}',
+    "Glass: Jenerik This PC to Bu Bilgisayar"
+)
+glass_mods += n
+
 for old_s, new_s, lbl in env_strings_glass:
     glass, n = safe_replace(glass, old_s, new_s, f"Glass: {lbl}")
     glass_mods += n
 
 # 4. Desktop bundle için Bu Bilgisayar ve Bağlam Kullanımı
-desk, n = safe_replace(
+desk, n = regex_replace(
     desk,
-    'function ker(){return yo?"This PC":xi?"This Mac":"This Computer"}',
-    'function ker(){return yo?"Bu Bilgisayar":xi?"Bu Mac":"Bu Bilgisayar"}',
-    "Desk: ker This PC to Bu Bilgisayar"
+    r'function ([a-zA-Z0-9_$]+)\(\)\{return ([a-zA-Z0-9_$]+)\?"This PC":([a-zA-Z0-9_$]+)\?"This Mac":"This Computer"\}',
+    r'function \1(){return \2?"Bu Bilgisayar":\3?"Bu Mac":"Bu Bilgisayar"}',
+    "Desk: Jenerik This PC to Bu Bilgisayar"
 )
 desk_mods += n
 
