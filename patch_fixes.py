@@ -167,12 +167,22 @@ REPS = [
     ('="No Repo"', '="Depo Yok"'),
     ('TPs="No-repo Automations"', 'TPs="Deposuz Otomasyonlar"'),
     ('"No-repo Automations"', '"Deposuz Otomasyonlar"'),
+
+    # === Ortam Seçici (Environment Selector) ===
+    ('??"Select Environment"', '??"Ortam Seç"'),
+    ('title:"Select Environment"', 'title:"Ortam Seç"'),
+    (', select environment`', ', ortam seç`'),
 ]
 
 REGEX_REPS = [
     # Jenerik "This PC" / "This Mac" -> "Bu Bilgisayar" / "Bu Mac" eşleşmesi (tüm sürümlerde çalışır)
     (re.compile(r'([a-zA-Z0-9_$]+)\?"This PC":([a-zA-Z0-9_$]+)\?"This Mac":"This Computer"'),
      r'\1?"Bu Bilgisayar":\2?"Bu Mac":"Bu Bilgisayar"'),
+    # Ortam Seçici Başlığı: Select Environment -> Ortam Seç
+    (re.compile(r'title:([a-zA-Z0-9_$]+)\?\.title\?\?"Select Environment"'),
+     r'title:\1?.title??"Ortam Seç"'),
+    (re.compile(r'\{"aria-label":`\$\{([a-zA-Z0-9_$]+)\},\s*select environment`'),
+     r'{"aria-label":`${\1}, ortam seç`'),
     # Sistem Tepsisi ve Proje Seçicide "No Repo" -> "Depo Yok" (minified değişken atamaları)
     (re.compile(r'([a-zA-Z0-9_$]+)="No Repo"'),
      r'\1="Depo Yok"'),

@@ -563,6 +563,12 @@ if ok:
         shutil.copy2(name, os.path.join('ceviri-son-hali', name))
     log('ceviri-son-hali/ guncellendi')
     try:
+        import patch_molten
+        _m_files, _m_mods = patch_molten.patch_molten_dir(os.path.join(APP, "molten", "dist", "renderer", "assets"))
+        log('Molten dagitim sonrasi yamalama: %d dosyada %d degisim uygulandi.' % (_m_files, _m_mods))
+    except Exception as _em:
+        log('Molten dagitim sonrasi yamalama uyarisi: %s' % _em)
+    try:
         import sqlite3
         _db_path = os.path.join(os.path.expanduser('~'), 'AppData', 'Roaming', 'Cursor', 'User', 'globalStorage', 'state.vscdb')
         if os.path.exists(_db_path):
