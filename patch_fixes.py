@@ -172,6 +172,38 @@ REPS = [
     ('??"Select Environment"', '??"Ortam Seç"'),
     ('title:"Select Environment"', 'title:"Ortam Seç"'),
     (', select environment`', ', ortam seç`'),
+
+    # === Depo Seçici Alt Menüleri (Bu Bilgisayar / Uzak) ===
+    ('"Search remote repos..."', '"Uzak depolarda ara..."'),
+    ('children:"No repos"', 'children:"Depo Yok"'),
+    ('?"No repos":"No projects"', '?"Depo Yok":"Proje Yok"'),
+
+    # === Bilgisayar Kullanımı (Computer Use) ===
+    ('title:"Computer Use"', 'title:"Bilgisayar Kullanımı"'),
+    ('label:"Computer Use"', 'label:"Bilgisayar Kullanımı"'),
+    ('"Always-allowed apps: Cursor can use these in any chat without asking. Remove one to be asked again."',
+     '"Her zaman izin verilen uygulamalar: Cursor bunları herhangi bir sohbette sormadan kullanabilir. Tekrar sorulması için birini kaldırın."'),
+    ('"No always-allowed apps yet. Choose Always Allow when Cursor asks to use an app."',
+     '"Henüz her zaman izin verilen uygulama yok. Cursor bir uygulamayı kullanmak için izin istediğinde Her Zaman İzin Ver\'i seçin."'),
+    ('"Enable Computer Use"', '"Bilgisayar Kullanımını Etkinleştir"'),
+    ('"Allow Cursor to use your computer."', '"Cursor\'ın bilgisayarınızı kullanmasına izin verin."'),
+    ('"Cursor Computer Use is not available in this build"', '"Cursor Bilgisayar Kullanımı bu derlemede kullanılamıyor"'),
+    ('"Computer Use is ready"', '"Bilgisayar Kullanımı hazır"'),
+
+    # === Modeller Sayfası (Refresh model list) ===
+    ('?"Refreshing model list":"Refresh model list"', '?"Model Listesi Yenileniyor":"Model Listesini Yenile"'),
+    ('?"Refreshing...":"Refresh model list"', '?"Yenileniyor...":"Model Listesini Yenile"'),
+    ('"Refresh model list"', '"Model Listesini Yenile"'),
+
+    # === Özelleştir / Beceriler Eşitleme Kartı ===
+    ('offerTitle:"Use your skills with Cloud Agents"', 'offerTitle:"Becerilerinizi Bulut Ajanlarıyla kullanın"'),
+    ('offerDescription:"Sync your local skills to use them with Cloud Agents. Any changes will update automatically."',
+     'offerDescription:"Bulut Ajanlarıyla kullanmak için yerel becerilerinizi eşitleyin. Yapılan değişiklikler otomatik olarak güncellenir."'),
+    ('offerAction:"Sync"', 'offerAction:"Eşitle"'),
+    ('offerDismiss:"Not now"', 'offerDismiss:"Şimdi Değil"'),
+    ('?"Syncing your skills\\u2026":"Moving your skills back to this machine\\u2026"',
+     '?"Becerileriniz eşitleniyor\\u2026":"Becerileriniz bu makineye geri taşınıyor\\u2026"'),
+    ('{text:"Not now"}', '{text:"Şimdi Değil"}'),
 ]
 
 REGEX_REPS = [
@@ -183,6 +215,21 @@ REGEX_REPS = [
      r'title:\1?.title??"Ortam Seç"'),
     (re.compile(r'\{"aria-label":`\$\{([a-zA-Z0-9_$]+)\},\s*select environment`'),
      r'{"aria-label":`${\1}, ortam seç`'),
+    # Depo Seçici Alt Menü Arama Kutuları: `Search ${BQ()}...` -> "Bu Bilgisayarda ara..."
+    (re.compile(r'`Search \$\{([a-zA-Z0-9_$]+)\(\)\}\.\.\.`'),
+     r'"Bu Bilgisayarda ara..."'),
+    (re.compile(r'`Search \$\{([a-zA-Z0-9_$]+)\.name\}\.\.\.`'),
+     r'`${\1.name} içinde ara...`'),
+    (re.compile(r'"aria-label":`Search \$\{([a-zA-Z0-9_$]+)\.plural\}`,placeholder:`Search \$\{\1\.plural\}\.\.\.`'),
+     r'"aria-label":`${\1.plural} içinde ara`,placeholder:`${\1.plural} içinde ara...`'),
+    # Bilgisayar Kullanımı (Computer Use) minified değişken ataması
+    (re.compile(r'([a-zA-Z0-9_$]+)="Computer Use",([a-zA-Z0-9_$]+)="Always-allowed apps:'),
+     r'\1="Bilgisayar Kullanımı",\2="Always-allowed apps:'),
+    # Özelleştir sayfası parçalı React dizileri: "Browse Marketplace" ve "Show X more"
+    (re.compile(r'children:\["Show ",([a-zA-Z0-9_$]+)," more"\]'),
+     r'children:[\1," tane daha göster"]'),
+    (re.compile(r'children:\["Browse",([a-zA-Z0-9_$]+)\("span",\{className:"([^"]+)",children:" Marketplace"\}\)\]'),
+     r'children:[\1("span",{className:"\2",children:"Eklenti Pazarına"})," Göz At"]'),
     # Sistem Tepsisi ve Proje Seçicide "No Repo" -> "Depo Yok" (minified değişken atamaları)
     (re.compile(r'([a-zA-Z0-9_$]+)="No Repo"'),
      r'\1="Depo Yok"'),

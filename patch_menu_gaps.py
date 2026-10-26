@@ -2340,6 +2340,8 @@ if __name__ == '__main__':
                 ('document.querySelectorAll(".glass-empty-state-rotating-tips__text")', f'document.querySelectorAll("{tip_selector}")'),
             ):
                 core_suffix = core_suffix.replace(old_call, new_call)
+            core_suffix = core_suffix.replace('["No repos", "Depo yok"]', '["No repos", "Depo Yok"]')
+            core_suffix = core_suffix.replace('["No environments", "Ortam yok"]', '["No environments", "Ortam Yok"]')
 
             if 'find a prior conversation' not in core_suffix:
                 core_suffix = core_suffix.replace(

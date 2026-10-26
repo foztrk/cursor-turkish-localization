@@ -40,6 +40,20 @@ MOLTEN_REPLACEMENTS = [
     ("=`Start from scratch`", "=`Sıfırdan başla`"),
     ("children:`No recent agents`", "children:`Son Kullanılan Ajan Yok`"),
     ("children:`No recent agents yet.`", "children:`Henüz son kullanılan ajan yok.`"),
+    ("`Search remote repos...`", "`Uzak depolarda ara...`"),
+    ("title:`Computer Use`", "title:`Bilgisayar Kullanımı`"),
+    ("label:`Computer Use`", "label:`Bilgisayar Kullanımı`"),
+    ("=`Computer Use`", "=`Bilgisayar Kullanımı`"),
+    ("`Always-allowed apps: Cursor can use these in any chat without asking. Remove one to be asked again.`",
+     "`Her zaman izin verilen uygulamalar: Cursor bunları herhangi bir sohbette sormadan kullanabilir. Tekrar sorulması için birini kaldırın.`"),
+    ("`No always-allowed apps yet. Choose Always Allow when Cursor asks to use an app.`",
+     "`Henüz her zaman izin verilen uygulama yok. Cursor bir uygulamayı kullanmak için izin istediğinde Her Zaman İzin Ver'i seçin.`"),
+    ("`Refresh model list`", "`Model Listesini Yenile`"),
+    ("`Refreshing model list`", "`Model Listesi Yenileniyor`"),
+    ("`Sync your local skills to use them with Cloud Agents. Any changes will update automatically.`",
+     "`Bulut Ajanlarıyla kullanmak için yerel becerilerinizi eşitleyin. Yapılan değişiklikler otomatik olarak güncellenir.`"),
+    ("offerAction:`Sync`", "offerAction:`Eşitle`"),
+    ("offerDismiss:`Not now`", "offerDismiss:`Şimdi Değil`"),
     ("Search This PC...", "Bu Bilgisayarda Ara..."),
     ("Search skills, context, chats", "Becerilerde, bağlamda, sohbetlerde ara"),
     ("Search custom modes", "Özel modlarda ara"),
@@ -50,6 +64,11 @@ MOLTEN_REGEX_REPS = [
     # Mikrofon aygıt etiketleri: "Default - ..." -> "Varsayılan - ...", "Communications - ..." -> "İletişim - ..."
     (re.compile(r'label:([a-zA-Z0-9_$]+)\.label\|\|`Microphone \$\{([a-zA-Z0-9_$]+)\+1\}`'),
      r'label:(\1.label?\1.label.replace(/^Default - /,"Varsayılan - ").replace(/^Communications - /,"İletişim - "):`Mikrofon ${\2+1}`)'),
+    # Depo seçici alt menü arama kutuları
+    (re.compile(r'placeholder:`Search \$\{([a-zA-Z0-9_$]+)\}\.\.\.`'),
+     r'placeholder:`Bu Bilgisayarda ara...`'),
+    (re.compile(r'`Search \$\{([a-zA-Z0-9_$]+)\.plural\}\.\.\.`'),
+     r'`${\1.plural} içinde ara...`'),
 ]
 
 

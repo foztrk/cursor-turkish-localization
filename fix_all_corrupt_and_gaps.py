@@ -117,11 +117,11 @@ repo_reps_glass = [
     ('Search repositories, environments...":T==="workspace"?"Search workspaces...":"Run Cursor anywhere..."',
      'Depolarda, ortamlarda ara...":T==="workspace"?"Çalışma alanlarında ara...":"Cursor\'ı her yerde çalıştırın..."',
      "Search repositories environments"),
-    ('const T=b?"No repos":Pof;', 'const T=b?"Depo yok":Pof;', "b?No repos:Pof"),
-    ('Pof="No environments"', 'Pof="Ortam yok"', "Pof No environments"),
+    ('const T=b?"No repos":Pof;', 'const T=b?"Depo Yok":Pof;', "b?No repos:Pof"),
+    ('Pof="No environments"', 'Pof="Ortam Yok"', "Pof No environments"),
     ('emptyLabel:"No repos selected"', 'emptyLabel:"Depo seçilmedi"', "emptyLabel No repos selected"),
     ('children:i!==void 0?"No repositories":Y.type==="cloud"?"No repos":"No projects"',
-     'children:i!==void 0?"Depo yok":Y.type==="cloud"?"Depo yok":"Proje yok"',
+     'children:i!==void 0?"Depo Yok":Y.type==="cloud"?"Depo Yok":"Proje Yok"',
      "No repositories / No repos / No projects"),
     ('["No repos or pools match \\u201C",_,"\\u201D."]', '["Eşleşen depo veya havuz yok: \\u201C",_,"\\u201D."]', "No repos match"),
     ('children:"No repositories found"', 'children:"Depo bulunamadı"', "No repositories found"),
@@ -301,8 +301,12 @@ observer_replacement = (
     r'    ["Scan this QR code to download Cursor for your phone", "Telefonunuza Cursor indirmek için bu QR kodunu tarayın"],\n'
     r'    ["Search repos, cloud environments...", "Depolarda, bulut ortamlarında ara..."],\n'
     r'    ["Search remote repos, cloud environments...", "Uzak depolarda, bulut ortamlarında ara..."],\n'
-    r'    ["No repos", "Depo yok"],\n'
-    r'    ["No environments", "Ortam yok"],\n'
+    r'    ["Search remote repos...", "Uzak depolarda ara..."],\n'
+    r'    ["Search Bu Bilgisayar...", "Bu Bilgisayarda ara..."],\n'
+    r'    ["No repos", "Depo Yok"],\n'
+    r'    ["No environments", "Ortam Yok"],\n'
+    r'    ["Refresh model list", "Model Listesini Yenile"],\n'
+    r'    ["Not now", "Şimdi Değil"],\n'
     r'    ["Usage limits reset on", "Kullanım limitleri sıfırlanma tarihi:"],'
 )
 glass, n = regex_replace(glass, observer_pattern, observer_replacement, "Glass Observer expansion")
