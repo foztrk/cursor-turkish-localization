@@ -191,6 +191,14 @@ REGEX_REPS = [
     # Mikrofon aygıt etiketleri: "Default - ..." -> "Varsayılan - ...", "Communications - ..." -> "İletişim - ..."
     (re.compile(r'label:([a-zA-Z0-9_$]+)\.label\|\|`Microphone \$\{([a-zA-Z0-9_$]+)\+1\}`'),
      r'label:(\1.label?\1.label.replace(/^Default - /,"Varsayılan - ").replace(/^Communications - /,"İletişim - "):`Mikrofon ${\2+1}`)'),
+    # Gönderme Anahtar Kelimeleri (Submit Keywords / Voice Submit Keywords) jenerik regex (nd, dd, Kl vb.)
+    (re.compile(r'([a-zA-Z0-9_$]+)\("voice","submit-keywords",\{label:"Submit Keywords"'),
+     r'\1("voice","submit-keywords",{label:"Gönderme Anahtar Kelimeleri"'),
+    (re.compile(r'([a-zA-Z0-9_$]+)\("chat","voice-submit-keywords",\{label:"Voice Submit Keywords"'),
+     r'\1("chat","voice-submit-keywords",{label:"Sesli Gönderme Anahtar Kelimeleri"'),
+    # Bağlam Ekleme (Attach) searchAliases jenerik regex (we, de, ue vb.)
+    (re.compile(r'searchAliases:([a-zA-Z0-9_$]+)==="Attach"\?\["File","Files"\]:void 0'),
+     r'searchAliases:\1==="Ekle"?["Dosya","Dosyalar","File","Files"]:void 0'),
 ]
 
 if __name__ == '__main__':

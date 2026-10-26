@@ -11,8 +11,11 @@ import io
 import os
 import sys
 import re
+import glob
+import json
 
 DEFAULT_MOLTEN_APP = r"C:\Program Files\cursor\resources\app"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 MOLTEN_REPLACEMENTS = [
     ("`Copy version info`", "`Sürüm Bilgisini Kopyala`"),
@@ -28,7 +31,16 @@ MOLTEN_REPLACEMENTS = [
      "label:`Mikrofon`,description:`Sesli sohbetlerde kullanılan mikrofon.`"),
     ("auto:`Auto-detect`", "auto:`Otomatik Algıla`"),
     ("en:`English`", "en:`İngilizce`"),
-    ("Search This PC...", "Bu bilgisayarda ara..."),
+    ("tr:`Turkish`", "tr:`Türkçe`"),
+    ("?`This PC`:`This Computer`", "?`Bu Bilgisayar`:`Bu Bilgisayar`"),
+    ("?`This PC`:e.includes(`Mac`)?`This Mac`:`This Computer`", "?`Bu Bilgisayar`:e.includes(`Mac`)?`Bu Mac`:`Bu Bilgisayar`"),
+    ("??`Select Environment`", "??`Ortam Seç`"),
+    ("`No Repo`", "`Depo Yok`"),
+    ("=`No Repository`", "=`Depo Yok`"),
+    ("=`Start from scratch`", "=`Sıfırdan başla`"),
+    ("children:`No recent agents`", "children:`Son Kullanılan Ajan Yok`"),
+    ("children:`No recent agents yet.`", "children:`Henüz son kullanılan ajan yok.`"),
+    ("Search This PC...", "Bu Bilgisayarda Ara..."),
     ("Search skills, context, chats", "Becerilerde, bağlamda, sohbetlerde ara"),
     ("Search custom modes", "Özel modlarda ara"),
 ]
@@ -41,12 +53,30 @@ MOLTEN_REGEX_REPS = [
 ]
 
 
+def _load_backtick_prop_maps():
+    bt_maps = []
+    tr2_pattern = os.path.join(BASE_DIR, "tr2", "m*.json")
+    for f in sorted(glob.glob(tr2_pattern)):
+        try:
+            data = json.load(io.open(f, encoding="utf-8"))
+            for k, v in data.items():
+                prop, old = k.split("\t", 1)
+                if any(c in old or c in v for c in ["`", "$", "\\", "\n", "\r"]):
+                    continue
+                p_str = '"aria-label"' if prop == "aria-label" else prop
+                bt_maps.append((f"{p_str}:`{old}`", f"{p_str}:`{v}`"))
+        except Exception:
+            pass
+    return bt_maps
+
+
 def patch_molten_dir(molten_dir):
     if not os.path.exists(molten_dir):
         return 0, 0
+    bt_maps = _load_backtick_prop_maps()
     total_files = 0
     total_mods = 0
-    for fname in os.listdir(molten_dir):
+    for fname in sorted(os.listdir(molten_dir)):
         if not fname.endswith(".js"):
             continue
         p = os.path.join(molten_dir, fname)
@@ -58,6 +88,11 @@ def patch_molten_dir(molten_dir):
                 content, c = pat.subn(rep, content)
                 mods += c
             for old_s, new_s in MOLTEN_REPLACEMENTS:
+                c = content.count(old_s)
+                if c:
+                    content = content.replace(old_s, new_s)
+                    mods += c
+            for old_s, new_s in bt_maps:
                 c = content.count(old_s)
                 if c:
                     content = content.replace(old_s, new_s)
