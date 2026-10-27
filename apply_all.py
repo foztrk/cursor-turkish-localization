@@ -292,7 +292,7 @@ for fname in BUNDLE_FILES:
 # === 3) Baglamli ozel yamalar ==================================================
 for script in PATCH_SCRIPTS:
     if os.path.exists(script):
-        r = subprocess.run([sys.executable, '-X', 'utf8', script], capture_output=True, text=True)
+        r = subprocess.run([sys.executable, '-X', 'utf8', script], capture_output=True, encoding='utf-8', errors='replace')
         log('%s -> %s' % (script, (r.stdout or r.stderr).strip().replace('\n', ' | ')))
         if r.returncode != 0:
             log('HATA: %s basarisiz oldu (kod %d). Kurulum iptal.' % (script, r.returncode))
@@ -306,7 +306,7 @@ for fname in BUNDLE_FILES:
     text += '\n\n' + overlay_suffixes[fname].lstrip()
     io.open(fname, 'w', encoding='utf-8', newline='').write(text)
 menu_script = 'patch_menu_gaps.py'
-r = subprocess.run([sys.executable, '-X', 'utf8', menu_script], capture_output=True, text=True)
+r = subprocess.run([sys.executable, '-X', 'utf8', menu_script], capture_output=True, encoding='utf-8', errors='replace')
 log('%s -> %s' % (menu_script, (r.stdout or r.stderr).strip().replace('\n', ' | ')))
 if r.returncode != 0:
     log('HATA: %s basarisiz oldu (kod %d). Kurulum iptal.' % (menu_script, r.returncode))
@@ -442,7 +442,7 @@ with io.open('YENI-EKLENENLER.txt', 'w', encoding='utf-8') as f:
 # gibi kisa etiketleri genel UI adaylarinin arasinda kaybetmeden raporlar.
 hover_scan = subprocess.run(
     [sys.executable, '-X', 'utf8', 'scan_visible_props.py'],
-    capture_output=True, text=True
+    capture_output=True, encoding='utf-8', errors='replace'
 )
 log('scan_visible_props.py -> %s' %
     ((hover_scan.stdout or hover_scan.stderr).strip().replace('\n', ' | ')))
@@ -495,7 +495,7 @@ try {
   }
   try {
     $user = $env:USERNAME
-    icacls 'C:\Program Files\cursor\resources\app' /grant "${user}:(OI)(CI)F" /T /C /Q | Out-Null
+    icacls 'C:\Program Files\cursor\resources\app' /grant "${user}:(OI)(CI)F" /Q | Out-Null
   } catch {}
   Set-Content -LiteralPath $resultFile -Value 'OK_VERIFIED' -Encoding ASCII
   exit 0
@@ -572,7 +572,7 @@ if ok:
         import sqlite3
         _db_path = os.path.join(os.path.expanduser('~'), 'AppData', 'Roaming', 'Cursor', 'User', 'globalStorage', 'state.vscdb')
         if os.path.exists(_db_path):
-            _conn = sqlite3.connect(_db_path)
+            _conn = sqlite3.connect(_db_path, timeout=5)
             _cur = _conn.cursor()
             _key = "src.vs.platform.reactivestorage.browser.reactiveStorageServiceImpl.persistentStorage.applicationUser"
             _cur.execute("SELECT value FROM ItemTable WHERE key = ?", (_key,))

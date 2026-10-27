@@ -65,6 +65,7 @@ def high_confidence_hover(value):
 
 
 def main():
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))
     translations = json.load(io.open("cursor-ui-tm.json", encoding="utf-8"))
     translated_values = {value for value in translations.values()
                          if isinstance(value, str)}
