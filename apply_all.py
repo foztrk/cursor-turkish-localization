@@ -65,7 +65,8 @@ PATCH_SCRIPTS = ['patch_fixes.py', 'patch_glass2.py', 'patch_settings.py', 'patc
                   'patch_cursor_ui_tm.py', 'patch_settings_gaps.py', 'patch_statusbar_stats.py', 'patch_help_menu_labels.py',
                   'patch_remaining_ui.py',
                   'fix_all_corrupt_and_gaps.py', 'patch_steer_and_behavior.py', 'patch_hook_tip.py',
-                  'patch_tool_labels.py', 'patch_main_process.py', 'patch_molten.py']
+                  'patch_tool_labels.py', 'patch_main_process.py', 'patch_molten.py',
+                  'patch_glass_nls.py']
 report = []
 OVERLAY_MARKERS = [
     'CURSOR_TR_UI_PATCH_V5', 'CURSOR_TR_UI_EXPANSION_V1',
