@@ -209,6 +209,12 @@ AUTOMATIONS_MAP = {
 }
 
 EXACT_REPLACEMENTS = [
+    # Galeri ve Gösterim Sayısı (Image 1)
+    ('children:["Showing ",', 'children:["Gösterilen: ",'),
+    ('children:"More"', 'children:"Tümü"'),
+    ('j=r?.more??"More"', 'j=r?.more??"Tümü"'),
+    ('N=r?.suggested??"Suggested"', 'N=r?.suggested??"Önerilen"'),
+    ('children:_?"Loading\\u2026":"Load More"', 'children:_?"Yükleniyor\\u2026":"Daha Fazla Yükle"'),
     # Sekmeler
     ('{value:"mine",label:"Mine"}', '{value:"mine",label:"Benimkiler"}'),
     ('{value:"team",label:"Team"}', '{value:"team",label:"Ekip"}'),
