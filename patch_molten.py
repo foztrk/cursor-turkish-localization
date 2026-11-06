@@ -352,13 +352,13 @@ def patch_molten_dir(molten_dir):
                 content, c = pat.subn(rep, content)
                 mods += c
             for old_s, new_s in MOLTEN_REPLACEMENTS:
-                c = content.count(old_s)
-                if c:
+                if old_s in content:
+                    c = content.count(old_s)
                     content = content.replace(old_s, new_s)
                     mods += c
             for old_s, new_s in bt_maps:
-                c = content.count(old_s)
-                if c:
+                if old_s in content:
+                    c = content.count(old_s)
                     content = content.replace(old_s, new_s)
                     mods += c
             if mods > 0:

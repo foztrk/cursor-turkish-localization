@@ -11,7 +11,7 @@ $items = @(
   @{ Source = 'C:\Users\Work-D\cursor-turkish-localization\workbench.anysphere-ui-automations.js'; Destination = 'C:\Program Files\cursor\resources\app\out\vs\workbench\workbench.anysphere-ui-automations.js'; Backup = 'C:\Users\Work-D\cursor-turkish-localization\deploy-rollback\workbench.anysphere-ui-automations.js' },
   @{ Source = 'C:\Users\Work-D\cursor-turkish-localization\main.js'; Destination = 'C:\Program Files\cursor\resources\app\out\main.js'; Backup = 'C:\Users\Work-D\cursor-turkish-localization\deploy-rollback\main.js' },
   @{ Source = 'C:\Users\Work-D\cursor-turkish-localization\product.json'; Destination = 'C:\Program Files\cursor\resources\app\product.json'; Backup = 'C:\Users\Work-D\cursor-turkish-localization\deploy-rollback\product.json' },
-  @{ Source = 'C:\Users\Work-D\cursor-turkish-localization\nls.cache.messages.json'; Destination = 'C:\Users\Work-D\AppData\Roaming\Cursor\clp\9fa7b08ce3585b4cb07e632f79153b2e.tr\25b52e7d03ebf2d5608914158e119f7992432a30\nls.messages.json'; Backup = 'C:\Users\Work-D\cursor-turkish-localization\deploy-rollback\nls.cache.messages.json' },
+  @{ Source = 'C:\Users\Work-D\cursor-turkish-localization\nls.cache.messages.json'; Destination = 'C:\Users\Work-D\AppData\Roaming\Cursor\clp\9fa7b08ce3585b4cb07e632f79153b2e.tr\306d153d51d714882ab7b1bc49649cab624e8a30\nls.messages.json'; Backup = 'C:\Users\Work-D\cursor-turkish-localization\deploy-rollback\nls.cache.messages.json' },
   @{ Source = 'C:\Users\Work-D\cursor-turkish-localization\nls.cache.root.messages.json'; Destination = 'C:\Users\Work-D\AppData\Roaming\Cursor\clp\9fa7b08ce3585b4cb07e632f79153b2e.tr\nls.messages.json'; Backup = 'C:\Users\Work-D\cursor-turkish-localization\deploy-rollback\nls.cache.root.messages.json' }
 )
 
