@@ -559,6 +559,10 @@ REPS = [
     ('label:"Paste"', 'label:"Yapıştır"'),
     ('="Default chooses an Explore model based on availability and cost"', '="Varsayılan, kullanılabilirlik ve maliyete göre bir Keşif modeli seçer"'),
     ('"Subagent model overrides will only be used in Max Mode"', '"Alt ajan model geçersiz kılmaları yalnızca Maks Modunda kullanılır"'),
+    ('Open the chat and try again.', 'Sohbeti açın ve tekrar deneyin.'),
+    ("The chat didn't load. Open it and try again.", 'Sohbet yüklenmedi. Sohbeti açın ve tekrar deneyin.'),
+    ('Developer: Show Projects Hero on Next New Project', 'Geliştirici: Sonraki Yeni Projede Projeler Tanıtımını Göster'),
+    ('Bringing in {0}…', '{0} getiriliyor…'),
 ]
 
 REGEX_REPS = [
