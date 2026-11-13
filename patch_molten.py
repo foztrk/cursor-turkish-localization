@@ -18,6 +18,23 @@ DEFAULT_MOLTEN_APP = r"C:\Program Files\cursor\resources\app"
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 MOLTEN_REPLACEMENTS = [
+    # Kullanıcı Ekran Görüntüsü Düzeltmeleri (13.11.2026)
+    ('label:`Task Sent`', 'label:`Görev Gönderildi`'),
+    ('label:`Result Arrives`', 'label:`Sonuç Geldiğinde`'),
+    ('label:`Needs Decision`', 'label:`Karar Gerektiğinde`'),
+    ('`Task Sent`', '`Görev Gönderildi`'),
+    ('`Result Arrives`', '`Sonuç Geldiğinde`'),
+    ('`Needs Decision`', '`Karar Gerektiğinde`'),
+    ('`Start voice chat`', '`Sesli sohbeti başlat`'),
+    ('`Voice chat`', '`Sesli sohbet`'),
+    ('`Talk with your agents out loud. Turn this off to hide voice chat everywhere you use Cursor.`', "`Ajanlarınızla sesli konuşun. Cursor'ı kullandığınız her yerde sesli sohbeti gizlemek için bunu kapatın.`"),
+    ('`Board`', '`Pano`'),
+    ('`List`', '`Liste`'),
+    ('`Library`', '`Kitaplık`'),
+    ('`Invite teammates to this project`', '`Takım arkadaşlarını bu projeye davet et`'),
+    ('`Invite teammates`', '`Takım arkadaşlarını davet et`'),
+    ('`Owner`', '`Sahip`'),
+
     # Cursor 3.30.8 Menü ve Buton Kuralları
     ('label:`&&Undo`', 'label:`&&Geri Al`'),
     ('label:`&&Redo`', 'label:`&&Yinele`'),

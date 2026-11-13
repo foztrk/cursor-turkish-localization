@@ -2545,5 +2545,22 @@
   "Resume": "Devam Et",
   "Status chimes": "Durum sesleri",
   "Status Chimes": "Durum Sesleri",
-  "No remote machines yet.": "Henüz uzak makine yok."
+  "No remote machines yet.": "Henüz uzak makine yok.",
+  "Voice chat": "Sesli sohbet",
+  "Talk with your agents out loud. Turn this off to hide voice chat everywhere you use Cursor.": "Ajanlarınızla sesli konuşun. Cursor'ı kullandığınız her yerde sesli sohbeti gizlemek için bunu kapatın.",
+  "Task Sent": "Görev Gönderildi",
+  "Result Arrives": "Sonuç Geldiğinde",
+  "Needs Decision": "Karar Gerektiğinde",
+  "Start voice chat": "Sesli sohbeti başlat",
+  "Board": "Pano",
+  "List": "Liste",
+  "Library": "Kitaplık",
+  "Invite": "Davet Et",
+  "Invite teammates": "Takım arkadaşlarını davet et",
+  "Owner": "Sahip",
+  "Fix in Cursor": "Cursor'da Düzelt",
+  "Fix in Web": "Web'de Düzelt",
+  "Title": "Başlık",
+  "Plan": "Planla",
+  "Report": "Raporla"
 }

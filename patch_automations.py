@@ -11,6 +11,11 @@ BASE = os.path.dirname(os.path.abspath(__file__))
 TARGET = os.path.join(BASE, 'workbench.anysphere-ui-automations.js')
 
 AUTOMATIONS_MAP = {
+    # Kullanıcı Ekran Görüntüsü Düzeltmeleri (13.11.2026)
+    'role:"columnheader",children:"Title"': 'role:"columnheader",children:"Başlık"',
+    'Fix in Cursor': "Cursor'da Düzelt",
+    'Fix in Web': "Web'de Düzelt",
+
     # Cursor 3.30.8 Uzak Makine ve Havuz Metinleri
     'No remote machines yet.': 'Henüz uzak makine yok.',
     "Couldn't load self-hosted pools. Close and reopen this menu to retry.": 'Kendi barındırılan havuzlar yüklenemedi. Yeniden denemek için bu menüyü kapatıp tekrar açın.',

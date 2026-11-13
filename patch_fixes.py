@@ -615,6 +615,33 @@ REPS = [
     ('Restart to Update When Idle', 'Boştayken Güncellemek için Yeniden Başlat'),
     ('Switching teams...', 'Ekipler değiştiriliyor...'),
     ('Status Chimes', 'Durum Sesleri'),
+
+    # Kullanıcı Ekran Görüntüsü Düzeltmeleri (13.11.2026)
+    ('oYs="Voice chat",P6c="Talk with your agents out loud. Turn this off to hide voice chat everywhere you use Cursor."', 'oYs="Sesli sohbet",P6c="Ajanlarınızla sesli konuşun. Cursor\'ı kullandığınız her yerde sesli sohbeti gizlemek için bunu kapatın."'),
+    ('label:"Task Sent"', 'label:"Görev Gönderildi"'),
+    ('label:"Result Arrives"', 'label:"Sonuç Geldiğinde"'),
+    ('label:"Needs Decision"', 'label:"Karar Gerektiğinde"'),
+    ('content:`Keybinding: ${u}`', 'content:`Klavye Kısayolu: ${u}`'),
+    ('title:t??"Start voice chat"', 'title:t??"Sesli sohbeti başlat"'),
+    ('title:e??"Start voice chat"', 'title:e??"Sesli sohbeti başlat"'),
+    ('"Start voice chat"', '"Sesli sohbeti başlat"'),
+    ('`Start voice chat`', '`Sesli sohbeti başlat`'),
+    ('children:["Showing ",', 'children:["Gösterilen: ",'),
+    ('role:"columnheader",children:"Title"', 'role:"columnheader",children:"Başlık"'),
+    ('Fix in Cursor', "Cursor'da Düzelt"),
+    ('Fix in Web', "Web'de Düzelt"),
+    ('id:"invite-to-project",label:"Invite"', 'id:"invite-to-project",label:"Davet Et"'),
+    ('variant:"primary",children:"Invite"', 'variant:"primary",children:"Davet Et"'),
+    ('variant:"text",children:"Invite"', 'variant:"text",children:"Davet Et"'),
+    ('children:"Invite teammates to this project"', 'children:"Takım arkadaşlarını bu projeye davet et"'),
+    ('pe?"Name or email":"Invite teammates"', 'pe?"Ad veya e-posta":"Takım arkadaşlarını davet et"'),
+    ('ownerLabel,size:"sm",children:"Owner"', 'ownerLabel,size:"sm",children:"Sahip"'),
+    ('children:Zg(mMl,{children:"Owner"})', 'children:Zg(mMl,{children:"Sahip"})'),
+    ('`${t.name} (you)`', '`${t.name} (siz)`'),
+    ('{id:"kanban",label:"Board",iconName:"board-kanban"}', '{id:"kanban",label:"Pano",iconName:"board-kanban"}'),
+    ('{id:"list",label:"List",iconName:"list-bullets"}', '{id:"list",label:"Liste",iconName:"list-bullets"}'),
+    ('FJi={label:"Library",icon:"book"}', 'FJi={label:"Kitaplık",icon:"book"}'),
+    ('transparent)]",children:"Plan"', 'transparent)]",children:"Planla"'),
 ]
 
 REGEX_REPS = [
