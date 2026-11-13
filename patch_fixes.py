@@ -642,6 +642,22 @@ REPS = [
     ('{id:"list",label:"List",iconName:"list-bullets"}', '{id:"list",label:"Liste",iconName:"list-bullets"}'),
     ('FJi={label:"Library",icon:"book"}', 'FJi={label:"Kitaplık",icon:"book"}'),
     ('transparent)]",children:"Plan"', 'transparent)]",children:"Planla"'),
+
+    # Discard ve Side Chat Kuralları (13.11.2026)
+    ('discard:{kind:"discard",label:"Discard",icon:"x"}', 'discard:{kind:"discard",label:"Vazgeç",icon:"x"}'),
+    ('"leave-project":{kind:"leave-project",label:"Leave Project",icon:"arrow-square-from-left"}', '"leave-project":{kind:"leave-project",label:"Projeden Ayrıl",icon:"arrow-square-from-left"}'),
+    ('primaryButton:{id:Jq0,label:"Discard"}', 'primaryButton:{id:Jq0,label:"Vazgeç"}'),
+    ('id:"side-chat",label:"Side Chat",icon:"chat-bubble"', 'id:"side-chat",label:"Yan Sohbet",icon:"chat-bubble"'),
+    ('id:"sideChat",label:"Side Chat",icon:"chat-bubble"', 'id:"sideChat",label:"Yan Sohbet",icon:"chat-bubble"'),
+    ('defaultLabel:"Side Chat"', 'defaultLabel:"Yan Sohbet"'),
+    ('Bnh="Side Chat"', 'Bnh="Yan Sohbet"'),
+    ('G1c="Side Chat"', 'G1c="Yan Sohbet"'),
+    ('w9e="New Side Chat"', 'w9e="Yeni Yan Sohbet"'),
+    ('case $t.SideChat:return"Side Chat"', 'case $t.SideChat:return"Yan Sohbet"'),
+    ('title:Mt(11631,"Side Chat")', 'title:Mt(11631,"Yan Sohbet")'),
+    ('title:Mt(11632,"Side Chat")', 'title:Mt(11632,"Yan Sohbet")'),
+    ('title:Ve(11631,"Side Chat")', 'title:Ve(11631,"Yan Sohbet")'),
+    ('title:Ve(11632,"Side Chat")', 'title:Ve(11632,"Yan Sohbet")'),
 ]
 
 REGEX_REPS = [

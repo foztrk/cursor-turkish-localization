@@ -18,6 +18,13 @@ DEFAULT_MOLTEN_APP = r"C:\Program Files\cursor\resources\app"
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 MOLTEN_REPLACEMENTS = [
+    # Discard ve Side Chat Kuralları (13.11.2026)
+    ('`Side Chat`', '`Yan Sohbet`'),
+    ('`New Side Chat`', '`Yeni Yan Sohbet`'),
+    ('`Discard Changes`', '`Değişiklikleri Geri Al`'),
+    ('`Discard All Changes`', '`Tüm Değişiklikleri Geri Al`'),
+    ('`Discard`', '`Vazgeç`'),
+
     # Kullanıcı Ekran Görüntüsü Düzeltmeleri (13.11.2026)
     ('label:`Task Sent`', 'label:`Görev Gönderildi`'),
     ('label:`Result Arrives`', 'label:`Sonuç Geldiğinde`'),
