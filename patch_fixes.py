@@ -685,15 +685,31 @@ REPS = [
     ('"Cursor Marketplace"', '"Cursor Pazarı"'),
     ('nd=[{value:`low`,label:`Low`},{value:`medium`,label:`Medium`},{value:`high`,label:`High`}]', 'nd=[{value:`low`,label:`Düşük`},{value:`medium`,label:`Orta`},{value:`high`,label:`Yüksek`}]'),
     ('nd=[{value:"low",label:"Low"},{value:"medium",label:"Medium"},{value:"high",label:"High"}]', 'nd=[{value:"low",label:"Düşük"},{value:"medium",label:"Orta"},{value:"high",label:"Yüksek"}]'),
+    ('="Voice chat"', '="Sesli sohbet"'),
+    ('="Talk with your agents out loud. Turn this off to hide voice chat everywhere you use Cursor."', '="Ajanlarınızla sesli konuşun. Cursor\'ı kullandığınız her yerde sesli sohbeti gizlemek için bunu kapatın."'),
+    ('children:["Voice chat",', 'children:["Sesli sohbet",'),
+    ('children:["Voice chat with ",', 'children:["Sesli sohbet: ",'),
+    ('"aria-label":"Add a link"', '"aria-label":"Bağlantı ekle"'),
+    ('"aria-label":"Add link"', '"aria-label":"Bağlantı ekle"'),
+    ('title:"D&&ownload Update"', 'title:"Güncellemeyi &&İndir"'),
+    ('title:"Install &&Update"', 'title:"Güncellemeyi &&Yükle"'),
+    ('"aria-label":"Diagram actions"', '"aria-label":"Diyagram eylemleri"'),
+    ('"aria-label":"Edit project icon"', '"aria-label":"Proje simgesini düzenle"'),
+    ('title:"Help improve Grok Bot"', 'title:"Grok Bot\'u geliştirmeye yardım et"'),
+    ('ariaLabel:"Save edit"', 'ariaLabel:"Düzenlemeyi kaydet"'),
+    ('"aria-label":"Save options"', '"aria-label":"Seçenekleri kaydet"'),
+    ('"aria-label":"Search people"', '"aria-label":"Kişilerde ara"'),
+    ('title:"Slack settings"', 'title:"Slack ayarları"'),
+    ('"aria-label":"Upload profile photo"', '"aria-label":"Profil fotoğrafı yükle"'),
 ]
 
 REGEX_REPS = [
     # Ses ve Koordinatör Regex Kuralları (14.11.2026)
-    (re.compile(r'=\\s*["\\\']Voice chat["\\\']'), r'="Sesli sohbet"'),
-    (re.compile(r'=\\s*["\\\']Talk with your agents out loud\\. Turn this off to hide voice chat everywhere you use Cursor\\.["\\\']'), r'="Ajanlarınızla sesli konuşun. Cursor\'ı kullandığınız her yerde sesli sohbeti gizlemek için bunu kapatın."'),
-    (re.compile(r':\\s*["\\\']Coordinator effort["\\\']'), r':"Koordinatör çabası"'),
-    (re.compile(r'label:\\s*["\\\']Coordinator effort["\\\']'), r'label:"Koordinatör çabası"'),
-    (re.compile(r'groupLabel:\\s*["\\\']Coordinator effort["\\\']'), r'groupLabel:"Koordinatör çabası"'),
+    (re.compile(r'=\s*["\']Voice chat["\']'), r'="Sesli sohbet"'),
+    (re.compile(r'=\s*["\']Talk with your agents out loud\. Turn this off to hide voice chat everywhere you use Cursor\.["\']'), '="Ajanlarınızla sesli konuşun. Cursor\'ı kullandığınız her yerde sesli sohbeti gizlemek için bunu kapatın."'),
+    (re.compile(r':\s*["\']Coordinator effort["\']'), r':"Koordinatör çabası"'),
+    (re.compile(r'label:\s*["\']Coordinator effort["\']'), r'label:"Koordinatör çabası"'),
+    (re.compile(r'groupLabel:\s*["\']Coordinator effort["\']'), r'groupLabel:"Koordinatör çabası"'),
 
     # Jenerik "This PC" / "This Mac" -> "Bu Bilgisayar" / "Bu Mac" eşleşmesi (tüm sürümlerde çalışır)
     (re.compile(r'([a-zA-Z0-9_$]+)\?"This PC":([a-zA-Z0-9_$]+)\?"This Mac":"This Computer"'),

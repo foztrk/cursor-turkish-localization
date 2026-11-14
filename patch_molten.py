@@ -26,6 +26,10 @@ MOLTEN_REPLACEMENTS = [
     ('`Workers`', '`Çalışanlar`'),
     ('var td=`Workers`', 'var td=`Çalışanlar`'),
     ('m(`cursor`,`Cursor Marketplace`)', 'm(`cursor`,`Cursor Pazarı`)'),
+    ('children:[`Voice chat with `,', 'children:[`Sesli sohbet: `,'),
+    ('"aria-label":`Voice chat in progress`', '"aria-label":`Sesli sohbet sürüyor`'),
+    ('"aria-label":`Voice chat transcript`', '"aria-label":`Sesli sohbet dökümü`'),
+    ('`Words that send your prompt while you dictate. Voice chats ignore them.`', '`Dikte ederken isteminizi gönderen kelimeler. Sesli sohbetler bunları yok sayar.`'),
 
     # Discard ve Side Chat Kuralları (13.11.2026)
     ('`Side Chat`', '`Yan Sohbet`'),
