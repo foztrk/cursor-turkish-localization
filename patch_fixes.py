@@ -658,6 +658,24 @@ REPS = [
     ('title:Mt(11632,"Side Chat")', 'title:Mt(11632,"Yan Sohbet")'),
     ('title:Ve(11631,"Side Chat")', 'title:Ve(11631,"Yan Sohbet")'),
     ('title:Ve(11632,"Side Chat")', 'title:Ve(11632,"Yan Sohbet")'),
+
+    # Cursor 3.30.14 Yeni UI ve Dağıtım Metinleri
+    ('Build Live, Shareable Apps with Cursor', 'Cursor ile Canlı, Paylaşılabilir Uygulamalar Oluşturun'),
+    ('Build a Live, Shareable App', 'Canlı, Paylaşılabilir Bir Uygulama Oluşturun'),
+    ('Deploy a live, shareable app', 'Canlı, paylaşılabilir bir uygulama dağıtın'),
+    ('Deploy the app', 'Uygulamayı dağıt'),
+    ('Deploy with Cursor', 'Cursor ile Dağıt'),
+    ('Deploy your work', 'Çalışmanızı dağıtın'),
+    ('Authenticate these MCPs so this automation can use them.', "Bu otomasyonun kullanabilmesi için bu MCP'lerin kimliğini doğrulayın."),
+    ('Automations and deployed agents', 'Otomasyonlar ve dağıtılan ajanlar'),
+    ('Open setup guide', 'Kurulum kılavuzunu aç'),
+    ('Service account automations must be visible to your team', 'Hizmet hesabı otomasyonları ekibinize görünür olmalıdır'),
+    ('Update Automation Access?', 'Otomasyon Erişimini Güncelle?'),
+    ('Cursor is now Grok Build', 'Cursor artık Grok Build'),
+    ('Get additional Grok Bot usage.', 'Ek Grok Bot kullanımı edinin.'),
+    ('Improve Grok Bot and more', "Grok Bot'u ve daha fazlasını geliştirin"),
+    ('Run local and cloud agents simultaneously', 'Yerel ve bulut ajanlarını aynı anda çalıştırın'),
+    ('Search your repositories or paste a clone URL', "Depolarınızda arayın veya bir klonlama URL'si yapıştırın"),
 ]
 
 REGEX_REPS = [
