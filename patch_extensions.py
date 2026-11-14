@@ -35,6 +35,25 @@ def patch_claude_code():
                 io.open(fpath, 'w', encoding='utf-8', newline='').write(content)
                 print(f'{fpath} -> Claude Code güncellendi')
 
+def patch_openai_codex():
+    ext_dir = os.path.expanduser(r'~/.cursor/extensions')
+    if not os.path.exists(ext_dir):
+        return
+    targets = glob.glob(os.path.join(ext_dir, 'openai.chatgpt-*'))
+    for tdir in targets:
+        for root, dirs, files in os.walk(tdir):
+            for fname in files:
+                if fname.endswith(('.js', '.json')):
+                    fpath = os.path.join(root, fname)
+                    try:
+                        content = io.open(fpath, encoding='utf-8').read()
+                        if 'Open Codex Sidebar' in content:
+                            content = content.replace('Open Codex Sidebar', 'Codex Kenar Çubuğunu Aç')
+                            io.open(fpath, 'w', encoding='utf-8', newline='').write(content)
+                            print(f'{fpath} -> Codex Kenar Çubuğu güncellendi')
+                    except Exception as e:
+                        pass
+
 if __name__ == '__main__':
     for fname in FILES:
         if not os.path.exists(fname):
@@ -50,4 +69,4 @@ if __name__ == '__main__':
         io.open(fname, 'w', encoding='utf-8', newline='').write(s)
         print(fname, 'degisim:', n)
     patch_claude_code()
-
+    patch_openai_codex()

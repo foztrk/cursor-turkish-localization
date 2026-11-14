@@ -18,6 +18,15 @@ DEFAULT_MOLTEN_APP = r"C:\Program Files\cursor\resources\app"
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 MOLTEN_REPLACEMENTS = [
+    # Görsel Geri Bildirim Kuralları (14.11.2026)
+    ('`Coordinator effort`', '`Koordinatör çabası`'),
+    ('var ed=`Coordinator effort`', 'var ed=`Koordinatör çabası`'),
+    ('`Cursor Marketplace`', '`Cursor Pazarı`'),
+    ('nd=[{value:`low`,label:`Low`},{value:`medium`,label:`Medium`},{value:`high`,label:`High`}]', 'nd=[{value:`low`,label:`Düşük`},{value:`medium`,label:`Orta`},{value:`high`,label:`Yüksek`}]'),
+    ('`Workers`', '`Çalışanlar`'),
+    ('var td=`Workers`', 'var td=`Çalışanlar`'),
+    ('m(`cursor`,`Cursor Marketplace`)', 'm(`cursor`,`Cursor Pazarı`)'),
+
     # Discard ve Side Chat Kuralları (13.11.2026)
     ('`Side Chat`', '`Yan Sohbet`'),
     ('`New Side Chat`', '`Yeni Yan Sohbet`'),

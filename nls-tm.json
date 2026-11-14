@@ -2605,5 +2605,12 @@
   "Merging": "Birleştiriliyor",
   "Off": "Kapalı",
   "Couldn't update the workers' model": "Çalışanların modeli güncellenemedi",
-  "Another agent is still starting. Send this one once it has started.": "Başka bir ajan hâlâ başlatılıyor. Başlatıldıktan sonra bunu gönderin."
+  "Another agent is still starting. Send this one once it has started.": "Başka bir ajan hâlâ başlatılıyor. Başlatıldıktan sonra bunu gönderin.",
+  "Coordinator effort": "Koordinatör çabası",
+  "Cursor Marketplace": "Cursor Pazarı",
+  "Open Codex Sidebar": "Codex Kenar Çubuğunu Aç",
+  "Low": "Düşük",
+  "Medium": "Orta",
+  "High": "Yüksek",
+  "Workers": "Çalışanlar"
 }

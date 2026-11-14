@@ -676,9 +676,25 @@ REPS = [
     ('Improve Grok Bot and more', "Grok Bot'u ve daha fazlasını geliştirin"),
     ('Run local and cloud agents simultaneously', 'Yerel ve bulut ajanlarını aynı anda çalıştırın'),
     ('Search your repositories or paste a clone URL', "Depolarınızda arayın veya bir klonlama URL'si yapıştırın"),
+
+    # Görsel Geri Bildirim Düzeltmeleri (14.11.2026)
+    ('Coordinator effort', 'Koordinatör çabası'),
+    ("A new Project's coordinator starts at this effort. You can change it in the chat's model picker.", 'Yeni bir Projenin koordinatörü bu çabayla başlar. Sohbetin model seçicisinden değiştirebilirsiniz.'),
+    ('Cursor Marketplace', 'Cursor Pazarı'),
+    ('`Cursor Marketplace`', '`Cursor Pazarı`'),
+    ('"Cursor Marketplace"', '"Cursor Pazarı"'),
+    ('nd=[{value:`low`,label:`Low`},{value:`medium`,label:`Medium`},{value:`high`,label:`High`}]', 'nd=[{value:`low`,label:`Düşük`},{value:`medium`,label:`Orta`},{value:`high`,label:`Yüksek`}]'),
+    ('nd=[{value:"low",label:"Low"},{value:"medium",label:"Medium"},{value:"high",label:"High"}]', 'nd=[{value:"low",label:"Düşük"},{value:"medium",label:"Orta"},{value:"high",label:"Yüksek"}]'),
 ]
 
 REGEX_REPS = [
+    # Ses ve Koordinatör Regex Kuralları (14.11.2026)
+    (re.compile(r'=\\s*["\\\']Voice chat["\\\']'), r'="Sesli sohbet"'),
+    (re.compile(r'=\\s*["\\\']Talk with your agents out loud\\. Turn this off to hide voice chat everywhere you use Cursor\\.["\\\']'), r'="Ajanlarınızla sesli konuşun. Cursor\'ı kullandığınız her yerde sesli sohbeti gizlemek için bunu kapatın."'),
+    (re.compile(r':\\s*["\\\']Coordinator effort["\\\']'), r':"Koordinatör çabası"'),
+    (re.compile(r'label:\\s*["\\\']Coordinator effort["\\\']'), r'label:"Koordinatör çabası"'),
+    (re.compile(r'groupLabel:\\s*["\\\']Coordinator effort["\\\']'), r'groupLabel:"Koordinatör çabası"'),
+
     # Jenerik "This PC" / "This Mac" -> "Bu Bilgisayar" / "Bu Mac" eşleşmesi (tüm sürümlerde çalışır)
     (re.compile(r'([a-zA-Z0-9_$]+)\?"This PC":([a-zA-Z0-9_$]+)\?"This Mac":"This Computer"'),
      r'\1?"Bu Bilgisayar":\2?"Bu Mac":"Bu Bilgisayar"'),
