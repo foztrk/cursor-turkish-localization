@@ -188,10 +188,10 @@ desk, n = regex_replace(desk, r'return`\$\{(\w+)\.autoTitle\}:\s*\$\{(\w+)\}% us
                         r'return`${\1.autoTitle}: %${\2} kullanıldı \\xB7 ${\1.apiTitle}: %${\3} kullanıldı`', "Desk dual % used")
 desk_mods += n
 
-# Inline % used children: [x, "% used"]
-glass, n = regex_replace(glass, r'children:\[(.*?),\"% used\"\]', r'children:["%",\1," kullanıldı"]', "Glass inline % used")
+# Inline % used children: [x, "% used"] (köşeli parantez dışına taşmayı engelle!)
+glass, n = regex_replace(glass, r'children:\[([^\]\[]+?),\"% used\"\]', r'children:["%",\1," kullanıldı"]', "Glass inline % used")
 glass_mods += n
-desk, n = regex_replace(desk, r'children:\[(.*?),\"% used\"\]', r'children:["%",\1," kullanıldı"]', "Desk inline % used")
+desk, n = regex_replace(desk, r'children:\[([^\]\[]+?),\"% used\"\]', r'children:["%",\1," kullanıldı"]', "Desk inline % used")
 desk_mods += n
 
 

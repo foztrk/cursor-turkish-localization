@@ -29,7 +29,16 @@ MOLTEN_REPLACEMENTS = [
     ('children:[`Voice chat with `,', 'children:[`Sesli sohbet: `,'),
     ('"aria-label":`Voice chat in progress`', '"aria-label":`Sesli sohbet sürüyor`'),
     ('"aria-label":`Voice chat transcript`', '"aria-label":`Sesli sohbet dökümü`'),
+    ('label:`Voice chat transcript`', 'label:`Sesli sohbet dökümü`'),
+    ('`Voice chat settings`', '`Sesli sohbet ayarları`'),
+    ('`Your team admin turned off voice chat.`', '`Ekip yöneticiniz sesli sohbeti kapattı.`'),
+    ('`Could not save the voice chat setting.`', '`Sesli sohbet ayarı kaydedilemedi.`'),
     ('`Words that send your prompt while you dictate. Voice chats ignore them.`', '`Dikte ederken isteminizi gönderen kelimeler. Sesli sohbetler bunları yok sayar.`'),
+    ('`Usage limits reset on`', '`Kullanım limitleri sıfırlanır:`'),
+    ('`Weekly usage resets on`', '`Haftalık kullanım sıfırlanır:`'),
+    ('label:`Manage Origin Settings`', 'label:`Origin Ayarlarını Yönet`'),
+    ('title:`Worktree Cleanup`', 'title:`Çalışma Ağacı Temizliği`'),
+    ('`Cursor periodically removes old worktrees to free disk space. Tune how aggressively cleanup runs.`', '`Cursor, disk alanını boşaltmak için eski çalışma ağaçlarını düzenli olarak kaldırır. Temizliğin ne kadar agresif çalışacağını ayarlayın.`'),
 
     # Discard ve Side Chat Kuralları (13.11.2026)
     ('`Side Chat`', '`Yan Sohbet`'),
@@ -395,6 +404,9 @@ MOLTEN_REGEX_REPS = [
      r'`"${\1}" ile eşleşen uzak makine yok.`'),
     (re.compile(r'`No remote machines match \u201C\$\{([a-zA-Z0-9_$]+)\}\u201D\.`'),
      '`“${\\1}” ile eşleşen uzak makine yok.`'),
+    # Kullanım yüzdesi: children:[x,`% used`] -> children:[`%`,x,` kullanıldı`]
+    (re.compile(r'children:\[([^\]\[]+?),`% used`\]'),
+     r'children:[`%`,\1,` kullanıldı`]'),
 ]
 
 

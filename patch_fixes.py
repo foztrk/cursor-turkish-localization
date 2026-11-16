@@ -701,6 +701,18 @@ REPS = [
     ('"aria-label":"Search people"', '"aria-label":"Kişilerde ara"'),
     ('title:"Slack settings"', 'title:"Slack ayarları"'),
     ('"aria-label":"Upload profile photo"', '"aria-label":"Profil fotoğrafı yükle"'),
+    # Ekran Görüntüsü Revizyonu (16.11.2026)
+    ('title:"&&Settings"', 'title:"&&Ayarlar"'),
+    ('[{value:"low",label:"Low"},{value:"medium",label:"Medium"},{value:"high",label:"High"}]', '[{value:"low",label:"Düşük"},{value:"medium",label:"Orta"},{value:"high",label:"Yüksek"}]'),
+    ('[{value:`low`,label:`Low`},{value:`medium`,label:`Medium`},{value:`high`,label:`High`}]', '[{value:`low`,label:`Düşük`},{value:`medium`,label:`Orta`},{value:`high`,label:`Yüksek`}]'),
+    ('`Usage limits reset on ', '`Kullanım limitleri sıfırlanır: '),
+    ('`Weekly usage resets on ', '`Haftalık kullanım sıfırlanır: '),
+    ('unit:"used",value:', 'unit:"kullanıldı",value:'),
+    ('label:"Manage Origin Settings"', 'label:"Origin Ayarlarını Yönet"'),
+    ('label:"Worktree Cleanup"', 'label:"Çalışma Ağacı Temizliği"'),
+    ('title:"Worktree Cleanup"', 'title:"Çalışma Ağacı Temizliği"'),
+    ('accessibleLabel:"Worktree Cleanup"', 'accessibleLabel:"Çalışma Ağacı Temizliği"'),
+    ('title:"Update mobile auth handling"', 'title:"Mobil kimlik doğrulama işlemini güncelle"'),
 ]
 
 REGEX_REPS = [
