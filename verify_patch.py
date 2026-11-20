@@ -148,6 +148,8 @@ def main():
         '="Disconnect from all computers"',
         '="Don\\u2019t allow"',
         '?"Allow this device?":`Allow \\u201C${t}\\u201D?`',
+        'Koordinatör çabası',
+        'bu çabayla başlar',
     ]
     for fb in forbidden_glass:
         if fb in glass:
@@ -177,6 +179,8 @@ def main():
         '="İzin Verme"',
         '?"Bu cihaza izin verilsin mi?":`\\u201C${t}\\u201D cihazına izin verilsin mi?`',
         '`Son kullanım: ${',
+        'Koordinatör Düşünme Düzeyi',
+        'bu düşünme düzeyinde başlar',
     ]
     for rq in required_glass:
         if rq not in glass:
@@ -217,6 +221,8 @@ def main():
         '`İzin Verme`',
         '`Son kullanım: ${n}`',
         'cihazına izin verilsin mi?`',
+        '`Koordinatör Düşünme Düzeyi`',
+        'bu düşünme düzeyinde başlar',
     ]:
         if rq not in molten_all:
             fail(errors, f"Canli Molten icinde beklenen Turkce kalip yok: {rq}")

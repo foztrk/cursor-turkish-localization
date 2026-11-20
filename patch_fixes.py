@@ -678,8 +678,8 @@ REPS = [
     ('Search your repositories or paste a clone URL', "Depolarınızda arayın veya bir klonlama URL'si yapıştırın"),
 
     # Görsel Geri Bildirim Düzeltmeleri (14.11.2026)
-    ('Coordinator effort', 'Koordinatör çabası'),
-    ("A new Project's coordinator starts at this effort. You can change it in the chat's model picker.", 'Yeni bir Projenin koordinatörü bu çabayla başlar. Sohbetin model seçicisinden değiştirebilirsiniz.'),
+    ('Coordinator effort', 'Koordinatör Düşünme Düzeyi'),
+    ("A new Project's coordinator starts at this effort. You can change it in the chat's model picker.", 'Yeni bir projenin koordinatörü bu düşünme düzeyinde başlar. Sohbet içindeki model seçiciden değiştirebilirsiniz.'),
     ('Cursor Marketplace', 'Cursor Pazarı'),
     ('`Cursor Marketplace`', '`Cursor Pazarı`'),
     ('"Cursor Marketplace"', '"Cursor Pazarı"'),
@@ -727,7 +727,7 @@ REPS = [
     ('"aria-label":"Worker models"', '"aria-label":"Çalışan modelleri"'),
     ('{value:"match",children:"Match"}', '{value:"match",children:"Eşleştir"}'),
     ('{value:"custom",children:"Custom"}', '{value:"custom",children:"Özel"}'),
-    ('?" (the model\'s default effort)":null', '?" (modelin varsayılan çabası)":null'),
+    ('?" (the model\'s default effort)":null', '?" (modelin varsayılan düzeyi)":null'),
     ('"CPP and auto-imports are temporarily disabled"', '"CPP ve otomatik içe aktarmalar geçici olarak devre dışı bırakıldı"'),
     ('"CPP is temporarily disabled"', '"CPP geçici olarak devre dışı bırakıldı"'),
     ('"Auto-imports are temporarily disabled"', '"Otomatik içe aktarmalar geçici olarak devre dışı bırakıldı"'),
@@ -807,9 +807,9 @@ REGEX_REPS = [
     # Ses ve Koordinatör Regex Kuralları (14.11.2026)
     (re.compile(r'=\s*["\']Voice chat["\']'), r'="Sesli sohbet"'),
     (re.compile(r'=\s*["\']Talk with your agents out loud\. Turn this off to hide voice chat everywhere you use Cursor\.["\']'), '="Ajanlarınızla sesli konuşun. Cursor\'ı kullandığınız her yerde sesli sohbeti gizlemek için bunu kapatın."'),
-    (re.compile(r':\s*["\']Coordinator effort["\']'), r':"Koordinatör çabası"'),
-    (re.compile(r'label:\s*["\']Coordinator effort["\']'), r'label:"Koordinatör çabası"'),
-    (re.compile(r'groupLabel:\s*["\']Coordinator effort["\']'), r'groupLabel:"Koordinatör çabası"'),
+    (re.compile(r':\s*["\']Coordinator effort["\']'), r':"Koordinatör Düşünme Düzeyi"'),
+    (re.compile(r'label:\s*["\']Coordinator effort["\']'), r'label:"Koordinatör Düşünme Düzeyi"'),
+    (re.compile(r'groupLabel:\s*["\']Coordinator effort["\']'), r'groupLabel:"Koordinatör Düşünme Düzeyi"'),
 
     # Jenerik "This PC" / "This Mac" -> "Bu Bilgisayar" / "Bu Mac" eşleşmesi (tüm sürümlerde çalışır)
     (re.compile(r'([a-zA-Z0-9_$]+)\?"This PC":([a-zA-Z0-9_$]+)\?"This Mac":"This Computer"'),

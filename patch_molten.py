@@ -19,8 +19,8 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 MOLTEN_REPLACEMENTS = [
     # Görsel Geri Bildirim Kuralları (14.11.2026)
-    ('`Coordinator effort`', '`Koordinatör çabası`'),
-    ('var ed=`Coordinator effort`', 'var ed=`Koordinatör çabası`'),
+    ('`Coordinator effort`', '`Koordinatör Düşünme Düzeyi`'),
+    ('var ed=`Coordinator effort`', 'var ed=`Koordinatör Düşünme Düzeyi`'),
     ('`Cursor Marketplace`', '`Cursor Pazarı`'),
     ('nd=[{value:`low`,label:`Low`},{value:`medium`,label:`Medium`},{value:`high`,label:`High`}]', 'nd=[{value:`low`,label:`Düşük`},{value:`medium`,label:`Orta`},{value:`high`,label:`Yüksek`}]'),
     ('`Workers`', '`Çalışanlar`'),
@@ -49,7 +49,7 @@ MOLTEN_REPLACEMENTS = [
     ('"aria-label":`Worker models`', '"aria-label":`Çalışan modelleri`'),
     ('{value:`match`,children:`Match`}', '{value:`match`,children:`Eşleştir`}'),
     ('{value:`custom`,children:`Custom`}', '{value:`custom`,children:`Özel`}'),
-    ("` (the model's default effort)`", '` (modelin varsayılan çabası)`'),
+    ("` (the model's default effort)`", '` (modelin varsayılan düzeyi)`'),
     # 20.11.2026 - 2. Parti: Özel Model, Uzaktan Denetim, Görevler, Ortam/Makine
     ('`Add Custom Model`', '`Özel Model Ekle`'),
     ('`Control local agents from your phone`', '`Telefonunuzdan yerel ajanları kontrol edin`'),

@@ -368,8 +368,8 @@ OVERLAY = r'''
     ["Add a follow up", "Takip Mesajı Ekle"],
     ["Ask follow-ups in the worktree", "Çalışma ağacında takip mesajları sorun"],
     ["Send follow-up", "Takip Mesajı Gönder"],
-    ["Cycle Effort", "Çaba Düzeyini Değiştir"],
-    ["Cycle effort", "Çaba Düzeyini Değiştir"],
+    ["Cycle Effort", "Düşünme Düzeyini Değiştir"],
+    ["Cycle effort", "Düşünme Düzeyini Değiştir"],
     ["Switch Model and Retry", "Model Değiştir ve Yeniden Dene"],
     ["OUTLINE", "ANA HAT"],
     ["Outline", "Ana Hat"],
@@ -669,7 +669,7 @@ OVERLAY = r'''
     ["Open Local Links in Cursor Browser", "Yerel Bağlantıları Cursor Tarayıcısında Aç"],
     ["Open Web Links in Cursor Browser", "Web Bağlantılarını Cursor Tarayıcısında Aç"],
     ["Select Model", "Model Seç"],
-    ["Cycle Effort", "Çaba Düzeyini Değiştir"],
+    ["Cycle Effort", "Düşünme Düzeyini Değiştir"],
     ["Show Apps", "Uygulamalar Panelini Göster"],
     ["Recents", "Son Kullanılanlar"],
     ["Search branches...", "Dallarda ara..."],
@@ -766,9 +766,9 @@ OVERLAY = r'''
     ["Hooks let you control and extend the agent loop - use /create-hook to get started", "Kancalar, ajan döngüsünü kontrol edip genişletmenizi sağlar — başlamak için /create-hook kullanın"],
     ["Hooks let you control and extend the agent loop – use /create-hook to get started", "Kancalar, ajan döngüsünü kontrol edip genişletmenizi sağlar — başlamak için /create-hook kullanın"],
     ["Steer agents on this machine from your phone, web, and other devices", "Bu bilgisayardaki ajanları telefonunuzdan, web'den ve diğer cihazlardan yönetin"],
-    ["Cursor Grok 4.6\nCursor and SpaceXAI's most powerful model, great for complex coding and knowledge work.\n\n256k context window\n\nVersion: high effort", "Cursor Grok 4.6\nKarmaşık kodlama ve bilgi çalışmaları için SpaceXAI'nin en güçlü modeli.\n\n256 bin bağlam penceresi\n\nSürüm: yüksek çaba"],
+    ["Cursor Grok 4.6\nCursor and SpaceXAI's most powerful model, great for complex coding and knowledge work.\n\n256k context window\n\nVersion: high effort", "Cursor Grok 4.6\nKarmaşık kodlama ve bilgi çalışmaları için SpaceXAI'nin en güçlü modeli.\n\n256 bin bağlam penceresi\n\nSürüm: yüksek düzey"],
     ["Cursor and SpaceXAI's most powerful model, great for complex coding and knowledge work.", "Karmaşık kodlama ve bilgi çalışmaları için SpaceXAI'nin en güçlü modeli."],
-    ["Version: high effort", "Sürüm: yüksek çaba"],
+    ["Version: high effort", "Sürüm: yüksek düzey"],
     ["256k context window", "256 bin bağlam penceresi"],
     ["300k context window", "300 bin bağlam penceresi"],
     ["Anthropic's large model class, great for difficult tasks.", "Anthropic'in büyük model sınıfı; zor görevler için idealdir."],
@@ -805,11 +805,11 @@ OVERLAY = r'''
     ["Composer 2.5 Fast", "Composer 2.5 Hızlı"],
     ["Cursor Grok 4.5 (fast)", "Cursor Grok 4.5 (hızlı)"],
     ["The predecessor to Cursor Grok 4.6, built for complex coding and knowledge work.", "Cursor Grok 4.6'nın öncülü; karmaşık kodlama ve bilgi çalışmaları için geliştirildi."],
-    ["Cursor Grok 4.5 (fast)\nThe predecessor to Cursor Grok 4.6, built for complex coding and knowledge work.\n\n256k context window\n\nVersion: high effort", "Cursor Grok 4.5 (hızlı)\nCursor Grok 4.6'nın öncülü; karmaşık kodlama ve bilgi çalışmaları için geliştirildi.\n\n256 bin bağlam penceresi\n\nSürüm: yüksek çaba"],
-    ["OpenAI's flagship GPT-5.6 model. Strongest agentic coding, biology, and cybersecurity capabilities, with a new max reasoning effort.", "OpenAI'nin amiral gemisi GPT-5.6 modeli. Yeni azami akıl yürütme çabasıyla en güçlü ajan tabanlı kodlama, biyoloji ve siber güvenlik yeteneklerini sunar."],
+    ["Cursor Grok 4.5 (fast)\nThe predecessor to Cursor Grok 4.6, built for complex coding and knowledge work.\n\n256k context window\n\nVersion: high effort", "Cursor Grok 4.5 (hızlı)\nCursor Grok 4.6'nın öncülü; karmaşık kodlama ve bilgi çalışmaları için geliştirildi.\n\n256 bin bağlam penceresi\n\nSürüm: yüksek düzey"],
+    ["OpenAI's flagship GPT-5.6 model. Strongest agentic coding, biology, and cybersecurity capabilities, with a new max reasoning effort.", "OpenAI'nin amiral gemisi GPT-5.6 modeli. Yeni azami düşünme düzeyiyle en güçlü ajan tabanlı kodlama, biyoloji ve siber güvenlik yeteneklerini sunar."],
     ["272k context window", "272 bin bağlam penceresi"],
-    ["Version: medium reasoning effort", "Sürüm: orta akıl yürütme çabası"],
-    ["GPT-5.6 Sol\nOpenAI's flagship GPT-5.6 model. Strongest agentic coding, biology, and cybersecurity capabilities, with a new max reasoning effort.\n\n272k context window\n\nVersion: medium reasoning effort", "GPT-5.6 Sol\nOpenAI'nin amiral gemisi GPT-5.6 modeli. Yeni azami akıl yürütme çabasıyla en güçlü ajan tabanlı kodlama, biyoloji ve siber güvenlik yeteneklerini sunar.\n\n272 bin bağlam penceresi\n\nSürüm: orta akıl yürütme çabası"],
+    ["Version: medium reasoning effort", "Sürüm: orta düşünme düzeyi"],
+    ["GPT-5.6 Sol\nOpenAI's flagship GPT-5.6 model. Strongest agentic coding, biology, and cybersecurity capabilities, with a new max reasoning effort.\n\n272k context window\n\nVersion: medium reasoning effort", "GPT-5.6 Sol\nOpenAI'nin amiral gemisi GPT-5.6 modeli. Yeni azami düşünme düzeyiyle en güçlü ajan tabanlı kodlama, biyoloji ve siber güvenlik yeteneklerini sunar.\n\n272 bin bağlam penceresi\n\nSürüm: orta düşünme düzeyi"],
     ["PNG, JPEG, or WebP ...", "PNG, JPEG veya WebP ..."],
     ["When enabled, your cursor.com profile page is visible to anyone with the link.", "Etkinleştirildiğinde cursor.com profil sayfanız bağlantıya sahip herkes tarafından görünür."],
     ["New Messages", "Yeni Mesajlar"],
@@ -1214,8 +1214,8 @@ OVERLAY = r'''
   ]);
   const attrs = ["aria-label", "title", "placeholder", "data-placeholder", "aria-placeholder"];
   const modelTooltipReplacements = [
-    ["Cycle Effort", "Çaba Düzeyini Değiştir"],
-    ["Cycle effort", "Çaba Düzeyini Değiştir"],
+    ["Cycle Effort", "Düşünme Düzeyini Değiştir"],
+    ["Cycle effort", "Düşünme Düzeyini Değiştir"],
     ["Switch Model", "Model Değiştir"],
     ["Switch model", "Model Değiştir"],
     ["Add a follow up", "Takip Mesajı Ekle"],
@@ -1268,7 +1268,7 @@ OVERLAY = r'''
     ["Version: no thinking effort", "Sürüm: düşünme yok"],
     ["Version: no thinking", "Sürüm: düşünme yok"],
     ["Version: none reasoning effort", "Sürüm: akıl yürütme yok"],
-    ["Version: none effort", "Sürüm: çaba yok"],
+    ["Version: none effort", "Sürüm: standart düzey"],
     ["Version: off", "Sürüm: kapalı"],
     ["Version: disabled", "Sürüm: devre dışı"],
     ["Claude Sonnet 4 No Thinking", "Claude Sonnet 4 Düşünme Yok"],
@@ -1313,17 +1313,17 @@ OVERLAY = r'''
     ["SpaceXAI's most powerful model, built for complex coding and knowledge work.", "SpaceXAI'ın karmaşık kodlama ve bilgi işleri için tasarlanmış en güçlü modeli."],
     ["SpaceXAI's most powerful model, great for complex coding and knowledge work.", "SpaceXAI'ın karmaşık kodlama ve bilgi işleri için tasarlanmış en güçlü modeli."],
     ["Significantly faster but consumes more usage", "Belirgin şekilde daha hızlıdır ancak daha fazla kullanım tüketir"],
-    ["Version: extra high effort", "Sürüm: ekstra yüksek çaba"],
-    ["Version: extra high reasoning effort", "Sürüm: ekstra yüksek akıl yürütme çabası"],
-    ["Version: high effort", "Sürüm: yüksek çaba"],
-    ["Version: high reasoning effort", "Sürüm: yüksek akıl yürütme çabası"],
-    ["Version: low effort", "Sürüm: düşük çaba"],
-    ["Version: low reasoning effort", "Sürüm: düşük akıl yürütme çabası"],
-    ["Version: max effort", "Sürüm: azami çaba"],
-    ["Version: max reasoning effort", "Sürüm: azami akıl yürütme çabası"],
-    ["Version: medium effort", "Sürüm: orta çaba"],
-    ["Version: medium reasoning effort", "Sürüm: orta akıl yürütme çabası"],
-    ["Version: minimal effort", "Sürüm: en düşük çaba"],
+    ["Version: extra high effort", "Sürüm: ekstra yüksek düzey"],
+    ["Version: extra high reasoning effort", "Sürüm: ekstra yüksek düşünme düzeyi"],
+    ["Version: high effort", "Sürüm: yüksek düzey"],
+    ["Version: high reasoning effort", "Sürüm: yüksek düşünme düzeyi"],
+    ["Version: low effort", "Sürüm: düşük düzey"],
+    ["Version: low reasoning effort", "Sürüm: düşük düşünme düzeyi"],
+    ["Version: max effort", "Sürüm: azami düzey"],
+    ["Version: max reasoning effort", "Sürüm: azami düşünme düzeyi"],
+    ["Version: medium effort", "Sürüm: orta düzey"],
+    ["Version: medium reasoning effort", "Sürüm: orta düşünme düzeyi"],
+    ["Version: minimal effort", "Sürüm: en düşük düzey"],
     ["Version: none reasoning effort", "Sürüm: akıl yürütme yok"],
     ["Version: preview", "Sürüm: önizleme"],
     ["[Alt] Replace Agent", "[Alt] Ajanı Değiştir"],
@@ -1836,7 +1836,7 @@ OVERLAY = r'''
     if (key.startsWith("The predecessor to Grok 4.7")) return "Grok 4.7'nin öncülü; karmaşık kodlama ve bilgi çalışmaları için geliştirildi.";
     if (key.startsWith("The predecessor to Grok 4.6")) return "Grok 4.6'nın öncülü; karmaşık kodlama ve bilgi çalışmaları için geliştirildi.";
     if (key.startsWith("The predecessor to Grok 4.5")) return "Grok 4.5'in öncülü; karmaşık kodlama ve bilgi çalışmaları için geliştirildi.";
-    if (key.startsWith("OpenAI's flagship GPT-5.6 model.")) return "OpenAI'nin amiral gemisi GPT-5.6 modeli. Yeni azami akıl yürütme çabasıyla en güçlü ajan tabanlı kodlama, biyoloji ve siber güvenlik yeteneklerini sunar.";
+    if (key.startsWith("OpenAI's flagship GPT-5.6 model.")) return "OpenAI'nin amiral gemisi GPT-5.6 modeli. Yeni azami düşünme düzeyiyle en güçlü ajan tabanlı kodlama, biyoloji ve siber güvenlik yeteneklerini sunar.";
     if (key.startsWith("Cursor installation appears corrupted")) return "Cursor kurulumunuz bozuk görünüyor. Lütfen Cursor'u yeniden kurun.";
     if (key.startsWith("Search Cursor to find a prior conversation")) return "Önceki bir konuşmayı bulmak için Cursor'da arayın veya konuşmalar genelinde özetleyin";
     if (key.startsWith("Messages sent while Cursor is working can steer it mid-run")) return "Cursor çalışırken gönderilen mesajlar çalışmayı kesmeden akışı yönlendirebilir — bu seçeneği Ajanlar ayarlarındaki Yeni Mesajlar bölümünden açın";
@@ -1844,7 +1844,7 @@ OVERLAY = r'''
     if (key === "Includes Cursor Grok and Composer") return "Cursor Grok ve Composer dahil";
     if (key === "256k context window") return "256 bin bağlam penceresi";
     if (key === "272k context window") return "272 bin bağlam penceresi";
-    if (key === "Version: medium reasoning effort") return "Sürüm: orta akıl yürütme çabası";
+    if (key === "Version: medium reasoning effort") return "Sürüm: orta düşünme düzeyi";
     if (key.startsWith("to inspect page elements")) return "ile sayfa öğelerini inceleyin, konsol günlüklerini görüntüleyin ve ağ trafiğini analiz edin";
     if (key.startsWith("to install a plugin from the Cursor")) return "ile Cursor Eklenti Pazarı'ndan eklenti yükleyin";
     if (key.startsWith("lets you dictate better prompts")) return "ajanlarınız için daha iyi istemleri dikte etmenizi sağlar";
@@ -2056,13 +2056,13 @@ OVERLAY = r'''
     ["Claude Fable 5 High", "Claude Fable 5 Yüksek"],
     ["Claude Sonnet 4.6 High", "Claude Sonnet 4.6 Yüksek"],
     ["Claude Sonnet 4.5 High", "Claude Sonnet 4.5 Yüksek"],
-    ["Cycle Effort", "Çaba Düzeyini Değiştir"],
-    ["Cycle effort", "Çaba Düzeyini Değiştir"],
+    ["Cycle Effort", "Düşünme Düzeyini Değiştir"],
+    ["Cycle effort", "Düşünme Düzeyini Değiştir"],
     ["Switch Model and Retry", "Model Değiştir ve Yeniden Dene"],
     ["Switch Model", "Model Değiştir"],
     ["Switch model", "Model Değiştir"],
     ["Kimi K3 Max", "Kimi K3 Azami"],
-    ["Effort", "Çaba"], ["Low", "Düşük"], ["Medium", "Orta"],
+    ["Effort", "Düşünme Düzeyi"], ["Low", "Düşük"], ["Medium", "Orta"],
     ["High", "Yüksek"], ["Fast", "Hızlı"], ["Context", "Bağlam"],
     ["Grok 4.7 High", "Grok 4.7 Yüksek"],
     ["Grok 4.7 Medium", "Grok 4.7 Orta"],
