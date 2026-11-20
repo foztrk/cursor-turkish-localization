@@ -459,54 +459,124 @@ MOLTEN_REGEX_REPS = [
 ]
 
 
+_TR_CHAR_RE = re.compile(r'[çğıöşüÇĞİÖŞÜ]')
+
+PROTECTED_PROP_LOGIC_PAIRS = {
+    ('label', 'Add to allowlist'),
+    ('label', 'Agent'),
+    ('label', 'Always run'),
+    ('label', 'Archive'),
+    ('label', 'Ask question'),
+    ('label', 'Authenticate MCP'),
+    ('label', 'Cancel'),
+    ('label', 'Computer use'),
+    ('label', 'Connect GitHub'),
+    ('label', 'Context'),
+    ('label', 'Create plan'),
+    ('label', 'Full Local'),
+    ('label', 'GitHub'),
+    ('label', 'MCPs'),
+    ('label', 'Manage PR'),
+    ('label', 'New push to branch'),
+    ('label', 'Production'),
+    ('label', 'Published'),
+    ('label', 'Services'),
+    ('label', 'Task'),
+    ('title', 'Error Output'),
+    ('title', 'New Agent'),
+    ('title', 'Stroke Colors'),
+    ('title', 'Text Colors'),
+}
+
 MOLTEN_PROP_BT_RE = re.compile(
-    r'((?:"aria-label")|ariaLabel|label|title|placeholder|tooltip|heading|header|subtitle|'
+    r'((?:"aria-label")|\b(?:ariaLabel|label|title|placeholder|tooltip|heading|header|subtitle|'
     r'emptyMessage|buttonLabel|primaryButtonLabel|secondaryButtonLabel|confirmLabel|'
-    r'cancelLabel|okLabel|description|children):`([^`\\$\n\r]{2,220})`'
+    r'cancelLabel|okLabel|message|detail|description|children)):`([^`\\$\n\r]{2,220})`'
+)
+
+BUNDLE_PROP_RE = re.compile(
+    r'((?:"aria-label")|\b(?:ariaLabel|label|title|placeholder|tooltip|heading|header|subtitle|'
+    r'emptyMessage|buttonLabel|primaryButtonLabel|secondaryButtonLabel|confirmLabel|'
+    r'cancelLabel|okLabel|message|detail|description|children)):(["\'])([^"\'\\$\n\r]{2,220})\2'
 )
 
 
+def _is_valid_en_tr_pair(k, v):
+    if not (isinstance(k, str) and isinstance(v, str) and k != v and len(k.strip()) >= 2):
+        return False
+    if _TR_CHAR_RE.search(k):
+        return False
+    ks = k.lstrip()
+    if not (ks[0].isupper() or ks.startswith("&&")):
+        return False
+    if any(c in k or c in v for c in ["`", "$", "\\", "\n", "\r", "{0}", "{1}"]):
+        return False
+    return True
+
+
 def _load_unified_en_tr_dict():
-    """Tum yama sozluklerindeki (cursor-ui-tm, nls-tm, patch_remaining_ui, patch_fixes vb.)
-    guvenli gorunur UI metinlerini Molten backtick prop'lari icin tek havuzda birlestirir."""
+    """Tum yama sozluklerindeki (cursor-ui-tm, nls-tm, tr2/*.json, patch_remaining_ui, patch_fixes vb.)
+    guvenli gorunur UI metinlerini tek havuzda birlestirir."""
     en_to_tr = {}
     for fn in ["cursor-ui-tm.json", "nls-tm.json"]:
         p = os.path.join(BASE_DIR, fn)
         if os.path.exists(p):
             try:
                 for k, v in json.load(io.open(p, encoding="utf-8")).items():
-                    if (isinstance(k, str) and isinstance(v, str) and k != v and len(k) >= 2
-                            and (k[0].isupper() or k.startswith("&&"))
-                            and not any(c in k or c in v for c in ["`", "$", "\\", "\n", "\r", "{0}", "{1}"])):
+                    if _is_valid_en_tr_pair(k, v):
                         en_to_tr[k] = v
             except Exception:
                 pass
     try:
         from patch_remaining_ui import MAP as REM_MAP
         for k, v in REM_MAP.items():
-            if (isinstance(k, str) and isinstance(v, str) and k != v and len(k) >= 2
-                    and (k[0].isupper() or k.startswith("&&"))
-                    and not any(c in k or c in v for c in ["`", "$", "\\", "\n", "\r", "{0}", "{1}"])):
+            if _is_valid_en_tr_pair(k, v):
                 en_to_tr[k] = v
     except Exception:
         pass
+    for f in sorted(glob.glob(os.path.join(BASE_DIR, "tr2", "*.json"))):
+        try:
+            for k, v in json.load(io.open(f, encoding="utf-8")).items():
+                if "\t" in k:
+                    _, en = k.split("\t", 1)
+                    if _is_valid_en_tr_pair(en, v):
+                        en_to_tr.setdefault(en, v)
+        except Exception:
+            pass
     for fn in ["patch_settings_gaps.py", "patch_menu_gaps.py", "patch_fixes.py", "patch_settings.py", "patch_extra.py", "patch_glass2.py"]:
         p = os.path.join(BASE_DIR, fn)
         if not os.path.exists(p):
             continue
         try:
             s = io.open(p, encoding="utf-8").read()
-            for m in re.finditer(r'\[\s*"([^"\\`\$\n\r]{2,200})"\s*,\s*"([^"\\`\$\n\r]{2,200})"\s*\]', s):
-                a, b = m.group(1), m.group(2)
-                if a != b and (a[0].isupper() or a.startswith("&&")) and "{0}" not in a:
-                    en_to_tr.setdefault(a, b)
-            for m in re.finditer(r'(?:label|title|placeholder|tooltip|description|heading|header|subtitle|children|"aria-label"|ariaLabel):"([^"\\`\$\n\r]{2,200})"\'\s*,\s*\'(?:label|title|placeholder|tooltip|description|heading|header|subtitle|children|"aria-label"|ariaLabel):"([^"\\`\$\n\r]{2,200})"', s):
-                a, b = m.group(1), m.group(2)
-                if a != b and (a[0].isupper() or a.startswith("&&")) and "{0}" not in a:
+            for m in re.finditer(r'\b(label|title|placeholder|tooltip|description|heading|header|subtitle|children|"aria-label"|ariaLabel):"([^"\\`\$\n\r]{2,200})"\'\s*,\s*\'\1:"([^"\\`\$\n\r]{2,200})"', s):
+                a, b = m.group(2), m.group(3)
+                if _is_valid_en_tr_pair(a, b):
                     en_to_tr.setdefault(a, b)
         except Exception:
             pass
     return en_to_tr
+
+
+def patch_bundle_unified_props(content, unified_dict=None):
+    """Bundle (workbench.glass.main.js / workbench.desktop.main.js) uzerinde
+    prop-bagimsiz birlesik sozluk eslesmesini uygular."""
+    if unified_dict is None:
+        unified_dict = _load_unified_en_tr_dict()
+    hits = [0]
+
+    def _repl(m):
+        prop, q, val = m.group(1), m.group(2), m.group(3)
+        if (prop, val) in PROTECTED_PROP_LOGIC_PAIRS:
+            return m.group(0)
+        tr = unified_dict.get(val)
+        if tr and tr != val:
+            hits[0] += 1
+            safe_tr = tr.replace(q, "\\" + q)
+            return f"{prop}:{q}{safe_tr}{q}"
+        return m.group(0)
+
+    return BUNDLE_PROP_RE.sub(_repl, content), hits[0]
 
 
 def _load_backtick_prop_maps():
@@ -558,6 +628,8 @@ def patch_molten_dir(molten_dir):
                 prop_hits = [0]
                 def _repl_prop(m):
                     prop, val = m.group(1), m.group(2)
+                    if (prop, val) in PROTECTED_PROP_LOGIC_PAIRS:
+                        return m.group(0)
                     tr = unified_dict.get(val)
                     if tr and tr != val:
                         prop_hits[0] += 1

@@ -90,14 +90,14 @@ PROPS = ['label', 'title', 'placeholder', 'tooltip', 'heading', 'header', 'subti
          'loading', 'completed', 'done', 'active', 'action', 'created', 'deleted',
          'edited', 'loadingAction', 'completedAction']
 PROP_RE = re.compile(
-    r'(?:(?:"aria-label")|' + '|'.join(PROPS) +
-    r'):(?:"((?:\\.|[^"\\]){2,180})"|\'((?:\\.|[^\'\\]){2,180})\')'
+    r'(?:(?:"aria-label")|\b(?:' + '|'.join(PROPS) +
+    r')):(["\'`])([^"\'`\\$\n\r]{2,180})\1'
 )
-COMP_PROP_RE = re.compile(r'\{\[[a-zA-Z0-9_$]+\]:"([^"\\]{2,180})"\}')
+COMP_PROP_RE = re.compile(r'\{\[[a-zA-Z0-9_$]+\]:(["\'`])([^"\'`\\$\n\r]{2,180})\1\}')
 RUNTIME_UI_RE = re.compile(r'\{id:"[a-z_]+",label:"([^"\\]{2,180})"\}')
 LOCALIZED_CALL_RE = re.compile(r'De\((\d+),("(?:\\.|[^"\\])*")')
 TR_CHARS = re.compile('[çğıöşüÇĞİÖŞÜ]')
-BAD = re.compile(r'[{}$<>=\\]|https?:|^[a-z0-9_.:/-]+$|^\d+$|^[A-Z0-9_]+$')
+BAD = re.compile(r'[{}$<>=\\]|https?:|^[a-z0-9_.:/@#-]+$|^\d+$|^[A-Z0-9_ /:-]+$')
 EN_WORD = re.compile(
     r'\b(?:[A-Za-z]+(?:ing|ed|tion|ment|ally|able|ness)|the|to|of|and|for|or|a|an|is|are|be|'
     r'will|can|not|no|yes|all|new|this|that|your|you|with|from|when|how|what|where|use|used|'
@@ -107,23 +107,55 @@ EN_WORD = re.compile(
     r'ready|active)\b', re.I)
 
 
+def _build_tr_filter_sets():
+    import patch_molten as _pm
+    import patch_tool_labels as _ptl
+    u = _pm._load_unified_en_tr_dict()
+    tr_vals = set(u.values()) | set(_ptl.STATE_ACTION_MAP.values()) | set(_ptl.COMPUTED_PROP_MAP.values())
+    tr_w = set()
+    en_w = set()
+    for k, v in u.items():
+        for w in re.findall(r'[A-Za-z]{2,}', k):
+            en_w.add(w.lower())
+        for w in re.findall(r'[A-Za-zÇĞİÖŞÜçğıöşü]{2,}', v):
+            tr_w.add(w.lower())
+    return tr_vals, (tr_w - en_w)
+
+
+_KNOWN_TR_VALS, _PURE_TR_WORDS = None, None
+
+
+def _is_untranslated_ui_candidate(v):
+    global _KNOWN_TR_VALS, _PURE_TR_WORDS
+    if _KNOWN_TR_VALS is None:
+        _KNOWN_TR_VALS, _PURE_TR_WORDS = _build_tr_filter_sets()
+    vc = v.replace('&&', '').strip()
+    if len(vc) < 2 or TR_CHARS.search(vc) or BAD.search(vc):
+        return False
+    if v in _KNOWN_TR_VALS or vc in _KNOWN_TR_VALS:
+        return False
+    if not vc[0].isupper() or not re.search(r'[a-z]{2}', vc):
+        return False
+    if ' ' not in vc and re.search(r'[a-z][A-Z]|[0-9_./-]', vc):
+        return False
+    words = [w.lower() for w in re.findall(r'[A-Za-zÇĞİÖŞÜçğıöşü]{2,}', vc)]
+    if any(w in _PURE_TR_WORDS for w in words):
+        return False
+    return True
+
+
 def extract_candidates(text):
-    """Bundle metninden İngilizce görünen (prop, deger) ve computed prop adaylarını çıkarır."""
+    """Bundle ve Molten metninden EN_WORD filtresine takilmadan tum Ingilizce gorunen
+    UI prop ve computed prop adaylarini cikarir."""
     out = set()
     for m in PROP_RE.finditer(text):
-        v = m.group(1) if m.group(1) is not None else m.group(2)
-        if TR_CHARS.search(v) or BAD.search(v):
-            continue
-        if not re.search('[A-Za-z]{2}', v) or not EN_WORD.search(v):
-            continue
-        out.add(v)
+        v = m.group(2)
+        if _is_untranslated_ui_candidate(v):
+            out.add(v)
     for m in COMP_PROP_RE.finditer(text):
-        v = m.group(1)
-        if TR_CHARS.search(v) or BAD.search(v):
-            continue
-        if not re.search('[A-Za-z]{2}', v) or not EN_WORD.search(v):
-            continue
-        out.add(v)
+        v = m.group(2)
+        if _is_untranslated_ui_candidate(v):
+            out.add(v)
     return out
 
 
@@ -280,7 +312,10 @@ if not CACHE_NLS_TARGET and not CACHE_NLS_ROOT_TARGET:
     log('UYARI: Etkin Cursor NLS onbellegi bulunamadi; Cursor bir kez acildiktan sonra yama tekrar calistirilmalidir.')
 log('Ozel NLS bellegi: %d metin uygulandi (bellek: %d girdi)' % (hit, len(tm)))
 
-# === 2) Bundle prop haritalari (tr2/m*.json) =================================
+# === 2) Bundle prop haritalari (tr2/m*.json) + Prop-Bagimsiz Ortak Sozluk =====
+import patch_molten as _pm_unified
+_unified_ui_dict = _pm_unified._load_unified_en_tr_dict()
+
 maps = {}
 for f in sorted(glob.glob('tr2/m*.json')):
     for k, v in json.load(io.open(f, encoding='utf-8')).items():
@@ -298,8 +333,9 @@ for fname in BUNDLE_FILES:
             n += c
         else:
             miss += 1
+    s, u_hits = _pm_unified.patch_bundle_unified_props(s, _unified_ui_dict)
     io.open(fname, 'w', encoding='utf-8', newline='').write(s)
-    log('%s: prop haritasindan %d degisim (%d kalip bu surumde bulunamadi)' % (fname, n, miss))
+    log('%s: prop haritasindan %d degisim + ortak sozlukten %d degisim (%d kalip bu surumde bulunamadi)' % (fname, n, u_hits, miss))
 
 # === 3) Baglamli ozel yamalar ==================================================
 for script in PATCH_SCRIPTS:
@@ -593,8 +629,18 @@ if ok:
     log('ceviri-son-hali/ guncellendi')
     try:
         import patch_molten
-        _m_files, _m_mods = patch_molten.patch_molten_dir(os.path.join(APP, "molten", "dist", "renderer", "assets"))
+        _molten_dir = os.path.join(APP, "molten", "dist", "renderer", "assets")
+        _m_files, _m_mods = patch_molten.patch_molten_dir(_molten_dir)
         log('Molten dagitim sonrasi yamalama: %d dosyada %d degisim uygulandi.' % (_m_files, _m_mods))
+        _molten_cands = set()
+        for _mp in glob.glob(os.path.join(_molten_dir, "*.js")):
+            _ms = io.open(_mp, encoding="utf-8", errors="ignore").read()
+            _molten_cands.update(extract_candidates(_ms) - known)
+        if _molten_cands:
+            with io.open('YENI-EKLENENLER.txt', 'a', encoding='utf-8') as _f_app:
+                _f_app.write('=== molten/*.js (%d) ===\n' % len(_molten_cands))
+                _f_app.write('\n'.join(sorted(_molten_cands)) + '\n\n')
+        log('Molten taramasi tamamlandi: kalan aday %d' % len(_molten_cands))
     except Exception as _em:
         log('Molten dagitim sonrasi yamalama uyarisi: %s' % _em)
     try:

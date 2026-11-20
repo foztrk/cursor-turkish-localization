@@ -140,6 +140,10 @@ def main():
         'completed:"Created"',
         '?`Marked ${',
         '?"Messages from ":"Message from "',
+        'children:"Copy Relative Path"',
+        'children:"Diff View"',
+        'children:"Line Numbers"',
+        'children:"Discard Changes"',
     ]
     for fb in forbidden_glass:
         if fb in glass:
@@ -160,6 +164,10 @@ def main():
         'completed:"Oluşturuldu"',
         '?`Durum değiştirildi: ',
         '?"Mesaj Gönderenler: ":"Mesaj Gönderen: "',
+        'children:"Göreli Yolu Kopyala"',
+        'children:"Fark Görünümü"',
+        'children:"Satır Numaraları"',
+        'children:"Değişiklikleri Geri Al"',
     ]
     for rq in required_glass:
         if rq not in glass:
@@ -191,6 +199,10 @@ def main():
         'done:`Mesaj Gönderen:`',
         'completed:`Oluşturuldu`',
         '?`Mesaj Gönderenler: `:`Mesaj Gönderen: `',
+        'children:`Göreli Yolu Kopyala`',
+        'children:`Fark Görünümü`',
+        'children:`Satır Numaraları`',
+        'children:`Değişiklikleri Geri Al`',
     ]:
         if rq not in molten_all:
             fail(errors, f"Canli Molten icinde beklenen Turkce kalip yok: {rq}")
