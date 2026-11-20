@@ -565,6 +565,12 @@ def patch_molten_dir(molten_dir):
                     return m.group(0)
                 content = MOLTEN_PROP_BT_RE.sub(_repl_prop, content)
                 mods += prop_hits[0]
+            try:
+                import patch_tool_labels
+                content, c_tl = patch_tool_labels.patch_text(content)
+                mods += c_tl
+            except Exception as e_tl:
+                print(f"[molten/{fname}] patch_tool_labels uyari: {e_tl}")
             if mods > 0:
                 with io.open(p, "w", encoding="utf-8", newline="") as f:
                     f.write(content)

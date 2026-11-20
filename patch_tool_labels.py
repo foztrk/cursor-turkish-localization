@@ -1,163 +1,519 @@
 # -*- coding: utf-8 -*-
-"""Modelin yazisma ve arac cagrilarindaki durum etiketlerini (tool-action-labels.js,
-ThinkingLine.js, step-group-display.js) guvenli ve Baslik Duzeni (Title Case)
-standardinda Turkcelestirir.
+"""
+Evrensel Ajan, Araç Çağrısı ve Sohbet Akışı (Transcript) Durum Etiketleri Yaması.
+Kırılgan dosya veya değişken adı ('tool-action-labels.js' vb.) aramak yerine doğrudan
+durum/eylem nesnesi anahtarlarını (loading, completed, done, error, active, action,
+created, deleted, edited, loadingAction, completedAction), computed prop'ları
+({[var]: "More Actions"}) ve görev durum geçişlerini ("Marked ${t.toStatus}")
+hem bundle (glass & desktop) hem Molten tarafından paylaşılacak tek sözlükle çevirir.
 """
 import io
+import os
 import re
 
-# tool-action-labels.js icindeki 76+ aracin Turkce karsiliklari
-TOOL_ACTIONS_TR = {
-    "shellToolCall": {"loading": "Çalıştırılıyor", "completed": "Çalıştırıldı", "error": "Çalıştır"},
-    "deleteToolCall": {"loading": "Siliniyor", "completed": "Silindi", "error": "Sil"},
-    "globToolCall": {"loading": "Dosyalar Aranıyor", "completed": "Dosyalar Arandı", "error": "Dosyaları Ara"},
-    "grepToolCall": {"loading": "Metin Aranıyor", "completed": "Metin Arandı", "error": "Metin Ara"},
-    "readToolCall": {"loading": "Okunuyor", "completed": "Okundu", "error": "Oku"},
-    "updateTodosToolCall": {"loading": "Görevler Güncelleniyor", "completed": "Görevler Güncellendi", "error": "Görevleri Güncelle"},
-    "readTodosToolCall": {"loading": "Görevler Okunuyor", "completed": "Görevler Okundu", "error": "Görevleri Oku"},
-    "editToolCall": {"loading": "Düzenleniyor", "completed": "Düzenlendi", "error": "Düzenle"},
-    "lsToolCall": {"loading": "Listeleniyor", "completed": "Listelendi", "error": "Listele"},
-    "readLintsToolCall": {"loading": "Sorunlar Okunuyor", "completed": "Sorunlar Okundu", "error": "Sorunları Oku"},
-    "mcpToolCall": {"loading": "Çalıştırılıyor", "completed": "Çalıştırıldı", "error": "Çalıştır"},
-    "getMcpToolsToolCall": {"loading": "Araçlar Keşfediliyor", "completed": "Araçlar Keşfedildi", "error": "Araçları Keşfet"},
-    "semSearchToolCall": {"loading": "Aranıyor", "completed": "Arandı", "error": "Ara"},
-    "createPlanToolCall": {"loading": "Plan Hazırlanıyor", "completed": "Plan Hazırlandı", "error": "Plan Hazırla"},
-    "webSearchToolCall": {"loading": "Web'de Aranıyor", "completed": "Web'de Arandı", "error": "Web'de Ara"},
-    "xSearchToolCall": {"loading": "X'te Aranıyor", "completed": "X'te Arandı", "error": "X'te Ara"},
-    "taskToolCall": {"loading": "Görev Yürütülüyor", "completed": "Görev Tamamlandı", "error": "Görevi Yürüt"},
-    "getAgentStatusToolCall": {"loading": "Ajanlar Kontrol Ediliyor", "completed": "Ajanlar Kontrol Edildi", "error": "Ajanları Kontrol Et"},
-    "sendToAgentToolCall": {"loading": "Ajana Mesaj Gönderiliyor", "completed": "Ajana Mesaj Gönderildi", "error": "Ajana Mesaj Gönder"},
-    "readAgentTranscriptToolCall": {"loading": "Döküm Okunuyor", "completed": "Döküm Okundu", "error": "Dökümü Oku"},
-    "createAgentToolCall": {"loading": "Ajan Oluşturuluyor", "completed": "Ajan Oluşturuldu", "error": "Ajan Oluştur"},
-    "createProjectToolCall": {"loading": "Proje Oluşturuluyor", "completed": "Proje Oluşturuldu", "error": "Proje Oluştur"},
-    "stopAgentToolCall": {"loading": "Ajan Durduruluyor", "completed": "Ajan Durduruldu", "error": "Ajanı Durdur"},
-    "listTrackedTasksToolCall": {"loading": "Görevler Listeleniyor", "completed": "Görevler Listelendi", "error": "Görevleri Listele"},
-    "createTrackedTasksToolCall": {"loading": "Görevler Oluşturuluyor", "completed": "Görevler Oluşturuldu", "error": "Görevleri Oluştur"},
-    "updateTrackedTasksToolCall": {"loading": "Görevler Güncelleniyor", "completed": "Görevler Güncellendi", "error": "Görevleri Güncelle"},
-    "deleteTrackedTasksToolCall": {"loading": "Görevler Siliniyor", "completed": "Görevler Silindi", "error": "Görevleri Sil"},
-    "updateTrackedTaskStatusesToolCall": {"loading": "Görev Durumları Güncelleniyor", "completed": "Görev Durumları Güncellendi", "error": "Görev Durumlarını Güncelle"},
-    "listMcpResourcesToolCall": {"loading": "Kaynaklar Listeleniyor", "completed": "Kaynaklar Listelendi", "error": "Kaynakları Listele"},
-    "readMcpResourceToolCall": {"loading": "Kaynak Okunuyor", "completed": "Kaynak Okundu", "error": "Kaynağı Oku"},
-    "applyAgentDiffToolCall": {"loading": "Fark Uygulanıyor", "completed": "Fark Uygulandı", "error": "Farkı Uygula"},
-    "askQuestionToolCall": {"loading": "Sorular Soruluyor", "completed": "Sorular Soruldu", "error": "Soru Sor"},
-    "blameByFilePathToolCall": {"loading": "Git Blame İnceleniyor", "completed": "Git Blame İncelendi", "error": "Git Blame İncele"},
-    "awaitToolCall": {"loading": "Bekleniyor", "completed": "Beklendi", "error": "Bekle"},
-    "fetchToolCall": {"loading": "Alınıyor", "completed": "Alındı", "error": "Al"},
-    "switchModeToolCall": {"loading": "Mod Değiştiriliyor", "completed": "Mod Değiştirildi", "error": "Modu Değiştir"},
-    "generateImageToolCall": {"loading": "Görsel Üretiliyor", "completed": "Görsel Üretildi", "error": "Görsel Üret"},
-    "generateVideoToolCall": {"loading": "Video Üretiliyor", "completed": "Video Üretildi", "error": "Video Üret"},
-    "recordScreenToolCall": {"loading": "Ekran Kaydediliyor", "completed": "Ekran Kaydedildi", "error": "Ekranı Kaydet"},
-    "computerUseToolCall": {"loading": "Bilgisayar Kullanılıyor", "completed": "Bilgisayar Kullanıldı", "error": "Bilgisayarı Kullan"},
-    "writeShellStdinToolCall": {"loading": "Kabuğa Yazılıyor", "completed": "Kabuğa Yazıldı", "error": "Kabuğa Yaz"},
-    "reflectToolCall": {"loading": "Değerlendiriliyor", "completed": "Değerlendirildi", "error": "Değerlendir"},
-    "setupVmEnvironmentToolCall": {"loading": "Sanal Makine Kuruluyor", "completed": "Sanal Makine Kuruldu", "error": "Sanal Makine Kur"},
-    "replaceEnvToolCall": {"loading": "Ortam Değiştiriliyor", "completed": "Ortam Değiştirildi", "error": "Ortamı Değiştir"},
-    "searchConversationsToolCall": {"loading": "Sohbetler Aranıyor", "completed": "Sohbetler Arandı", "error": "Sohbetlerde Ara"},
-    "createGoalToolCall": {"loading": "Hedef Oluşturuluyor", "completed": "Hedef Oluşturuldu", "error": "Hedef Oluştur"},
-    "updateGoalToolCall": {"loading": "Hedef Güncelleniyor", "completed": "Hedef Güncellendi", "error": "Hedef Güncelle"},
-    "truncatedToolCall": {"loading": "İşleniyor", "completed": "İşlendi", "error": "İşle"},
-    "startGrindExecutionToolCall": {"loading": "Yürütülüyor", "completed": "Yürütüldü", "error": "Yürüt"},
-    "startGrindPlanningToolCall": {"loading": "Planlanıyor", "completed": "Planlandı", "error": "Planla"},
-    "webFetchToolCall": {"loading": "Sayfa Alınıyor", "completed": "Sayfa Alındı", "error": "Sayfayı Al"},
-    "reportBugfixResultsToolCall": {"loading": "Sonuçlar Bildiriliyor", "completed": "Sonuçlar Bildirildi", "error": "Sonuçları Bildir"},
-    "aiAttributionToolCall": {"loading": "Cursor Blame'den Öğreniliyor", "completed": "Cursor Blame'den Öğrenildi", "error": "Cursor Blame'den Öğren"},
-    "communicateUpdateToolCall": {"loading": "İlerleme Güncelleniyor", "completed": "İlerleme Güncellendi", "error": "İlerlemeyi Güncelle"},
-    "prManagementToolCall": {"loading": "PR Yönetiliyor", "completed": "PR Yönetildi", "error": "PR Yönet"},
-    "editPrLabelsToolCall": {"loading": "PR Etiketleri Düzenleniyor", "completed": "PR Etiketleri Düzenlendi", "error": "PR Etiketlerini Düzenle"},
-    "fetchCloudAgentDataToolCall": {"loading": "Bulut Ajanı Verisi Alınıyor", "completed": "Bulut Ajanı Verisi Alındı", "error": "Bulut Ajanı Verisini Al"},
-    "mcpAuthToolCall": {"loading": "MCP Sunucusu Doğrulanıyor", "completed": "MCP Sunucusu Doğrulandı", "error": "MCP Kimlik Doğrulaması"},
-    "connectScmToolCall": {"loading": "GitHub'a Bağlanılıyor", "completed": "GitHub'a Bağlandı", "error": "GitHub'a Bağlan"},
-    "reportBugToolCall": {"loading": "Hata Bildiriliyor", "completed": "Hata Bildirildi", "error": "Hata Bildir"},
-    "sendFinalSummaryToolCall": {"loading": "Son Özet Kaydediliyor", "completed": "Son Özet Kaydedildi", "error": "Son Özeti Kaydet"},
-    "sendMessageToolCall": {"loading": "Mesaj Gönderiliyor", "completed": "Mesaj Gönderildi", "error": "Mesaj Gönder"},
-    "sendToUserToolCall": {"loading": "Mesaj Gönderiliyor", "completed": "Mesaj Gönderildi", "error": "Mesaj Gönder"},
-    "setActiveBranchToolCall": {"loading": "Üstveri Güncelleniyor", "completed": "Üstveri Güncellendi", "error": "Üstveriyi Güncelle"},
-    "updateOriginPrCodeTourToolCall": {"loading": "Kod Turu Güncelleniyor", "completed": "Kod Turu Güncellendi", "error": "Kod Turunu Güncelle"},
-    "getOriginPrCodeTourToolCall": {"loading": "Kod Turu Okunuyor", "completed": "Kod Turu Okundu", "error": "Kod Turunu Oku"},
-    "writeCanvasToolCall": {"loading": "Canvas'a Yazılıyor", "completed": "Canvas'a Yazıldı", "error": "Canvas'a Yaz"},
-    "readCanvasToolCall": {"loading": "Canvas Okunuyor", "completed": "Canvas Okundu", "error": "Canvas'ı Oku"},
-    "recordCiInvestigationFindingsToolCall": {"loading": "CI Bulguları Kaydediliyor", "completed": "CI Bulguları Kaydedildi", "error": "CI Bulgularını Kaydet"},
-    "piReadToolCall": {"loading": "Okunuyor", "completed": "Okundu", "error": "Oku"},
-    "piBashToolCall": {"loading": "Çalıştırılıyor", "completed": "Çalıştırıldı", "error": "Çalıştır"},
-    "piEditToolCall": {"loading": "Düzenleniyor", "completed": "Düzenlendi", "error": "Düzenle"},
-    "piWriteToolCall": {"loading": "Yazılıyor", "completed": "Yazıldı", "error": "Yaz"},
-    "piGrepToolCall": {"loading": "Metin Aranıyor", "completed": "Metin Arandı", "error": "Metin Ara"},
-    "piFindToolCall": {"loading": "Dosyalar Aranıyor", "completed": "Dosyalar Arandı", "error": "Dosyaları Ara"},
-    "piLsToolCall": {"loading": "Listeleniyor", "completed": "Listelendi", "error": "Listele"},
+# 360+ Ajan, Araç, Tarayıcı, Ortam Kurulumu ve Bildirim Durum/Eylem Sözlüğü
+STATE_ACTION_MAP = {
+    # Araç Çağrıları (tool-action-labels.ts & use-await-countdown-now)
+    "Running": "Çalıştırılıyor",
+    "Ran": "Çalıştırıldı",
+    "Run": "Çalıştır",
+    "Deleting": "Siliniyor",
+    "Deleted": "Silindi",
+    "Delete": "Sil",
+    "Searching files": "Dosyalar Aranıyor",
+    "Searched files": "Dosyalar Arandı",
+    "Search files": "Dosyalarda Ara",
+    "Grepping": "Metin Aranıyor",
+    "Grepped": "Metin Arandı",
+    "Grep": "Metin Ara",
+    "Reading": "Okunuyor",
+    "Read": "Okundu",
+    "Updating todos": "Görevler Güncelleniyor",
+    "Updated todos": "Görevler Güncellendi",
+    "Update todos": "Görevleri Güncelle",
+    "Reading todos": "Görevler Okunuyor",
+    "Read todos": "Görevler Okundu",
+    "Editing": "Düzenleniyor",
+    "Edited": "Düzenlendi",
+    "Edit": "Düzenle",
+    "Listing": "Listeleniyor",
+    "Listed": "Listelendi",
+    "List": "Listele",
+    "Reading lints": "Sorunlar Okunuyor",
+    "Read lints": "Sorunlar Okundu",
+    "ReadLints": "Sorunlar Okundu",
+    "Exploring tools": "Araçlar Keşfediliyor",
+    "Explored tools": "Araçlar Keşfedildi",
+    "Explore tools": "Araçları Keşfet",
+    "Exploring": "Keşfediliyor",
+    "Explored": "Keşfedildi",
+    "Searching": "Aranıyor",
+    "Searched": "Arandı",
+    "Search": "Ara",
+    "Writing plan": "Plan Hazırlanıyor",
+    "Wrote plan": "Plan Hazırlandı",
+    "Write plan": "Plan Hazırla",
+    "Searching web": "Web'de Aranıyor",
+    "Searched web": "Web'de Arandı",
+    "Search web": "Web'de Ara",
+    "Web Search": "Web Araması",
+    "Searching X": "X'te Aranıyor",
+    "Searched X": "X'te Arandı",
+    "Search X": "X'te Ara",
+    "Running script": "Betik Çalıştırılıyor",
+    "Ran script": "Betik Çalıştırıldı",
+    "Run script": "Betik Çalıştır",
+    "Working on task": "Görev Yürütülüyor",
+    "Completed task": "Görev Tamamlandı",
+    "Work on task": "Görevi Yürüt",
+    "Working": "Çalışıyor",
+    "Task": "Görev",
+    "Checking agents": "Ajanlar Kontrol Ediliyor",
+    "Checked agents": "Ajanlar Kontrol Edildi",
+    "Check agents": "Ajanları Kontrol Et",
+    "Messaging agent": "Ajana Mesaj Gönderiliyor",
+    "Messaged agent": "Ajana Mesaj Gönderildi",
+    "Message agent": "Ajana Mesaj Gönder",
+    "Messaging": "Mesaj Gönderiliyor",
+    "Messaged": "Mesaj Gönderildi",
+    "Message from": "Mesaj Gönderen:",
+    "Reading transcript": "Döküm Okunuyor",
+    "Read transcript": "Döküm Okundu",
+    "Creating agent": "Ajan Oluşturuluyor",
+    "Created agent": "Ajan Oluşturuldu",
+    "Create agent": "Ajan Oluştur",
+    "Creating Project": "Proje Oluşturuluyor",
+    "Created Project": "Proje Oluşturuldu",
+    "Create Project": "Proje Oluştur",
+    "Creating": "Oluşturuluyor",
+    "Created": "Oluşturuldu",
+    "Create": "Oluştur",
+    "Stopping agent": "Ajan Durduruluyor",
+    "Stopped agent": "Ajan Durduruldu",
+    "Stop agent": "Ajanı Durdur",
+    "Stopping": "Durduruluyor",
+    "Stopped": "Durduruldu",
+    "Failed to create": "Oluşturulamadı",
+    "Failed to message": "Mesaj Gönderilemedi",
+    "Failed to stop": "Durdurulamadı",
+    "Finished": "Tamamlandı",
+    "Starting Project updates": "Proje Güncellemeleri Başlatılıyor",
+    "Started Project updates": "Proje Güncellemeleri Başlatıldı",
+    "Start Project updates": "Proje Güncellemelerini Başlat",
+    "Stopping Project updates": "Proje Güncellemeleri Durduruluyor",
+    "Stopped Project updates": "Proje Güncellemeleri Durduruldu",
+    "Stop Project updates": "Proje Güncellemelerini Durdur",
+    "Managing access": "Erişim Yönetiliyor",
+    "Managed access": "Erişim Yönetildi",
+    "Manage access": "Erişimi Yönet",
+    "Listing tasks": "Görevler Listeleniyor",
+    "Listed tasks": "Görevler Listelendi",
+    "List tasks": "Görevleri Listele",
+    "Creating tasks": "Görevler Oluşturuluyor",
+    "Created tasks": "Görevler Oluşturuldu",
+    "Create tasks": "Görevleri Oluştur",
+    "Updating tasks": "Görevler Güncelleniyor",
+    "Updated tasks": "Görevler Güncellendi",
+    "Update tasks": "Görevleri Güncelle",
+    "Deleting tasks": "Görevler Siliniyor",
+    "Deleted tasks": "Görevler Silindi",
+    "Delete tasks": "Görevleri Sil",
+    "Updating task statuses": "Görev Durumları Güncelleniyor",
+    "Updated task statuses": "Görev Durumları Güncellendi",
+    "Update task statuses": "Görev Durumlarını Güncelle",
+    "Updating tags": "Etiketler Güncelleniyor",
+    "Updated tags": "Etiketler Güncellendi",
+    "Update tags": "Etiketleri Güncelle",
+    "Listing resources": "Kaynaklar Listeleniyor",
+    "Listed resources": "Kaynaklar Listelendi",
+    "List resources": "Kaynakları Listele",
+    "Reading resource": "Kaynak Okunuyor",
+    "Read resource": "Kaynak Okundu",
+    "Applying diff": "Fark Uygulanıyor",
+    "Applied diff": "Fark Uygulandı",
+    "Apply diff": "Farkı Uygula",
+    "Asking questions": "Sorular Soruluyor",
+    "Asked questions": "Sorular Soruldu",
+    "Ask question": "Soru Sor",
+    "Asking": "Soruluyor",
+    "Asked": "Soruldu",
+    "Looking up blame": "Git Blame İnceleniyor",
+    "Looked up blame": "Git Blame İncelendi",
+    "Look up blame": "Git Blame İncele",
+    "Waiting": "Bekleniyor",
+    "Waited": "Beklendi",
+    "Waited for": "Beklendi:",
+    "Wait": "Bekle",
+    "Wait skipped": "Bekleme Atlandı",
+    "Await": "Bekle",
+    "Fetching": "Alınıyor",
+    "Fetched": "Alındı",
+    "Fetch": "Al",
+    "Switching mode": "Mod Değiştiriliyor",
+    "Switched mode": "Mod Değiştirildi",
+    "Switch mode": "Modu Değiştir",
+    "Generating image": "Görsel Üretiliyor",
+    "Generated image": "Görsel Üretildi",
+    "Generate image": "Görsel Üret",
+    "Generating video": "Video Üretiliyor",
+    "Generated video": "Video Üretildi",
+    "Generate video": "Video Üret",
+    "Generating": "Üretiliyor",
+    "Generated": "Üretildi",
+    "Generating command": "Komut Üretiliyor",
+    "Recording screen": "Ekran Kaydediliyor",
+    "Recorded screen": "Ekran Kaydedildi",
+    "Record screen": "Ekranı Kaydet",
+    "Recording": "Kaydediliyor",
+    "Using computer": "Bilgisayar Kullanılıyor",
+    "Used computer": "Bilgisayar Kullanıldı",
+    "Use computer": "Bilgisayarı Kullan",
+    "Using": "Kullanılıyor",
+    "Used": "Kullanıldı",
+    "Writing to shell": "Kabuğa Yazılıyor",
+    "Wrote to shell": "Kabuğa Yazıldı",
+    "Write to shell": "Kabuğa Yaz",
+    "Reflecting": "Değerlendiriliyor",
+    "Reflected": "Değerlendirildi",
+    "Reflect": "Değerlendir",
+    "Setting up VM": "Sanal Makine Kuruluyor",
+    "Set up VM": "Sanal Makine Kuruldu",
+    "Replacing environment": "Ortam Değiştiriliyor",
+    "Replaced environment": "Ortam Değiştirildi",
+    "Replace environment": "Ortamı Değiştir",
+    "Searching conversations": "Sohbetler Aranıyor",
+    "Searched conversations": "Sohbetler Arandı",
+    "Search conversations": "Sohbetlerde Ara",
+    "Creating goal": "Hedef Oluşturuluyor",
+    "Created goal": "Hedef Oluşturuldu",
+    "Create goal": "Hedef Oluştur",
+    "Updating goal": "Hedef Güncelleniyor",
+    "Updated goal": "Hedef Güncellendi",
+    "Update goal": "Hedefi Güncelle",
+    "Processing": "İşleniyor",
+    "Processed": "İşlendi",
+    "Process": "İşle",
+    "Executing": "Yürütülüyor",
+    "Executed": "Yürütüldü",
+    "Execute": "Yürüt",
+    "Planning": "Planlanıyor",
+    "Planned": "Planlandı",
+    "Plan": "Planla",
+    "Fetching page": "Sayfa Alınıyor",
+    "Fetched page": "Sayfa Alındı",
+    "Fetch page": "Sayfayı Al",
+    "Web Fetch": "Sayfa Alma",
+    "Reporting results": "Sonuçlar Bildiriliyor",
+    "Reported results": "Sonuçlar Bildirildi",
+    "Report results": "Sonuçları Bildir",
+    "Learning from Cursor Blame": "Cursor Blame'den Öğreniliyor",
+    "Learned from Cursor Blame": "Cursor Blame'den Öğrenildi",
+    "Learn from Cursor Blame": "Cursor Blame'den Öğren",
+    "Updating progress": "İlerleme Güncelleniyor",
+    "Updated progress": "İlerleme Güncellendi",
+    "Update progress": "İlerlemeyi Güncelle",
+    "Managing PR": "PR Yönetiliyor",
+    "Managed PR": "PR Yönetildi",
+    "Manage PR": "PR Yönet",
+    "Editing PR labels": "PR Etiketleri Düzenleniyor",
+    "Edited PR labels": "PR Etiketleri Düzenlendi",
+    "Edit PR labels": "PR Etiketlerini Düzenle",
+    "Fetching cloud agent data": "Bulut Ajanı Verisi Alınıyor",
+    "Fetched cloud agent data": "Bulut Ajanı Verisi Alındı",
+    "Fetch cloud agent data": "Bulut Ajanı Verisini Al",
+    "Authenticating MCP server": "MCP Sunucusu Doğrulanıyor",
+    "Authenticated MCP server": "MCP Sunucusu Doğrulandı",
+    "MCP authentication": "MCP Kimlik Doğrulaması",
+    "Connecting GitHub": "GitHub'a Bağlanılıyor",
+    "Connected GitHub": "GitHub'a Bağlandı",
+    "Connect GitHub": "GitHub'a Bağlan",
+    "Reporting bug": "Hata Bildiriliyor",
+    "Reported bug": "Hata Bildirildi",
+    "Report bug": "Hata Bildir",
+    "Recording final summary": "Son Özet Kaydediliyor",
+    "Recorded final summary": "Son Özet Kaydedildi",
+    "Record final summary": "Son Özeti Kaydet",
+    "Sending message": "Mesaj Gönderiliyor",
+    "Sent message": "Mesaj Gönderildi",
+    "Send message": "Mesaj Gönder",
+    "Updating metadata": "Üstveri Güncelleniyor",
+    "Updated metadata": "Üstveri Güncellendi",
+    "Update metadata": "Üstveriyi Güncelle",
+    "Updating code tour": "Kod Turu Güncelleniyor",
+    "Updated code tour": "Kod Turu Güncellendi",
+    "Update code tour": "Kod Turunu Güncelle",
+    "Reading code tour": "Kod Turu Okunuyor",
+    "Read code tour": "Kod Turu Okundu",
+    "Writing canvas": "Tuvale Yazılıyor",
+    "Wrote canvas": "Tuvale Yazıldı",
+    "Write canvas": "Tuvale Yaz",
+    "Reading canvas": "Tuval Okunuyor",
+    "Read canvas": "Tuval Okundu",
+    "Recording CI findings": "CI Bulguları Kaydediliyor",
+    "Recorded CI findings": "CI Bulguları Kaydedildi",
+    "Record CI findings": "CI Bulgularını Kaydet",
+    "Thinking": "Düşünülüyor",
+    "Thought": "Düşündü",
+    "Monitored": "İzlendi",
+    "Updating": "Güncelleniyor",
+    "Updated": "Güncellendi",
+    "Cleared": "Temizlendi",
+    "Checked": "Kontrol Edildi",
+    "Skipped": "Atlandı",
+    "Aborted": "İptal Edildi",
+    "Tool": "Araç",
+    "Tool call": "Araç Çağrısı",
+    "Shell": "Kabuk",
+    "Glob": "Dosya Arama",
+
+    # Tarayıcı (Browser MCP) ve Ortam / Kurulum Ajan Eylemleri
+    "Clicked": "Tıklandı",
+    "Clicked on page": "Sayfaya Tıklandı",
+    "Navigated to": "Şuraya Gidildi:",
+    "Navigated back": "Geri Gidildi",
+    "Navigated forward": "İleri Gidildi",
+    "Reloaded page": "Sayfa Yenilendi",
+    "Took snapshot": "Anlık Görüntü Alındı",
+    "Took screenshot": "Ekran Görüntüsü Alındı",
+    "Typed": "Yazıldı",
+    "Filled": "Dolduruldu",
+    "Filled form": "Form Dolduruldu",
+    "Scrolled": "Kaydırıldı",
+    "Browser tabs": "Tarayıcı Sekmeleri",
+    "Hovered": "Üzerine Gelindi",
+    "Hovered over": "Üzerine Gelindi:",
+    "Dragged": "Sürüklenip Bırakıldı",
+    "Got bounding box": "Sınır Kutusu Alındı",
+    "Highlighted": "Vurgulandı",
+    "Selected": "Seçildi",
+    "Selected option": "Seçenek Seçildi",
+    "Pressed": "Tuşa Basıldı",
+    "Executed JS": "JS Çalıştırıldı",
+    "Executed JS on": "Şurada JS Çalıştırıldı:",
+    "Closed tab": "Sekme Kapatıldı",
+    "Opened new tab": "Yeni Sekme Açıldı",
+    "Switched tab": "Sekme Değiştirildi",
+    "Accepted dialog": "İletişim Kutusu Onaylandı",
+    "Dismissed dialog": "İletişim Kutusu Kapatıldı",
+    "Unlocked browser": "Tarayıcı Kilidi Açıldı",
+    "Locked browser": "Tarayıcı Kilitlendi",
+    "Installed browser": "Tarayıcı Yüklendi",
+    "Closed browser": "Tarayıcı Kapatıldı",
+    "Started CPU profiling": "CPU Profilleme Başlatıldı",
+    "Stopped CPU profiling": "CPU Profilleme Durduruldu",
+    "Started tracing": "İzleme Başlatıldı",
+    "Stopped tracing": "İzleme Durduruldu",
+    "Resized to": "Yeniden Boyutlandırıldı:",
+    "Resized window": "Pencere Boyutlandırıldı",
+    "Checked console logs": "Konsol Kayıtları Kontrol Edildi",
+    "Checked network": "Ağ İstekleri Kontrol Edildi",
+    "Uploaded file": "Dosya Yüklendi",
+    "Added to-do": "Görev Eklendi",
+    "Started to-do": "Göreve Başlandı",
+    "Cancelled to-do": "Görev İptal Edildi",
+    "Redo checkpoint": "Kontrol Noktasını Yinele",
+    "Edited in this note": "Bu notta düzenlendi",
+    "Building Docker image": "Docker İmajı Derleniyor",
+    "Built Docker image": "Docker İmajı Derlendi",
+    "Checking out branch": "Dala Geçiliyor",
+    "Checked out branch": "Dala Geçildi",
+    "Cloning repository": "Depo Klonlanıyor",
+    "Cloned repository": "Depo Klonlandı",
+    "Completing setup": "Kurulum Tamamlanıyor",
+    "Completed setup": "Kurulum Tamamlandı",
+    "Completing startup": "Başlangıç Tamamlanıyor",
+    "Completed startup": "Başlangıç Tamamlandı",
+    "Creating snapshot": "Anlık Görüntü Oluşturuluyor",
+    "Created snapshot": "Anlık Görüntü Oluşturuldu",
+    "Hydrating environment": "Ortam Hazırlanıyor",
+    "Hydrated environment": "Ortam Hazırlandı",
+    "Installing extensions": "Eklentiler Yükleniyor",
+    "Installed extensions": "Eklentiler Yüklendi",
+    "Installed": "Yüklendi",
+    "Preparing repository": "Depo Hazırlanıyor",
+    "Prepared repository": "Depo Hazırlandı",
+    "Pulling Docker images": "Docker İmajları Çekiliyor",
+    "Pulled Docker images": "Docker İmajları Çekildi",
+    "Running prepare script": "Hazırlık Betiği Çalıştırılıyor",
+    "Ran prepare script": "Hazırlık Betiği Çalıştırıldı",
+    "Running start script": "Başlangıç Betiği Çalıştırılıyor",
+    "Ran start script": "Başlangıç Betiği Çalıştırıldı",
+    "Running verify script": "Doğrulama Betiği Çalıştırılıyor",
+    "Ran verify script": "Doğrulama Betiği Çalıştırıldı",
+    "Starting extensions": "Eklentiler Başlatılıyor",
+    "Started extensions": "Eklentiler Başlatıldı",
+    "Started from previous snapshot": "Önceki Anlık Görüntüden Başlatıldı",
+    "Private worker ready": "Özel Çalıştırıcı Hazır",
+    "Waiting for private worker": "Özel Çalıştırıcı Bekleniyor",
+    "Waiting for snapshot from another agent building this environment": "Bu ortamı derleyen başka bir ajandan anlık görüntü bekleniyor",
+    "Waiting for sign-in": "Oturum Açılması Bekleniyor",
+    "Assigned URL": "URL Atandı",
+    "Built app": "Uygulama Derlendi",
+    "No agent working": "Çalışan ajan yok",
+    "Packed project": "Proje Paketlendi",
+    "Provisioned hosting": "Barındırma Hazırlandı",
+    "Ran security review": "Güvenlik İncelemesi Yapıldı",
+    "Saved Environment": "Ortam Kaydedildi",
+    "Updated Environment": "Ortam Güncellendi",
+    "Started deployment": "Dağıtım Başlatıldı",
+    "Verified changes": "Değişiklikler Doğrulandı",
+    "Add app secrets": "Uygulama Gizli Bilgilerini Ekle",
+    "Review app secrets": "Uygulama Gizli Bilgilerini İncele",
+    "Review settings": "Ayarları İncele",
+    "Update privacy settings": "Gizlilik Ayarlarını Güncelle",
+    "Cloud Agent Settings": "Bulut Ajanı Ayarları",
+    "Couldn't publish app": "Uygulama yayımlanamadı",
+    "Unable to load this message": "Bu mesaj yüklenemedi",
+    "Open Browser": "Tarayıcıyı Aç",
+    "Open Canvas": "Tuvali Aç",
+    "Read PRs": "PR'lar Okundu",
+    "Received": "Alındı",
+    "Adding repo to workspace": "Çalışma Alanına Depo Ekleniyor",
+    "Adding viewer identity to app": "Uygulamaya Görüntüleyici Kimliği Ekleniyor",
+    "Binding app secrets": "Uygulama Gizli Bilgileri Bağlanıyor",
+    "Building automation prefill URL": "Otomasyon Ön Doldurma URL'si Oluşturuluyor",
+    "Cancelling environment build": "Ortam Derlemesi İptal Ediliyor",
+    "Checking environment snapshot": "Ortam Anlık Görüntüsü Kontrol Ediliyor",
+    "Checking network access": "Ağ Erişimi Kontrol Ediliyor",
+    "Checking queued messages": "Kuyruktaki Mesajlar Kontrol Ediliyor",
+    "Creating automation": "Otomasyon Oluşturuluyor",
+    "Creating repository": "Depo Oluşturuluyor",
+    "Fetching agent details": "Ajan Ayrıntıları Alınıyor",
+    "Fetching agent transcript": "Ajan Dökümü Alınıyor",
+    "Fetching automation": "Otomasyon Alınıyor",
+    "Installing plugin": "Eklenti Yükleniyor",
+    "Listing Project tasks": "Proje Görevleri Listeleniyor",
+    "Listing automations": "Otomasyonlar Listeleniyor",
+    "Listing available secrets": "Kullanılabilir Gizli Bilgiler Listeleniyor",
+    "Listing cloud agents": "Bulut Ajanları Listeleniyor",
+    "Listing environment builds": "Ortam Derlemeleri Listeleniyor",
+    "Listing environments": "Ortamlar Listeleniyor",
+    "Listing self-hosted workers": "Yerel Çalıştırıcılar Listeleniyor",
+    "Listing subscriptions": "Abonelikler Listeleniyor",
+    "Listing triggers": "Tetikleyiciler Listeleniyor",
+    "Looking up automation": "Otomasyon Aranıyor",
+    "Opening automation": "Otomasyon Açılıyor",
+    "Opening resource": "Kaynak Açılıyor",
+    "Proposing environment config": "Ortam Yapılandırması Öneriliyor",
+    "Reading Cursor state": "Cursor Durumu Okunuyor",
+    "Reading build logs": "Derleme Kayıtları Okunuyor",
+    "Reading environment info": "Ortam Bilgisi Okunuyor",
+    "Reading run events": "Çalıştırma Olayları Okunuyor",
+    "Reading run info": "Çalıştırma Bilgisi Okunuyor",
+    "Renaming chat": "Sohbet Yeniden Adlandırılıyor",
+    "Requesting app publish": "Uygulama Yayımlama İsteniyor",
+    "Requesting setup actions": "Kurulum Eylemleri İsteniyor",
+    "Scheduling reminder": "Hatırlatıcı Zamanlanıyor",
+    "Sending follow-up to agent": "Ajana Takip Mesajı Gönderiliyor",
+    "Starting environment build": "Ortam Derlemesi Başlatılıyor",
+    "Subscribing to CI updates": "CI Güncellemelerine Abone Olunuyor",
+    "Subscribing to Factory issue": "Factory Sorununa Abone Olunuyor",
+    "Subscribing to Factory rollout": "Factory Dağıtımına Abone Olunuyor",
+    "Subscribing to PR updates": "PR Güncellemelerine Abone Olunuyor",
+    "Subscribing to Slack channel": "Slack Kanalına Abone Olunuyor",
+    "Subscribing to Slack thread": "Slack Konusuna Abone Olunuyor",
+    "Subscribing to new Slack channels": "Yeni Slack Kanallarına Abone Olunuyor",
+    "Switching to cloned workspace": "Klonlanmış Çalışma Alanına Geçiliyor",
+    "Switching workspace root": "Çalışma Alanı Kökü Değiştiriliyor",
+    "Taking environment snapshot": "Ortam Anlık Görüntüsü Alınıyor",
+    "Unsubscribing": "Abonelikten Çıkılıyor",
+    "Updating Cursor preferences": "Cursor Tercihleri Güncelleniyor",
+    "Updating Publish button": "Yayımla Düğmesi Güncelleniyor",
+    "Updating automation": "Otomasyon Güncelleniyor",
 }
 
-CREATE_FILE_TR = {"loading": "Oluşturuluyor", "completed": "Oluşturuldu", "error": "Oluştur"}
+COMPUTED_PROP_MAP = {
+    "More Actions": "Diğer Eylemler",
+    "Copy Message": "Mesajı Kopyala",
+    "Fork Chat": "Sohbeti Dallandır",
+}
 
 EXTRA_REPS = [
-    # Dusunme ve simule dusunme etiketleri
+    # Dusunme ve simule dusunme etiketleri (cift tirnak + backtick)
     ('loadingAction:"Thinking",completedAction:u', 'loadingAction:"Düşünülüyor",completedAction:u'),
     ('action:"Thinking",expandable:', 'action:"Düşünülüyor",expandable:'),
     ('r=n??"Planning next moves"', 'r=n??"Sonraki Adımlar Planlanıyor"'),
     ('="Planning next moves",', '="Sonraki Adımlar Planlanıyor",'),
+    ('=`Planning next moves`,', '=`Sonraki Adımlar Planlanıyor`,'),
     ('="Wrapping up"', '="Toparlanıyor"'),
+    ('=`Wrapping up`', '=`Toparlanıyor`'),
     ('h=v?Z:"Thought"', 'h=v?Z:"Düşündü"'),
     ('d=f?K:"Thought"', 'd=f?K:"Düşündü"'),
     ('u=l?o:"Thought"', 'u=l?o:"Düşündü"'),
     ('u=c?o:"Thought"', 'u=c?o:"Düşündü"'),
-    # Diger durum etiketleri
-    ('loadingAction:"Generating",completedAction:"Generated"', 'loadingAction:"Üretiliyor",completedAction:"Üretildi"'),
-    ('loadingAction:"Deleting",completedAction:"Delete"', 'loadingAction:"Siliniyor",completedAction:"Sil"'),
-    ('{action:"Wait skipped",details:""}', '{action:"Bekleme Atlandı",details:""}'),
-    ('{action:"Asking questions",details:"",loading:!0}', '{action:"Sorular Soruluyor",details:"",loading:!0}'),
+    ('?"Messages from ":"Message from "', '?"Mesaj Gönderenler: ":"Mesaj Gönderen: "'),
+    ('?`Messages from `:`Message from `', '?`Mesaj Gönderenler: `:`Mesaj Gönderen: `'),
+    ('="Update from",', '="Güncelleme Gönderen:",'),
+    ('=`Update from`,', '=`Güncelleme Gönderen:`,'),
+    ('="Message from"', '="Mesaj Gönderen:"'),
+    ('=`Message from`', '=`Mesaj Gönderen:`'),
+    ('="A teammate"', '="Bir ekip arkadaşı"'),
+    ('=`A teammate`', '=`Bir ekip arkadaşı`'),
     ('{action:"Updating",details:"to-do list"}', '{action:"Güncelleniyor",details:"görev listesi"}'),
     ('{action:"Cleared",details:"to-do list"}', '{action:"Temizlendi",details:"görev listesi"}'),
     ('{action:"Checked",details:"to-do list"}', '{action:"Kontrol Edildi",details:"görev listesi"}'),
-    ('completedAction:"Monitored",completedDetails:', 'completedAction:"İzlendi",completedDetails:'),
+    ('{action:`Updating`,details:`to-do list`}', '{action:`Güncelleniyor`,details:`görev listesi`}'),
+    ('{action:`Cleared`,details:`to-do list`}', '{action:`Temizlendi`,details:`görev listesi`}'),
+    ('{action:`Checked`,details:`to-do list`}', '{action:`Kontrol Edildi`,details:`görev listesi`}'),
 ]
 
+STATE_PROP_RE = re.compile(
+    r'\b(loading|completed|done|error|active|action|created|deleted|edited|loadingAction|completedAction):(["\'`])([^"\'`\\$\n\r]{2,120})\2'
+)
+COMP_PROP_RE = re.compile(
+    r'(\{\[[a-zA-Z0-9_$]+\]:)(["\'`])(More Actions|Copy Message|Fork Chat)\2(\})'
+)
+MARKED_STATUS_RE = re.compile(
+    r'([a-zA-Z0-9_$]+)\.kind===(["\'`])moved\2\?`Marked \$\{\1\.toStatus\}`:'
+)
+MARKED_STATUS_REPL = (
+    r'\1.kind===\2moved\2?`Durum değiştirildi: ${({"For Review":"İncelenecek","In Progress":"Devam Ediyor","Queued":"Kuyrukta","Done":"Tamamlandı","Canceled":"İptal Edildi"})[\1.toStatus]??\1.toStatus}`:'
+)
 
-def build_tool_dict_str(var_name):
-    items = []
-    for k, v in TOOL_ACTIONS_TR.items():
-        items.append(f'{k}:{{loading:"{v["loading"]}",completed:"{v["completed"]}",error:"{v["error"]}"}}')
-    return f'{var_name}={{{",".join(items)}}}'
 
+def patch_text(content):
+    total_reps = [0]
 
-def build_create_dict_str(var_name):
-    return f'{var_name}={{loading:"{CREATE_FILE_TR["loading"]}",completed:"{CREATE_FILE_TR["completed"]}",error:"{CREATE_FILE_TR["error"]}"}}'
+    def _repl_state(m):
+        prop, q, val = m.group(1), m.group(2), m.group(3)
+        tr = STATE_ACTION_MAP.get(val)
+        if tr and tr != val:
+            total_reps[0] += 1
+            safe_tr = tr.replace("'", "\\'") if q == "'" else tr
+            return f"{prop}:{q}{safe_tr}{q}"
+        return m.group(0)
 
+    content = STATE_PROP_RE.sub(_repl_state, content)
 
-def patch_file(fname):
-    with io.open(fname, 'r', encoding='utf-8') as f:
-        content = f.read()
+    def _repl_comp(m):
+        prefix, q, val, suffix = m.group(1), m.group(2), m.group(3), m.group(4)
+        tr = COMPUTED_PROP_MAP.get(val, val)
+        total_reps[0] += 1
+        return f"{prefix}{q}{tr}{q}{suffix}"
 
-    orig_len = len(content)
-    total_reps = 0
+    content = COMP_PROP_RE.sub(_repl_comp, content)
+    content, c_marked = MARKED_STATUS_RE.subn(MARKED_STATUS_REPL, content)
+    total_reps[0] += c_marked
 
-    # 1. tool-action-labels.js icindeki ana nesneyi degistir (jenerik regex: her Cursor surumunde calisir)
-    mod_idx = content.find('tool-action-labels.js')
-    if mod_idx != -1:
-        m = re.search(r'([a-zA-Z0-9_$]+=\{shellToolCall:\{.*?\}\}),([a-zA-Z0-9_$]+=\{loading:".*?"\})', content[mod_idx:mod_idx+10000])
-        if m:
-            old_tool_dict, old_create_dict = m.group(1), m.group(2)
-            tool_var = old_tool_dict.split('=', 1)[0]
-            create_var = old_create_dict.split('=', 1)[0]
-
-            new_tool_dict = build_tool_dict_str(tool_var)
-            new_create_dict = build_create_dict_str(create_var)
-
-            content = content[:mod_idx] + content[mod_idx:].replace(old_tool_dict, new_tool_dict, 1).replace(old_create_dict, new_create_dict, 1)
-            total_reps += 2
-            print(f'[{fname}] tool-action-labels ({tool_var}, {create_var}) basariyla guncellendi.')
-        else:
-            print(f'[{fname}] UYARI: tool-action-labels regex eslesmesi bulunamadi.')
-
-    # 2. Ek durum ve dusunme etiketleri
     for old_s, new_s in EXTRA_REPS:
         cnt = content.count(old_s)
         if cnt > 0:
             content = content.replace(old_s, new_s)
-            total_reps += cnt
+            total_reps[0] += cnt
 
+    return content, total_reps[0]
+
+
+def patch_file(fname):
+    if not os.path.exists(fname):
+        return
+    with io.open(fname, 'r', encoding='utf-8') as f:
+        content = f.read()
+    orig_len = len(content)
+    content, total_reps = patch_text(content)
     with io.open(fname, 'w', encoding='utf-8', newline='') as f:
         f.write(content)
-
-    print(f'[{fname}] Toplam {total_reps} degisim uygulandi. (Boyut farki: {len(content) - orig_len} bayt)')
+    print(f'[{fname}] Toplam {total_reps} durum/arac etiketi degisimi uygulandi. (Boyut farki: {len(content) - orig_len} bayt)')
 
 
 if __name__ == '__main__':

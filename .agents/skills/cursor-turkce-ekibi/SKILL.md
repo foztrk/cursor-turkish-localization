@@ -19,7 +19,8 @@ Her Cursor güncellemesinde veya görsel geri bildirimde aşağıdaki **3 aşama
 2. Yeni metin veya görsel geri bildirim varsa:
    - **NLS (`O(index, null)`)** anahtarlarını `C:\Program Files\cursor\resources\app\out\nls.keys.json` üzerinden bulup `patch_glass_nls.py` (`GLASS_NLS_MAP`) veya `nls-tm.json` içine ekle.
    - **Bundle (`workbench.glass.main.js` / `workbench.desktop.main.js`)** prop ve minified değişken atamalarını `patch_fixes.py` içine ekle (`===` kod mantığı anahtarlarına dokunma; regex'lerde `[^\]\[]+?` kullanarak sınır taşmasını önle).
-   - **Molten (`molten/dist/renderer/assets/*.js`)** backtick sabitlerini `patch_molten.py` içine ekle (`patch_molten.py` içindeki `_load_unified_en_tr_dict()` tüm sözlüklerdeki görünür UI prop'larını Molten'e otomatik miras alır).
+   - **Prop-Dışı Durum/Eylem & Computed Prop Katmanı (`patch_tool_labels.py`)**: Sohbet akışı (Transcript) araç durumlarını (`loading`, `completed`, `done`, `active`, `action`, `created`, `deleted`, `edited`, `loadingAction`, `completedAction`), computed prop'ları (`{[var]: "More Actions"}`) ve `Marked ${t.toStatus}` gibi şablonları `patch_tool_labels.py` (`STATE_ACTION_MAP`, `COMPUTED_PROP_MAP`) içine ekle. Bu modül hem bundle hem `patch_molten.py` tarafından ortak çağrılır.
+   - **Molten (`molten/dist/renderer/assets/*.js`)** backtick sabitlerini `patch_molten.py` içine ekle (`patch_molten.py` içindeki `_load_unified_en_tr_dict()` tüm sözlüklerdeki görünür UI prop'larını ve `patch_tool_labels.patch_text()` tüm durum/eylem etiketlerini Molten'e otomatik miras alır).
    - **Tray (`out/main.js`)** veya **Eklenti (`~/.cursor/extensions/`)** metinlerini `patch_main_process.py` / `patch_extensions.py` içine ekle.
 3. `python -X utf8 -m py_compile apply_all.py patch_fixes.py patch_molten.py patch_glass_nls.py verify_patch.py` ile sözdizimini doğrula.
 4. `python -X utf8 apply_all.py --force` komutunu çalıştır (`apply_all.py` sonunda `verify_patch.py` otomatik koşar).

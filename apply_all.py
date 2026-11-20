@@ -86,11 +86,14 @@ def log(msg):
 PROPS = ['label', 'title', 'placeholder', 'tooltip', 'heading', 'header', 'subtitle',
          'emptyMessage', 'buttonLabel', 'primaryButtonLabel', 'secondaryButtonLabel',
          'confirmLabel', 'cancelLabel', 'okLabel', 'message', 'detail', 'children',
-         'text', 'ariaLabel', 'description']
+         'text', 'ariaLabel', 'description',
+         'loading', 'completed', 'done', 'active', 'action', 'created', 'deleted',
+         'edited', 'loadingAction', 'completedAction']
 PROP_RE = re.compile(
     r'(?:(?:"aria-label")|' + '|'.join(PROPS) +
     r'):(?:"((?:\\.|[^"\\]){2,180})"|\'((?:\\.|[^\'\\]){2,180})\')'
 )
+COMP_PROP_RE = re.compile(r'\{\[[a-zA-Z0-9_$]+\]:"([^"\\]{2,180})"\}')
 RUNTIME_UI_RE = re.compile(r'\{id:"[a-z_]+",label:"([^"\\]{2,180})"\}')
 LOCALIZED_CALL_RE = re.compile(r'De\((\d+),("(?:\\.|[^"\\])*")')
 TR_CHARS = re.compile('[çğıöşüÇĞİÖŞÜ]')
@@ -105,10 +108,17 @@ EN_WORD = re.compile(
 
 
 def extract_candidates(text):
-    """Bundle metninden İngilizce görünen (prop, deger) adaylarını çıkarır."""
+    """Bundle metninden İngilizce görünen (prop, deger) ve computed prop adaylarını çıkarır."""
     out = set()
     for m in PROP_RE.finditer(text):
         v = m.group(1) if m.group(1) is not None else m.group(2)
+        if TR_CHARS.search(v) or BAD.search(v):
+            continue
+        if not re.search('[A-Za-z]{2}', v) or not EN_WORD.search(v):
+            continue
+        out.add(v)
+    for m in COMP_PROP_RE.finditer(text):
+        v = m.group(1)
         if TR_CHARS.search(v) or BAD.search(v):
             continue
         if not re.search('[A-Za-z]{2}', v) or not EN_WORD.search(v):

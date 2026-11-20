@@ -134,6 +134,12 @@ def main():
         '"Auto-imports are temporarily disabled"',
         '"Add Custom Model"]',
         '="Control local agents from your phone"',
+        ']:"More Actions"}',
+        'done:"Message from"',
+        'done:"Created"',
+        'completed:"Created"',
+        '?`Marked ${',
+        '?"Messages from ":"Message from "',
     ]
     for fb in forbidden_glass:
         if fb in glass:
@@ -148,6 +154,12 @@ def main():
         '"Otomatik içe aktarmalar geçici olarak devre dışı bırakıldı"',
         '"Özel Model Ekle"]',
         '="Telefonunuzdan yerel ajanları kontrol edin"',
+        ']:"Diğer Eylemler"}',
+        'done:"Mesaj Gönderen:"',
+        'done:"Oluşturuldu"',
+        'completed:"Oluşturuldu"',
+        '?`Durum değiştirildi: ',
+        '?"Mesaj Gönderenler: ":"Mesaj Gönderen: "',
     ]
     for rq in required_glass:
         if rq not in glass:
@@ -168,7 +180,18 @@ def main():
         io.open(p, encoding="utf-8", errors="ignore").read()
         for p in molten_files
     )
-    for rq in ['`Özel Model Ekle`', '`Telefonunuzdan yerel ajanları kontrol edin`', 'children:`Çalışan Modeli`', 'p=`Yükleniyor`', '`Eklentiler Ekle`', '`Model ekle veya ara`']:
+    for rq in [
+        '`Özel Model Ekle`',
+        '`Telefonunuzdan yerel ajanları kontrol edin`',
+        'children:`Çalışan Modeli`',
+        'p=`Yükleniyor`',
+        '`Eklentiler Ekle`',
+        '`Model ekle veya ara`',
+        ']:`Diğer Eylemler`}',
+        'done:`Mesaj Gönderen:`',
+        'completed:`Oluşturuldu`',
+        '?`Mesaj Gönderenler: `:`Mesaj Gönderen: `',
+    ]:
         if rq not in molten_all:
             fail(errors, f"Canli Molten icinde beklenen Turkce kalip yok: {rq}")
         else:
