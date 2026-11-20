@@ -713,9 +713,30 @@ REPS = [
     ('title:"Worktree Cleanup"', 'title:"Çalışma Ağacı Temizliği"'),
     ('accessibleLabel:"Worktree Cleanup"', 'accessibleLabel:"Çalışma Ağacı Temizliği"'),
     ('title:"Update mobile auth handling"', 'title:"Mobil kimlik doğrulama işlemini güncelle"'),
+    # Cursor 3.31.11 Görsel Geri Bildirim Kuralları (20.11.2026)
+    ('?"Installing":"Update"', '?"Yükleniyor":"Güncelle"'),
+    ('"Installing update \\u2014 Cursor will close and reopen automatically"', '"Güncelleme yükleniyor — Cursor otomatik olarak kapanıp yeniden açılacak"'),
+    ('="Update: restart Cursor to install"', '="Güncelle: yüklemek için Cursor\'ı yeniden başlat"'),
+    ('="Installing update"', '="Güncelleme yükleniyor"'),
+    ('="Update: restart Cursor"', '="Güncelle: Cursor\'ı yeniden başlat"'),
+    ('="Restarting Cursor"', '="Cursor yeniden başlatılıyor"'),
+    ('===void 0?"Match":"Custom"', '===void 0?"Eşleştir":"Özel"'),
+    ('===void 0?"Match":"Özel"', '===void 0?"Eşleştir":"Özel"'),
+    ('children:"Worker Model"', 'children:"Çalışan Modeli"'),
+    ('"aria-label":"Worker Model"', '"aria-label":"Çalışan Modeli"'),
+    ('"aria-label":"Worker models"', '"aria-label":"Çalışan modelleri"'),
+    ('{value:"match",children:"Match"}', '{value:"match",children:"Eşleştir"}'),
+    ('{value:"custom",children:"Custom"}', '{value:"custom",children:"Özel"}'),
+    ('?" (the model\'s default effort)":null', '?" (modelin varsayılan çabası)":null'),
+    ('"CPP and auto-imports are temporarily disabled"', '"CPP ve otomatik içe aktarmalar geçici olarak devre dışı bırakıldı"'),
+    ('"CPP is temporarily disabled"', '"CPP geçici olarak devre dışı bırakıldı"'),
+    ('"Auto-imports are temporarily disabled"', '"Otomatik içe aktarmalar geçici olarak devre dışı bırakıldı"'),
 ]
 
 REGEX_REPS = [
+    # Çalışan Modeli Özeti (20.11.2026)
+    (re.compile(r'children:\["New workers use ",([^\]\[]+)\]'),
+     r'children:["Yeni çalışanlar ",\1," kullanır"]'),
     # Ses ve Koordinatör Regex Kuralları (14.11.2026)
     (re.compile(r'=\s*["\']Voice chat["\']'), r'="Sesli sohbet"'),
     (re.compile(r'=\s*["\']Talk with your agents out loud\. Turn this off to hide voice chat everywhere you use Cursor\.["\']'), '="Ajanlarınızla sesli konuşun. Cursor\'ı kullandığınız her yerde sesli sohbeti gizlemek için bunu kapatın."'),

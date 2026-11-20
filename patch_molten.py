@@ -39,6 +39,17 @@ MOLTEN_REPLACEMENTS = [
     ('label:`Manage Origin Settings`', 'label:`Origin Ayarlarını Yönet`'),
     ('title:`Worktree Cleanup`', 'title:`Çalışma Ağacı Temizliği`'),
     ('`Cursor periodically removes old worktrees to free disk space. Tune how aggressively cleanup runs.`', '`Cursor, disk alanını boşaltmak için eski çalışma ağaçlarını düzenli olarak kaldırır. Temizliğin ne kadar agresif çalışacağını ayarlayın.`'),
+    # Cursor 3.31.11 Görsel Geri Bildirim Kuralları (20.11.2026)
+    ('p=`Update`,m=n.switchesApp?`Update: restart ${W}`:`Update: restart ${W} to install`', 'p=`Güncelle`,m=n.switchesApp?`Güncelle: ${W}\'ı yeniden başlat`:`Güncelle: yüklemek için ${W}\'ı yeniden başlat`'),
+    ('p=`Updating`,m=`Updating: ${W} restarts when the update is ready`', 'p=`Güncelleniyor`,m=`Güncelleniyor: güncelleme hazır olduğunda ${W} yeniden başlar`'),
+    ('p=`Installing`,m=n.switchesApp?`Restarting ${W}`:`Installing update`', 'p=`Yükleniyor`,m=n.switchesApp?`${W} yeniden başlatılıyor`:`Güncelleme yükleniyor`'),
+    ('===void 0?`Match`:`Custom`', '===void 0?`Eşleştir`:`Özel`'),
+    ('children:`Worker Model`', 'children:`Çalışan Modeli`'),
+    ('"aria-label":`Worker Model`', '"aria-label":`Çalışan Modeli`'),
+    ('"aria-label":`Worker models`', '"aria-label":`Çalışan modelleri`'),
+    ('{value:`match`,children:`Match`}', '{value:`match`,children:`Eşleştir`}'),
+    ('{value:`custom`,children:`Custom`}', '{value:`custom`,children:`Özel`}'),
+    ("` (the model's default effort)`", '` (modelin varsayılan çabası)`'),
 
     # Discard ve Side Chat Kuralları (13.11.2026)
     ('`Side Chat`', '`Yan Sohbet`'),
@@ -407,6 +418,9 @@ MOLTEN_REGEX_REPS = [
     # Kullanım yüzdesi: children:[x,`% used`] -> children:[`%`,x,` kullanıldı`]
     (re.compile(r'children:\[([^\]\[]+?),`% used`\]'),
      r'children:[`%`,\1,` kullanıldı`]'),
+    # Çalışan Modeli Özeti: children:[`New workers use `,v,w]
+    (re.compile(r'children:\[`New workers use `,([^\]\[]+)\]'),
+     r'children:[`Yeni çalışanlar `,\1,` kullanır`]'),
 ]
 
 
