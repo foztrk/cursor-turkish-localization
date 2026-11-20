@@ -93,6 +93,22 @@ def main():
             else:
                 ok(f"NLS[{idx}] {k} -> {expected_tr!r}")
 
+        # Tum 14.600+ NLS mesajinda orijinal ile {0}, {1} yer tutucu tutarlilik kontrolu
+        pkg = json.load(io.open(os.path.join(APP, "package.json"), encoding="utf-8"))
+        orig_nls_path = os.path.join(BASE, f"orijinal-{pkg.get('version', '')}", "nls.messages.json")
+        if os.path.exists(orig_nls_path):
+            orig_msgs = json.load(io.open(orig_nls_path, encoding="utf-8"))
+            ph_re = re.compile(r"\{\d+\}")
+            ph_mismatches = 0
+            for i, (om, lm) in enumerate(zip(orig_msgs, msgs)):
+                if isinstance(om, str) and isinstance(lm, str):
+                    if sorted(ph_re.findall(om)) != sorted(ph_re.findall(lm)):
+                        ph_mismatches += 1
+            if ph_mismatches > 0:
+                fail(errors, f"nls.messages.json icinde {ph_mismatches} yer tutucu ({{0}}) uyusmazligi var")
+            else:
+                ok(f"Tum {len(msgs)} NLS girdisinde yer tutucu ({{0}}) uyusmazligi: 0")
+
     # CLP onbellek esitligi
     prod = json.load(io.open(os.path.join(APP, "product.json"), encoding="utf-8"))
     commit = prod.get("commit", "")
@@ -147,11 +163,12 @@ def main():
         ok("Canli out/main.js Tray yamasi dogrulandi")
 
     molten_dir = os.path.join(APP, "molten", "dist", "renderer", "assets")
+    molten_files = glob.glob(os.path.join(molten_dir, "*.js"))
     molten_all = "\n".join(
         io.open(p, encoding="utf-8", errors="ignore").read()
-        for p in glob.glob(os.path.join(molten_dir, "*.js"))
+        for p in molten_files
     )
-    for rq in ['`Özel Model Ekle`', '`Telefonunuzdan yerel ajanları kontrol edin`', 'children:`Çalışan Modeli`', 'p=`Yükleniyor`']:
+    for rq in ['`Özel Model Ekle`', '`Telefonunuzdan yerel ajanları kontrol edin`', 'children:`Çalışan Modeli`', 'p=`Yükleniyor`', '`Eklentiler Ekle`', '`Model ekle veya ara`']:
         if rq not in molten_all:
             fail(errors, f"Canli Molten icinde beklenen Turkce kalip yok: {rq}")
         else:

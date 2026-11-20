@@ -623,6 +623,14 @@ if ok:
             _conn.close()
     except Exception as _e:
         log("state.vscdb guncelleme uyarisi: %s" % _e)
+    # === 8) Otomatik Deterministik Dogrulama Kapisi (verify_patch.py) ==========
+    if os.path.exists('verify_patch.py'):
+        _vp = subprocess.run([sys.executable, '-X', 'utf8', 'verify_patch.py'], capture_output=True, encoding='utf-8', errors='replace')
+        log('verify_patch.py -> %s' % ('PASS (0 hata)' if _vp.returncode == 0 else 'FAIL'))
+        if _vp.returncode != 0:
+            print(_vp.stdout or _vp.stderr)
+            io.open('apply_report.txt', 'w', encoding='utf-8').write('\n'.join(report))
+            sys.exit(6)
 else:
     io.open('apply_report.txt', 'w', encoding='utf-8').write('\n'.join(report))
     sys.exit(5)

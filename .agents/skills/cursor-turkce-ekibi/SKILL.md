@@ -1,8 +1,9 @@
 ---
 name: cursor-turkce-ekibi
 description: >-
-  Cursor güncellemelerinden sonra Türkçe yamayı uygulayan, deterministik
-  doğrulama kapısından (verify_patch.py) geçiren ve bağımsız denetçi alt ajanla
+  Cursor güncellemelerinden sonra Türkçe yamayı uygulayan, Ortak Sözlük Köprüsü
+  (NLS + Bundle + Molten) ile senkronize eden, deterministik doğrulama
+  kapısından (verify_patch.py) geçiren ve bağımsız denetçi alt ajanla
   (research) kontrol eden 3 aşamalı iş akışı. Kullanıcı "güncelleme geldi",
   "cursor güncellendi" veya ekran görüntüsü ile kalan İngilizce metin
   bildirdiğinde bu skill'i oku ve uygula.
@@ -10,6 +11,7 @@ description: >-
 
 # Cursor Türkçe Yama & Bağımsız Denetim İş Akışı
 
+Çalışma dizini: `C:\Users\Work-D\cursor-turkish-localization`
 Her Cursor güncellemesinde veya görsel geri bildirimde aşağıdaki **3 aşamalı protokolü** sırasıyla çalıştır. Aşama 2 ve Aşama 3 `PASS` vermeden GitHub push veya Obsidian güncellemesi yapma.
 
 ## Aşama 1 — Yamalayıcı (`patcher`)
@@ -17,16 +19,16 @@ Her Cursor güncellemesinde veya görsel geri bildirimde aşağıdaki **3 aşama
 2. Yeni metin veya görsel geri bildirim varsa:
    - **NLS (`O(index, null)`)** anahtarlarını `C:\Program Files\cursor\resources\app\out\nls.keys.json` üzerinden bulup `patch_glass_nls.py` (`GLASS_NLS_MAP`) veya `nls-tm.json` içine ekle.
    - **Bundle (`workbench.glass.main.js` / `workbench.desktop.main.js`)** prop ve minified değişken atamalarını `patch_fixes.py` içine ekle (`===` kod mantığı anahtarlarına dokunma; regex'lerde `[^\]\[]+?` kullanarak sınır taşmasını önle).
-   - **Molten (`molten/dist/renderer/assets/*.js`)** backtick sabitlerini `patch_molten.py` içine ekle.
+   - **Molten (`molten/dist/renderer/assets/*.js`)** backtick sabitlerini `patch_molten.py` içine ekle (`patch_molten.py` içindeki `_load_unified_en_tr_dict()` tüm sözlüklerdeki görünür UI prop'larını Molten'e otomatik miras alır).
    - **Tray (`out/main.js`)** veya **Eklenti (`~/.cursor/extensions/`)** metinlerini `patch_main_process.py` / `patch_extensions.py` içine ekle.
 3. `python -X utf8 -m py_compile apply_all.py patch_fixes.py patch_molten.py patch_glass_nls.py verify_patch.py` ile sözdizimini doğrula.
-4. `python -X utf8 apply_all.py --force` komutunu çalıştır.
+4. `python -X utf8 apply_all.py --force` komutunu çalıştır (`apply_all.py` sonunda `verify_patch.py` otomatik koşar).
 
 ## Aşama 2 — Deterministik Doğrulama Kapısı (`verify_patch.py`)
-1. `python -X utf8 verify_patch.py` komutunu çalıştır (`0` token, `~2` saniye).
+1. `python -X utf8 verify_patch.py` komutunun çıktısını kontrol et (`0` token, `~2` saniye).
 2. Bu kapı şu 4 katmanı otomatik doğrular:
    - `deploy_result.txt == OK_VERIFIED` ve canlı `Program Files` SHA-256 eşleşmesi.
-   - `nls.messages.json` ve `%APPDATA%\Cursor\clp\*.tr\<commit>\nls.messages.json` üzerinde `GLASS_NLS_MAP` (`Ortamlar`, `Makineler`, `Bulut`, `Havuzlar`, `Depolar`, `Çevrimdışı` vb.) eşitliği.
+   - `nls.messages.json` ve `%APPDATA%\Cursor\clp\*.tr\<commit>\nls.messages.json` üzerinde `GLASS_NLS_MAP` (`Ortamlar`, `Makineler`, `Bulut`, `Havuzlar`, `Depolar`, `Çevrimdışı` vb.) eşitliği ve tüm `14.600+` NLS mesajında `{0}` yer tutucu uyuşmazlığı `== 0` kontrolü.
    - Canlı `workbench.glass.main.js` üzerinde greedy-regex regresyonu (`children:["%",v,y]` = `0`) ve zorunlu Türkçe kalıplar.
    - Canlı `molten/dist/renderer/assets/*.js` ve `out/main.js` doğrulaması.
 3. `verify_patch.py` hata (`exit code 1`) verirse Aşama 1'e dönüp hatayı düzelt.

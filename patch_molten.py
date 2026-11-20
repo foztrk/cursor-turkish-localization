@@ -459,6 +459,56 @@ MOLTEN_REGEX_REPS = [
 ]
 
 
+MOLTEN_PROP_BT_RE = re.compile(
+    r'((?:"aria-label")|ariaLabel|label|title|placeholder|tooltip|heading|header|subtitle|'
+    r'emptyMessage|buttonLabel|primaryButtonLabel|secondaryButtonLabel|confirmLabel|'
+    r'cancelLabel|okLabel|description|children):`([^`\\$\n\r]{2,220})`'
+)
+
+
+def _load_unified_en_tr_dict():
+    """Tum yama sozluklerindeki (cursor-ui-tm, nls-tm, patch_remaining_ui, patch_fixes vb.)
+    guvenli gorunur UI metinlerini Molten backtick prop'lari icin tek havuzda birlestirir."""
+    en_to_tr = {}
+    for fn in ["cursor-ui-tm.json", "nls-tm.json"]:
+        p = os.path.join(BASE_DIR, fn)
+        if os.path.exists(p):
+            try:
+                for k, v in json.load(io.open(p, encoding="utf-8")).items():
+                    if (isinstance(k, str) and isinstance(v, str) and k != v and len(k) >= 2
+                            and (k[0].isupper() or k.startswith("&&"))
+                            and not any(c in k or c in v for c in ["`", "$", "\\", "\n", "\r", "{0}", "{1}"])):
+                        en_to_tr[k] = v
+            except Exception:
+                pass
+    try:
+        from patch_remaining_ui import MAP as REM_MAP
+        for k, v in REM_MAP.items():
+            if (isinstance(k, str) and isinstance(v, str) and k != v and len(k) >= 2
+                    and (k[0].isupper() or k.startswith("&&"))
+                    and not any(c in k or c in v for c in ["`", "$", "\\", "\n", "\r", "{0}", "{1}"])):
+                en_to_tr[k] = v
+    except Exception:
+        pass
+    for fn in ["patch_settings_gaps.py", "patch_menu_gaps.py", "patch_fixes.py", "patch_settings.py", "patch_extra.py", "patch_glass2.py"]:
+        p = os.path.join(BASE_DIR, fn)
+        if not os.path.exists(p):
+            continue
+        try:
+            s = io.open(p, encoding="utf-8").read()
+            for m in re.finditer(r'\[\s*"([^"\\`\$\n\r]{2,200})"\s*,\s*"([^"\\`\$\n\r]{2,200})"\s*\]', s):
+                a, b = m.group(1), m.group(2)
+                if a != b and (a[0].isupper() or a.startswith("&&")) and "{0}" not in a:
+                    en_to_tr.setdefault(a, b)
+            for m in re.finditer(r'(?:label|title|placeholder|tooltip|description|heading|header|subtitle|children|"aria-label"|ariaLabel):"([^"\\`\$\n\r]{2,200})"\'\s*,\s*\'(?:label|title|placeholder|tooltip|description|heading|header|subtitle|children|"aria-label"|ariaLabel):"([^"\\`\$\n\r]{2,200})"', s):
+                a, b = m.group(1), m.group(2)
+                if a != b and (a[0].isupper() or a.startswith("&&")) and "{0}" not in a:
+                    en_to_tr.setdefault(a, b)
+        except Exception:
+            pass
+    return en_to_tr
+
+
 def _load_backtick_prop_maps():
     bt_maps = []
     tr2_pattern = os.path.join(BASE_DIR, "tr2", "m*.json")
@@ -480,6 +530,7 @@ def patch_molten_dir(molten_dir):
     if not os.path.exists(molten_dir):
         return 0, 0
     bt_maps = _load_backtick_prop_maps()
+    unified_dict = _load_unified_en_tr_dict()
     total_files = 0
     total_mods = 0
     for fname in sorted(os.listdir(molten_dir)):
@@ -503,6 +554,17 @@ def patch_molten_dir(molten_dir):
                     c = content.count(old_s)
                     content = content.replace(old_s, new_s)
                     mods += c
+            if unified_dict:
+                prop_hits = [0]
+                def _repl_prop(m):
+                    prop, val = m.group(1), m.group(2)
+                    tr = unified_dict.get(val)
+                    if tr and tr != val:
+                        prop_hits[0] += 1
+                        return f"{prop}:`{tr}`"
+                    return m.group(0)
+                content = MOLTEN_PROP_BT_RE.sub(_repl_prop, content)
+                mods += prop_hits[0]
             if mods > 0:
                 with io.open(p, "w", encoding="utf-8", newline="") as f:
                     f.write(content)
