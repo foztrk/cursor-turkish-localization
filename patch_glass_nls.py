@@ -530,35 +530,188 @@ GLASS_NLS_MAP = {
     "glassCopyRelativePath": "Göreli Yolu Kopyala",
     "glassCopyRemoteFileLinkUnavailable": "Bu dosya için bir uzak URL çözümlenemedi. Dosya bir git deposunun dışında olabilir veya deponun gönderilmiş bir GitHub uzak bağlantısı bulunmayabilir.",
     "glassDelete": "Sil",
-    "glassDoNotAskAgain": "Bir daha sorma"
+    "glassDoNotAskAgain": "Bir daha sorma",
+    # Cursor 3.31.11 Ek Glass ve InlineDiff NLS Anahtarları (20.11.2026)
+    "inlineDiffs.changeKept": "Değişiklik korundu",
+    "inlineDiffs.changeUndone": "Değişiklik geri alındı",
+    "inlineDiffs.previousChange": "Önceki değişiklik",
+    "inlineDiffs.undoCell": "Hücre değişikliğini geri al",
+    "inlineDiffs.undoChange": "Değişikliği geri al",
+    "inlineDiffs.keepCell": "Hücre değişikliğini koru",
+    "inlineDiffs.keepChange": "Değişikliği koru",
+    "inlineDiffs.toolbar": "Ajan değişikliği",
+    "glass.agentPanel.deployIntentPill.dismiss": "Kapat",
+    "glass.agentPanel.deployIntentTray.dismiss": "Kapat",
+    "glass.localDeployTray.dismiss": "Kapat",
+    "glass.presendDeployTray.dismiss": "Kapat",
+    "glass.localDeployTray.confirmDeploy": "Klasörü Dağıt",
+    "glass.localDeployTray.confirmChatFolderOnly": "Yalnızca {0}",
+    "glass.agentPanel.panel.ariaLabel": "Panel {0}",
+    "glass.agentPanel.panel.singleAriaLabel": "Panel",
+    "glass.editorPanel.pane.ariaLabel": "Bölme {0}",
+    "glass.agentPanel.promptInput.panelPaneAriaLabel": "{0}, panel {1}, bölme {2}",
+    "glass.agentPanel.promptInput.panelAriaLabel": "{0}, panel {1}",
+    "glass.agentPanel.promptInput.paneAriaLabel": "{0}, bölme {1}",
+    "glass.agentPanel.appSecretsPill.review": "Uygulama gizli bilgilerini incele ({0})",
+    "glass.agentPanel.branchMismatch.checkoutAria": "{0} dalına geç",
+    "glass.pinnedSkill.previewAria": "{0} beceri ayrıntıları",
+    "glass.agentPanel.planPill.label": "Plan",
+    "glass.projectMembers.shareLabel": "Projeyi Paylaş, {0} kişi",
+    "glass.project.prIndex.headerButton": "Çekme İstekleri (PR)",
+    "glass.agentPanel.questionnairePill.open": "Soruları yanıtla ({0})",
+    "glass.deployPrototypeNudge.dismiss": "Kapat",
+    "glass.deployPrototypeNudge.deploy": "Uygulamayı Dağıt",
+    "glass.mainBot.tasks.find": "Görevlerde bul",
+    "glass.mainBot.tasks.views": "Görev görünümleri",
+    "glass.mainBot.tasks.title": "Görevler",
+    "glass.prIndex.clearSearch": "Aramayı temizle",
+    "glass.prIndex.status.draft": "Taslak",
+    "glass.prIndex.state.conflicts": "Çakışmalar",
+    "glass.prIndex.state.mergeConflicts": "Birleştirme çakışmaları",
+    "glass.prIndex.contextMenu": "Çekme isteği eylemleri",
+    "glass.prIndex.copyUrl": "URL'yi Kopyala",
+    "glass.project.brain.tracker": "İzleyici",
+    "glass.project.brain.discussion": "Tartışma Konuları",
+    "glass.project.brain.localFiles": "Yerel Dosyalar ve Yollar",
+    "glass.project.brain.other": "Diğer",
+    "glass.project.notes.filter.operator": "{0} operatörü",
+    "glass.project.notes.ownerScope": "Gösterilen görevler",
+    "glass.project.notes.ownerScope.all": "Tüm görevler",
+    "glass.project.notes.ownerScope.mine": "Görevlerim",
+    "glass.project.notes.myTasks.emptyBody": "Sahibi olduğunuz görevler burada görünür",
+    "glass.project.notes.myTasks.showAll": "Tüm Görevleri Göster",
+    "glass.project.notes.myTasks.emptyTitle": "Size ait görev yok",
+    "glass.project.notes.switchToBoard": "Pano görünümüne geç",
+    "glass.project.notes.switchToList": "Liste görünümüne geç",
+    "glass.project.task.agents": "Ajanlar",
+    "glass.project.task.menu.rename": "Yeniden Adlandır",
+    "glass.project.task.menu.status": "Durum",
+    "glass.project.task.menu.tags": "Etiketler",
+    "glass.project.filter.project": "Proje",
+    "glass.project.filter.project.none": "Yok",
+    "glass.project.taskMedia.previous": "Önceki",
+    "glass.project.taskOwner.ambiguousName": "{0} (ad birden fazla kişiyle eşleşiyor)",
+    "glass.project.task.rename.title": "Görevi Yeniden Adlandır",
+    "glass.project.task.rename.input": "Görev başlığı",
+    "glass.project.task.rename.save": "Kaydet",
+    "glass.project.task.pullRequestStack": "{0} PR",
+    "glass.project.task.agentStack": "{0} Ajan",
+    "glass.project.document.view.brain": "Bellek",
+    "glass.project.library.view.grid": "Izgara",
+    "glass.project.library.views": "Kitaplık görünümleri",
+    "glass.terminal.list.workspaceSectionOne": "1 Terminal",
+    "glass.ftuxWizard.connect.title": "Araçlarınızı bağlayın",
+    "glass.ftuxWizard.connect.continue": "Devam Et",
+    "glass.ftuxWizard.userRule.role.named": "Kullanıcının adı {0}. Rolü {1}.",
+    "glass.ftuxWizard.userRule.role": "Kullanıcının rolü {0}.",
+    "glass.ftuxWizard.connect.signInInBrowser": "Tarayıcıda oturum aç",
+    "glass.ftuxWizard.connect.addPlugin": "{0} Ekle",
+    "glass.ftuxWizard.connect.adding": "Ekleniyor",
+    "glass.ftuxWizard.connect.connected": "Bağlandı",
+    "glass.ftuxWizard.connect.retryPlugin": "{0} Tekrar Dene",
+    "glass.ftuxWizard.connect.retry": "Tekrar Dene",
+    "glass.ftuxWizard.purpose.option.tasks.description.short": "Uygulamalarınız genelinde araştırın, planlayın ve işlerinizi tamamlayın.",
+    "glass.ftuxWizard.welcome.focus.engineering": "Mühendislik",
+    "glass.ftuxWizard.welcome.focus.design": "Tasarım",
+    "glass.ftuxWizard.welcome.focus.product": "Ürün",
+    "glass.ftuxWizard.welcome.focus.research": "Araştırma",
+    "glass.ftuxWizard.welcome.focus.dataScience": "Veri bilimi",
+    "glass.ftuxWizard.welcome.focus.schoolwork": "Okul çalışmaları",
+    "glass.ftuxWizard.welcome.focus.marketing": "Pazarlama",
+    "glass.ftuxWizard.welcome.focus.operations": "Operasyon",
+    "glass.ftuxWizard.welcome.question": "Yaptığınız işi en iyi hangisi tanımlar?",
+    "glass.ftuxWizard.connect.addFailed": "{0} eklenemedi.",
+    "glass.ftuxWizard.connect.connectFailed": "{0} bağlanamadı.",
+    "glass.settings.projectsCredit.expires": "Bitiş: {0}",
+    "glass.settings.projectsCredit.label": "Kalan Proje Kredisi",
+    "glass.settings.projectsCredit.value": "{0} / {1} Kaldı",
+    "glass.projectBot.editAppearance": "Görünümü Düzenle",
+    "glass.projectsCredit.dismiss": "Kapat",
+    "glass.projectsCredit.remaining": "Kalan",
+    "glass.projectsCredit.remainingMeter": "Kalan proje kredisi",
+    "glass.projectsCredit.balanceTitle": "Proje Kredileri",
+    "glass.projectsCredit.balanceExpires": "Bitiş: {0}",
+    "glass.projectsCredit.teamTitle": "Çok Oyunculu Projeler için {0} Kredi",
+    "glass.projectsCredit.teamDescription": "Projeler aynı anda birden fazla ajan çalıştırır, zamanla daha akıllı hale gelir ve ekip arkadaşlarınızla bağlamı ve görevleri paylaşır.",
+    "glass.projectsCredit.teamAmount": "Denemek için {0} krediniz var.",
+    "glass.projectsCredit.teamAction": "Çok Oyunculu Projeleri Deneyin",
+    "glass.projectsCredit.personalTitle": "Projeler için {0} Kredi",
+    "glass.projectsCredit.personalDescription": "Projeler, Cursor içinde aynı anda birçok görevi yürüten ve zamanla daha akıllı hale gelen yapay zekâ ekip arkadaşlarıdır.",
+    "glass.projectsCredit.personalAmount": "Başlamak için {0} krediniz var.",
+    "glass.projectsCredit.personalAction": "Başlayın",
+    "glass.projectBot.shape.blob": "Damla",
+    "glass.projectBot.shape.cloud": "Bulut",
+    "glass.projectBot.shape.square": "Kare",
+    "glass.projectBot.shape.sparkle": "Parıltı",
+    "glass.projectBot.shape.clover": "Yonca",
+    "glass.projectBot.shape.heart": "Kalp",
+    "glass.projectBot.shape.flower": "Çiçek",
+    "glass.projectBot.shape.teardrop": "Gözyaşı",
+    "glass.projectBot.shape.tablet": "Tablet",
+    "glass.projectBot.shape.wedge": "Kama",
+    "glass.projectBot.shape.house": "Ev",
+    "glass.projectBot.shape.star": "Yıldız",
+    "glass.projectBot.shape.hex": "Altıgen",
+    "glass.projectBot.color.black": "Siyah",
+    "glass.projectBot.color.brown": "Kahverengi",
+    "glass.projectBot.color.orange": "Turuncu",
+    "glass.projectBot.color.yellow": "Sarı",
+    "glass.projectBot.color.green": "Yeşil",
+    "glass.projectBot.color.cyan": "Camgöbeği",
+    "glass.projectBot.color.blue": "Mavi",
+    "glass.projectBot.color.violet": "Mor",
+    "glass.projectBot.color.magenta": "Eflatun",
+    "glass.projectBot.color.gray": "Gri",
+    "glass.projectBot.shapes": "Karakter şekli",
+    "glass.projectBot.shapeOption": "{0} karakter şekli",
+    "glass.projectBot.colors": "Karakter rengi",
+    "glass.projectBot.colorOption": "{0} karakter rengi",
+    "glass.project.context.title": "Proje bağlamı",
+    "glass.project.context.tracker": "İzleyici",
+    "glass.project.context.discussion": "Tartışma",
+    "glass.project.context.localFiles": "Yerel dosyalar",
+    "glass.project.context.other": "Diğer",
+    "glass.project.context.sourceCount.one": "1 kaynak",
+    "glass.project.context.sourceCount.many": "{0} kaynak",
+    "glass.project.context.addTo": "{0} içine ekle",
+    "glass.taskViews.board.emptyColumns": "Boş sütunlar",
+    "glass.projects.continueInProject.startWorker.title": "Bu bilgisayarda bir çalıştırıcı başlatılsın mı?",
+    "glass.projects.continueInProject.startWorker.description": "Bu sohbete bir Projede devam etmek için Cursor, sohbetin klasörü için bu bilgisayarda bir arka plan çalıştırıcısı başlatır. Sohbet burada, aynı klasörde çalışmaya devam eder.",
+    "glass.projects.continueInProject.startWorker.confirm": "Çalıştırıcıyı Başlat ve Devam Et",
+    "glass.agentPanel.fixConflictsPill": "Çakışmaları Düzelt",
+    "glassFileTreeDeleteFileMsg": "'{0}' silinsin mi?",
+    "glassFileTreeDeleteMultiMsg": "{0} öğe silinsin mi?",
+    "glassFileTreeDeleteUndo": "{0} öğesini sil",
+    "glassFileTreeDeleteMultiUndo": "{0} öğeyi sil",
+    "glassFileTreeRenameUndo": "{0} öğesini yeniden adlandır",
+    "glass.agentMigrationService.failed.githubAccessCheck": "Bu depo için GitHub erişimi kontrol edilemedi. Bağlantınızı kontrol edip tekrar deneyin.",
+    "glassUnarchiveHistoryLabel": "Arşivden Çıkar",
+    "glassCopyRemoteFileLink": "Uzak URL'yi Kopyala",
+    "glass.projects.localChatNotStarted": '"{0}" Projeye taşınamadı.',
+    "glass.projects.localChatNotStartedDescription": "Yan sohbetleriyle birlikte bu bilgisayarda kalır.",
+    "glass.projects.someSideChatKept": '1 tanesi bu bilgisayarda "{0}" ile kalır.',
+    "glass.projects.someSideChatsKept": '{0} tanesi bu bilgisayarda "{1}" ile kalır.',
+    "glass.projects.sideChatKept": 'Bu bilgisayarda "{0}" ile kalır.',
+    "glass.projects.sideChatsKept": 'Bu bilgisayarda "{0}" ile kalırlar.',
+    "glass.agentPanel.subscriptionsPill.view": "Abonelikleri görüntüle ({0})",
+    "glass.agentPanel.triggersPill.view": "Tetikleyicileri görüntüle ({0})",
+    "glass.canvasStartPage.searchAriaLabel": "Tuvallerde ara",
+    "glass.canvasStartPage.searchPlaceholder": "Tuvaller...",
+    "glass.canvasStartPage.recents": "Son Kullanılanlar",
 }
 
-
-def patch_glass_bundle(path):
-    if not os.path.exists(path):
-        return 0
-    with io.open(path, "r", encoding="utf-8") as f:
-        content = f.read()
-    mods = 0
-    # N("key", "default_string"...) veya N("key","default_string"...) cagrilari
-    for key, tr_val in GLASS_NLS_MAP.items():
-        pattern = re.compile(r'N\(\s*(["\'])' + re.escape(key) + r'\1\s*,\s*(["\'])((?:\\.|[^\\])*?)\2')
-        def repl(m, k=key, tv=tr_val):
-            nonlocal mods
-            mods += 1
-            quote = m.group(1)
-            safe_val = tv.replace('\\', '\\\\').replace('"', '\\"') if quote == '"' else tv.replace('\\', '\\\\').replace("'", "\\'")
-            return f'N({quote}{k}{quote},{quote}{safe_val}{quote}'
-        content = pattern.sub(repl, content)
-
-    if mods > 0:
-        with io.open(path, "w", encoding="utf-8", newline="") as f:
-            f.write(content)
-        print(f"[{os.path.basename(path)}] {mods} Glass NLS çağrısı Türkçeleştirildi.")
-    return mods
+KEYS_PATH = r"C:\Program Files\cursor\resources\app\out\nls.keys.json"
+PLACEHOLDER_RE = re.compile(r"\{\d+\}")
 
 
-def patch_nls_json(path):
+def _load_flat_keys():
+    if not os.path.exists(KEYS_PATH):
+        return None
+    keys_data = json.load(io.open(KEYS_PATH, "r", encoding="utf-8"))
+    return [name for _, names in keys_data for name in names]
+
+
+def patch_nls_json(path, flat_keys=None):
     if not os.path.exists(path):
         return 0
     try:
@@ -570,13 +723,20 @@ def patch_nls_json(path):
                 if data.get(k) != v:
                     data[k] = v
                     mods += 1
-        elif isinstance(data, list):
-            # Liste tipindeki NLS paketleri
-            pass
+        elif isinstance(data, list) and flat_keys and len(flat_keys) == len(data):
+            for idx, k in enumerate(flat_keys):
+                tr_val = GLASS_NLS_MAP.get(k)
+                if isinstance(tr_val, str) and data[idx] != tr_val:
+                    # Yer tutucu ({0}, {1}) tutarliligini dogrula
+                    cur_ph = sorted(PLACEHOLDER_RE.findall(str(data[idx])))
+                    tr_ph = sorted(PLACEHOLDER_RE.findall(tr_val))
+                    if cur_ph == tr_ph or not cur_ph:
+                        data[idx] = tr_val
+                        mods += 1
         if mods > 0:
             with io.open(path, "w", encoding="utf-8") as f:
-                json.dump(data, f, ensure_ascii=False, indent=2)
-            print(f"[{os.path.basename(path)}] {mods} Glass NLS anahtarı eklendi/güncellendi.")
+                json.dump(data, f, ensure_ascii=False, separators=(",", ":"))
+            print(f"[{os.path.basename(path)}] {mods} Glass NLS anahtari guncellendi.")
         return mods
     except Exception as e:
         print(f"Hata {path}: {e}")
@@ -585,12 +745,10 @@ def patch_nls_json(path):
 
 def main():
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    for f in ["workbench.glass.main.js", "workbench.desktop.main.js"]:
+    flat_keys = _load_flat_keys()
+    for f in ["nls.messages.json", "nls.cache.messages.json", "nls.cache.root.messages.json"]:
         p = os.path.join(base_dir, f)
-        patch_glass_bundle(p)
-    for f in ["nls.messages.json", "nls.cache.messages.json"]:
-        p = os.path.join(base_dir, f)
-        patch_nls_json(p)
+        patch_nls_json(p, flat_keys)
 
 
 if __name__ == "__main__":

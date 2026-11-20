@@ -770,6 +770,15 @@ REPS = [
     ('name:"Tasks",icon:', 'name:"Görevler",icon:'),
     ('headings:[void 0,"Repositories","Environments",void 0]', 'headings:[void 0,"Depolar","Ortamlar",void 0]'),
     ('n.inlineLabel??(X0(e)?"Cloud":n.icon===void 0', 'n.inlineLabel??(X0(e)?"Bulut":n.icon===void 0'),
+    # 3.31.11 Oncelikli Hover Etiketleri (20.11.2026)
+    ('title:"Add repos to this project"', 'title:"Bu projeye depo ekle"'),
+    ('"aria-label":"Diff Options"', '"aria-label":"Fark Seçenekleri"'),
+    ('"aria-label":"Expand visualization"', '"aria-label":"Görselleştirmeyi genişlet"'),
+    ('"aria-label":"Open fullscreen"', '"aria-label":"Tam ekran aç"'),
+    ('title:"Open Project by Id"', 'title:"Kimliğe Göre Proje Aç"'),
+    ('"aria-label":"Pull Request Options"', '"aria-label":"Çekme İsteği Seçenekleri"'),
+    ('"aria-label":"Search groups"', '"aria-label":"Gruplarda ara"'),
+    ('placeholder:"Search groups"', 'placeholder:"Gruplarda ara"'),
 ]
 
 REGEX_REPS = [

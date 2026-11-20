@@ -66,7 +66,7 @@ PATCH_SCRIPTS = ['patch_fixes.py', 'patch_glass2.py', 'patch_settings.py', 'patc
                   'patch_cursor_ui_tm.py', 'patch_settings_gaps.py', 'patch_statusbar_stats.py', 'patch_help_menu_labels.py',
                   'patch_remaining_ui.py',
                   'fix_all_corrupt_and_gaps.py', 'patch_steer_and_behavior.py', 'patch_hook_tip.py',
-                  'patch_tool_labels.py', 'patch_main_process.py', 'patch_molten.py',
+                  'patch_tool_labels.py', 'patch_main_process.py',
                   'patch_glass_nls.py', 'patch_automations.py']
 report = []
 OVERLAY_MARKERS = [
@@ -415,8 +415,25 @@ for fname in BUNDLE_FILES:
     if vals:
         new_bundle.setdefault(fname, set()).update(vals)
 
+msgs = json.load(io.open('nls.messages.json', encoding='utf-8'))
 new_nls = {s for s in msgs if isinstance(s, str) and EN_WORD.search(s)
            and not TR_CHARS.search(s) and s not in known}
+if os.path.exists(keys_path):
+    try:
+        _kd = json.load(io.open(keys_path, encoding='utf-8'))
+        _idx = 0
+        for _mod, _names in _kd:
+            _is_glass = 'glass' in _mod.lower()
+            for _nm in _names:
+                if _idx < len(msgs) and (_is_glass or _nm.startswith('glass')):
+                    _val = msgs[_idx]
+                    if (isinstance(_val, str) and _val == source_msgs[_idx]
+                            and re.search('[A-Za-z]{2}', _val) and not TR_CHARS.search(_val)
+                            and _val not in known and _val not in {'SSH', 'WSL', 'PR', 'Panel', 'Terminal', 'Plan', 'Tablet'}):
+                        new_nls.add(_val)
+                _idx += 1
+    except Exception:
+        pass
 
 total_new = sum(len(v) for v in new_bundle.values()) + len(new_nls)
 log('Taranan kapsamda kalan aday: %d (etkin bilinen listede: %d)' % (total_new, len(known)))
