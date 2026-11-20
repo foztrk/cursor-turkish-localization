@@ -5,8 +5,8 @@ Bu depo (`C:\Users\Work-D\cursor-turkish-localization`), Cursor güncellemelerin
 Kullanıcı **"talimatnameyi uygula"** veya **"güncelleme geldi"** dediğinde `.agents/skills/cursor-turkce-ekibi/SKILL.md` ve `C:\Users\Work-D\Documents\Obsidian-Beyin\Cursor-Türkçe-Yama-İşlem-Günlüğü.md` içindeki **3 aşamalı protokolü** eksiksiz uygula:
 
 1. **Aşama 1 — `EN_WORD`-Bağımsız Tam Gömülü Dosya Taraması & Prop-Bağımsız Ortak Sözlük:**
-   - `python -X utf8 apply_all.py --force` çalıştır (`patch_glass_nls.py`, `patch_tool_labels.py`, `patch_molten.py` ortak sözlük motoru `7.385+` çeviriyi hem bundle hem Molten üzerinde prop-bağımsız uygular).
-   - `YENI-EKLENENLER.txt` ve `YENI-HOVER-ETIKETLER.txt` içinde kalan yeni UI/durum/computed prop metinlerini `cursor-ui-tm.json`, `patch_glass_nls.py` veya `patch_tool_labels.py` içine ekle (`.label === "..."` kod mantığı karşılaştırmaları olan `PROTECTED_PROP_LOGIC_PAIRS` çiftlerini koru).
+   - `python -X utf8 apply_all.py --force` çalıştır (`patch_glass_nls.py`, `patch_tool_labels.py`, `patch_molten.py` ortak sözlük motoru `\u2019`/`\u2026`/`\u2014`/`\u00B7` Unicode kaçış varyantları dahil `8.300+` çeviriyi hem tüm `*Label/*Title/*Description` prop'ları hem de `=`/`?`/`:` değişken atamaları üzerinde prop-bağımsız uygular).
+   - `YENI-EKLENENLER.txt` ve `YENI-HOVER-ETIKETLER.txt` içinde kalan yeni UI/durum/computed prop/değişken ataması/şablon (`${...}`) metinlerini `cursor-ui-tm.json`, `patch_fixes.py`, `patch_molten.py`, `patch_glass_nls.py` veya `patch_tool_labels.py` içine ekle (`.label === "..."` kod mantığı karşılaştırmaları olan `PROTECTED_PROP_LOGIC_PAIRS` çiftlerini koru).
 2. **Aşama 2 — Zorunlu Deterministik Doğrulama Kapısı (`verify_patch.py`):**
    - `python -X utf8 verify_patch.py` çıktısı `0` hata (`PASS`) vermelidir (`14.600+` NLS `{0}` yer tutucu kontrolü, SHA-256 eşleşmesi, CLP önbellek eşleşmesi, `glass` ve `molten` regresyon kontrolleri).
 3. **Aşama 3 — Bağımsız Denetim & Senkronizasyon:**

@@ -144,6 +144,10 @@ def main():
         'children:"Diff View"',
         'children:"Line Numbers"',
         'children:"Discard Changes"',
+        '="Disconnect from this computer"',
+        '="Disconnect from all computers"',
+        '="Don\\u2019t allow"',
+        '?"Allow this device?":`Allow \\u201C${t}\\u201D?`',
     ]
     for fb in forbidden_glass:
         if fb in glass:
@@ -168,6 +172,11 @@ def main():
         'children:"Fark Görünümü"',
         'children:"Satır Numaraları"',
         'children:"Değişiklikleri Geri Al"',
+        '="Bu bilgisayarla bağlantıyı kes"',
+        '="Tüm bilgisayarlarla bağlantıyı kes"',
+        '="İzin Verme"',
+        '?"Bu cihaza izin verilsin mi?":`\\u201C${t}\\u201D cihazına izin verilsin mi?`',
+        '`Son kullanım: ${',
     ]
     for rq in required_glass:
         if rq not in glass:
@@ -203,6 +212,11 @@ def main():
         'children:`Fark Görünümü`',
         'children:`Satır Numaraları`',
         'children:`Değişiklikleri Geri Al`',
+        '`Bu bilgisayarla bağlantıyı kes`',
+        '`Tüm bilgisayarlarla bağlantıyı kes`',
+        '`İzin Verme`',
+        '`Son kullanım: ${n}`',
+        'cihazına izin verilsin mi?`',
     ]:
         if rq not in molten_all:
             fail(errors, f"Canli Molten icinde beklenen Turkce kalip yok: {rq}")

@@ -75,6 +75,46 @@ MOLTEN_REPLACEMENTS = [
     ('`Computer name`', '`Bilgisayar adı`'),
     ('`How this computer appears in the iOS app.`', '`Bu bilgisayarın iOS uygulamasında nasıl görüneceği.`'),
     ('`No devices paired yet`', '`Henüz eşleştirilmiş cihaz yok`'),
+    # Uzaktan Denetim (remote-control-DCMDGsEl.js, pairing-dialog-BSKO_Szk.js, steer-dialog-DBiqQKsB.js)
+    ('one:`sec`,many:`secs`', 'one:`sn`,many:`sn`'),
+    ('one:`min`,many:`mins`', 'one:`dk`,many:`dk`'),
+    ('one:`hr`,many:`hrs`', 'one:`sa`,many:`sa`'),
+    ('one:`day`,many:`days`', 'one:`gün`,many:`gün`'),
+    ('one:`wk`,many:`wks`', 'one:`hf`,many:`hf`'),
+    ('one:`mo`,many:`mos`', 'one:`ay`,many:`ay`'),
+    ('one:`yr`,many:`yrs`', 'one:`yıl`,many:`yıl`'),
+    ('return n<-30?`in ${ie(-n)}`:n<30?`now`:`${ie(n)} ago`', 'return n<-30?`${ie(-n)} içinde`:n<30?`now`:`${ie(n)} önce`'),
+    ('I=`Couldn\\u2019t load paired devices.`', 'I=`Eşleştirilmiş cihazlar yüklenemedi.`'),
+    ('L=`Allow`', 'L=`İzin Ver`'),
+    ('R=`Don\\u2019t allow`', 'R=`İzin Verme`'),
+    ('z=`Disconnect\\u2026`', 'z=`Bağlantıyı Kes\\u2026`'),
+    ('B=`Disconnect from this computer`', 'B=`Bu bilgisayarla bağlantıyı kes`'),
+    ('V=`Disconnect`', 'V=`Bağlantıyı Kes`'),
+    ('H=`Disconnect from all computers`', 'H=`Tüm bilgisayarlarla bağlantıyı kes`'),
+    ('U=`It won\\u2019t be able to control this computer until it\\u2019s authorized here again.`', 'U=`Burada tekrar yetkilendirilene kadar bu bilgisayarı kontrol edemez.`'),
+    ('W=`It won\\u2019t be able to control any of your computers. To use it again, authorize it as a new device.`', 'W=`Bilgisayarlarınızın hiçbirini kontrol edemez. Tekrar kullanmak için yeni bir cihaz olarak yetkilendirin.`'),
+    ('G=`It will be able to start, check, and reply to agents on this computer. Only allow it if your device shows this code:`', 'G=`Bu bilgisayardaki ajanları başlatabilir, kontrol edebilir ve yanıtlayabilir. Yalnızca cihazınızda şu kod görünüyorsa izin verin:`'),
+    ('K=`Unnamed device`', 'K=`Adsız cihaz`'),
+    ('return`Waiting for approval \\u00B7 code ${e.verificationCode}`', 'return`Onay bekleniyor \\u00B7 kod ${e.verificationCode}`'),
+    ('if(e.lastUsedAtMs===null)return`Not used yet`;let n=ae(e.lastUsedAtMs,t);return n===`now`?`Last used just now`:`Last used ${n}`', 'if(e.lastUsedAtMs===null)return`Henüz kullanılmadı`;let n=ae(e.lastUsedAtMs,t);return n===`now`?`Son kullanım: az önce`:`Son kullanım: ${n}`'),
+    ('return`Paired with ${q(e,`the device`)}. It can now control this computer.`', 'return`${q(e,`cihaz`)} ile eşleştirildi. Artık bu bilgisayarı kontrol edebilir.`'),
+    ('return`Disconnect ${q(e,`this device`)} from this computer?`', 'return`${q(e,`bu cihaz`)} cihazının bu bilgisayarla bağlantısı kesilsin mi?`'),
+    ('return`Disconnect ${q(e,`this device`)} from all computers?`', 'return`${q(e,`bu cihaz`)} cihazının tüm bilgisayarlarla bağlantısı kesilsin mi?`'),
+    ('let n=t?`all computers`:`this computer`;return`Couldn\\u2019t disconnect ${q(e,`the device`)} from ${n}. Try again.`', 'let n=t?`tüm bilgisayarlardan`:`bu bilgisayardan`;return`${q(e,`cihaz`)} bağlantısı ${n} kesilemedi. Tekrar deneyin.`'),
+    ('return e===``?`Allow this device?`:`Allow \\u201C${e}\\u201D?`', 'return e===``?`Bu cihaza izin verilsin mi?`:`\\u201C${e}\\u201D cihazına izin verilsin mi?`'),
+    ('return`A device requested control of this computer with the code ${e}, which another device already uses. It was not offered for approval.`', 'return`Bir cihaz, başka bir cihazın zaten kullandığı ${e} koduyla bu bilgisayarın denetimini istedi. Onaya sunulmadı.`'),
+    ('return`Couldn\\u2019t approve ${q(e,`the device`)}. Try again from that device.`', 'return`${q(e,`cihaz`)} onaylanamadı. O cihazdan tekrar deneyin.`'),
+    ('ve=`Remote Control`', 've=`Uzaktan Denetim`'),
+    ('disconnected:`Offline`,connecting:`Connecting\\u2026`', 'disconnected:`Çevrimdışı`,connecting:`Bağlanıyor\\u2026`'),
+    ('clockSkewed:`Check clock`', 'clockSkewed:`Saati kontrol edin`'),
+    ('return e.count===1?`1 device waiting for approval`:`${e.count} devices waiting for approval`', 'return e.count===1?`1 cihaz onay bekliyor`:`${e.count} cihaz onay bekliyor`'),
+    ('Ae=`Steer from Phone`', 'Ae=`Telefondan Yönet`'),
+    ('`One of your organizations does not allow Remote Control`', '`Kuruluşlarınızdan biri Uzaktan Denetim\'e izin vermiyor`'),
+    ('`Remote Control settings are unavailable`', '`Uzaktan Denetim ayarları kullanılamıyor`'),
+    ('`Checking Remote Control settings\\u2026`', '`Uzaktan Denetim ayarları kontrol ediliyor\\u2026`'),
+    ('v=`Connect ${l} to Your Phone`', 'v=`${l} Uygulamasını Telefonunuza Bağlayın`'),
+    ('y=`Scan to download ${l} for iOS and steer your agents from anywhere`', 'y=`iOS için ${l} uygulamasını indirmek ve ajanlarınızı her yerden yönetmek için tarayın`'),
+    ('label:`QR code linking to ${t}`', 'label:`${t} adresine yönlendiren QR kodu`'),
     ('nA={label:`Tasks`,icon:`checks`}', 'nA={label:`Görevler`,icon:`checks`}'),
     ('label:`Machines`', 'label:`Makineler`'),
     ('label:`Environments`', 'label:`Ortamlar`'),
@@ -488,17 +528,24 @@ PROTECTED_PROP_LOGIC_PAIRS = {
     ('title', 'Text Colors'),
 }
 
-MOLTEN_PROP_BT_RE = re.compile(
-    r'((?:"aria-label")|\b(?:ariaLabel|label|title|placeholder|tooltip|heading|header|subtitle|'
+_UI_PROP_NAMES_PAT = (
+    r'(?:"aria-label")|\b(?:'
+    r'ariaLabel|label|title|placeholder|tooltip|heading|header|subtitle|'
     r'emptyMessage|buttonLabel|primaryButtonLabel|secondaryButtonLabel|confirmLabel|'
-    r'cancelLabel|okLabel|message|detail|description|children)):`([^`\\$\n\r]{2,220})`'
+    r'cancelLabel|okLabel|message|detail|description|children|'
+    r'turnOn|turningOn|preparing|copyLink|copied|noApp|getApp|newCode|answering|openSettings|pairAnother|'
+    r'[a-zA-Z0-9_]*(?:Label|Title|Description|Placeholder|Message|Text|Tooltip|Heading|Header|Subtitle|Hint|Prompt)'
+    r')'
 )
 
-BUNDLE_PROP_RE = re.compile(
-    r'((?:"aria-label")|\b(?:ariaLabel|label|title|placeholder|tooltip|heading|header|subtitle|'
-    r'emptyMessage|buttonLabel|primaryButtonLabel|secondaryButtonLabel|confirmLabel|'
-    r'cancelLabel|okLabel|message|detail|description|children)):(["\'])([^"\'\\$\n\r]{2,220})\2'
-)
+_STR_BODY_BT = r'((?:\\u[0-9a-fA-F]{4}|\\x[0-9a-fA-F]{2}|[^`\\$\n\r]){2,240})'
+_STR_BODY_Q = r'((?:\\u[0-9a-fA-F]{4}|\\x[0-9a-fA-F]{2}|[^"\'\\$\n\r]){2,240})'
+
+MOLTEN_PROP_BT_RE = re.compile(r'(' + _UI_PROP_NAMES_PAT + r'):`' + _STR_BODY_BT + r'`')
+BUNDLE_PROP_RE = re.compile(r'(' + _UI_PROP_NAMES_PAT + r'):(["\'])' + _STR_BODY_Q + r'\2')
+
+MOLTEN_ASSIGN_BT_RE = re.compile(r'(?<![=!<>])([=,?:])`' + _STR_BODY_BT + r'`')
+BUNDLE_ASSIGN_RE = re.compile(r'(?<![=!<>])([=,?:])(["\'])' + _STR_BODY_Q + r'\2')
 
 
 def _is_valid_en_tr_pair(k, v):
@@ -507,16 +554,51 @@ def _is_valid_en_tr_pair(k, v):
     if _TR_CHAR_RE.search(k):
         return False
     ks = k.lstrip()
-    if not (ks[0].isupper() or ks.startswith("&&")):
+    if not (ks[0].isupper() or ks.startswith("&&") or ks.startswith("—") or ks.startswith("⏳") or ks.startswith("✓")):
         return False
-    if any(c in k or c in v for c in ["`", "$", "\\", "\n", "\r", "{0}", "{1}"]):
+    if any(c in k or c in v for c in ["`", "$", "\n", "\r", "{0}", "{1}"]):
         return False
     return True
 
 
+def _expand_unicode_escape_variants(en_to_tr):
+    """Sozlukteki ', ’, ..., …, —, –, · karakterlerini iceren anahtarlar icin
+    JS bundle/Molten icinde gecen \\u2019, \\u2026, \\u2014, \\u2013, \\u00B7, \\xB7
+    kacisli varyantlari da otomatik uretir."""
+    extra = {}
+    for k, v in list(en_to_tr.items()):
+        # 1) ... veya … -> \u2026
+        if "…" in k or "..." in k:
+            k_u = k.replace("…", "\\u2026").replace("...", "\\u2026")
+            v_u = v.replace("…", "\\u2026").replace("...", "\\u2026")
+            extra.setdefault(k_u, v_u)
+            k_dots = k.replace("…", "...")
+            extra.setdefault(k_dots, v)
+            k_ell = k.replace("...", "…")
+            extra.setdefault(k_ell, v)
+        # 2) ' veya ’ -> \u2019
+        for kk, vv in [(k, v)] + list(extra.items()):
+            if "'" in kk or "’" in kk:
+                ku = kk.replace("’", "\\u2019").replace("'", "\\u2019")
+                extra.setdefault(ku, vv)
+            if "—" in kk:
+                ku = kk.replace("—", "\\u2014")
+                vu = vv.replace("—", "\\u2014")
+                extra.setdefault(ku, vu)
+            if "–" in kk:
+                ku = kk.replace("–", "\\u2013")
+                vu = vv.replace("–", "\\u2013")
+                extra.setdefault(ku, vu)
+            if "·" in kk:
+                extra.setdefault(kk.replace("·", "\\u00B7"), vv.replace("·", "\\u00B7"))
+                extra.setdefault(kk.replace("·", "\\xB7"), vv.replace("·", "\\xB7"))
+    en_to_tr.update(extra)
+    return en_to_tr
+
+
 def _load_unified_en_tr_dict():
     """Tum yama sozluklerindeki (cursor-ui-tm, nls-tm, tr2/*.json, patch_remaining_ui, patch_fixes vb.)
-    guvenli gorunur UI metinlerini tek havuzda birlestirir."""
+    guvenli gorunur UI metinlerini tek havuzda birlestirir (Unicode kacis varyantlari dahil)."""
     en_to_tr = {}
     for fn in ["cursor-ui-tm.json", "nls-tm.json"]:
         p = os.path.join(BASE_DIR, fn)
@@ -555,12 +637,20 @@ def _load_unified_en_tr_dict():
                     en_to_tr.setdefault(a, b)
         except Exception:
             pass
-    return en_to_tr
+    return _expand_unicode_escape_variants(en_to_tr)
+
+
+def _is_safe_assign_key(val):
+    """Degisken atamasi (=, ?, :) uzerinde cevrilmesi guvenli olan (kod sabiti olmayan)
+    cok kelimeli veya \\u2026 / … iceren UI dizgilerini belirler."""
+    if " " in val.strip() or "\\u2026" in val or "…" in val or val.endswith("..."):
+        return True
+    return False
 
 
 def patch_bundle_unified_props(content, unified_dict=None):
     """Bundle (workbench.glass.main.js / workbench.desktop.main.js) uzerinde
-    prop-bagimsiz birlesik sozluk eslesmesini uygular."""
+    prop-bagimsiz ve degisken-atamasi kapsayan birlesik sozluk eslesmesini uygular."""
     if unified_dict is None:
         unified_dict = _load_unified_en_tr_dict()
     hits = [0]
@@ -576,7 +666,21 @@ def patch_bundle_unified_props(content, unified_dict=None):
             return f"{prop}:{q}{safe_tr}{q}"
         return m.group(0)
 
-    return BUNDLE_PROP_RE.sub(_repl, content), hits[0]
+    content = BUNDLE_PROP_RE.sub(_repl, content)
+
+    def _repl_assign(m):
+        op, q, val = m.group(1), m.group(2), m.group(3)
+        if not _is_safe_assign_key(val):
+            return m.group(0)
+        tr = unified_dict.get(val)
+        if tr and tr != val:
+            hits[0] += 1
+            safe_tr = tr.replace(q, "\\" + q)
+            return f"{op}{q}{safe_tr}{q}"
+        return m.group(0)
+
+    content = BUNDLE_ASSIGN_RE.sub(_repl_assign, content)
+    return content, hits[0]
 
 
 def _load_backtick_prop_maps():
@@ -636,6 +740,17 @@ def patch_molten_dir(molten_dir):
                         return f"{prop}:`{tr}`"
                     return m.group(0)
                 content = MOLTEN_PROP_BT_RE.sub(_repl_prop, content)
+
+                def _repl_assign_bt(m):
+                    op, val = m.group(1), m.group(2)
+                    if not _is_safe_assign_key(val):
+                        return m.group(0)
+                    tr = unified_dict.get(val)
+                    if tr and tr != val:
+                        prop_hits[0] += 1
+                        return f"{op}`{tr}`"
+                    return m.group(0)
+                content = MOLTEN_ASSIGN_BT_RE.sub(_repl_assign_bt, content)
                 mods += prop_hits[0]
             try:
                 import patch_tool_labels
