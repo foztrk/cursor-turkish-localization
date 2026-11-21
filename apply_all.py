@@ -220,6 +220,7 @@ log('Yama tabani: %s/' % base_snapdir)
 # degildir; ayni blogu iki kez eklemek yerine kurulumu durdururuz.
 archive_dir = 'ceviri-son-hali'
 overlay_suffixes = {}
+_live_collector_marker = '/* CURSOR_TR_LIVE_COLLECTOR_V1 */'
 for fname in BUNDLE_FILES:
     current = io.open(fname, encoding='utf-8').read()
     present = [m for m in OVERLAY_MARKERS if m in current]
@@ -240,12 +241,18 @@ for fname in BUNDLE_FILES:
             log('HATA: Arsivde yedi dinamik yama imzasinin tamami yok: %s' % archived)
             io.open('apply_report.txt', 'w', encoding='utf-8').write('\n'.join(report))
             sys.exit(3)
-        overlay_suffixes[fname] = overlay_source[min(starts):]
+        suf = overlay_source[min(starts):]
+        if _live_collector_marker in suf:
+            suf = suf[:suf.index(_live_collector_marker)].rstrip()
+        overlay_suffixes[fname] = suf
         io.open(fname, 'w', encoding='utf-8', newline='').write(current.rstrip())
         log('%s: dinamik UI katmanlari arsivden alindi ve statik yamalardan korundu' % fname)
     else:
         starts = [current.find('/* ' + m + ' */') for m in OVERLAY_MARKERS]
-        overlay_suffixes[fname] = current[min(starts):]
+        suf = current[min(starts):]
+        if _live_collector_marker in suf:
+            suf = suf[:suf.index(_live_collector_marker)].rstrip()
+        overlay_suffixes[fname] = suf
         current = current[:min(starts)].rstrip()
         io.open(fname, 'w', encoding='utf-8', newline='').write(current)
         log('%s: mevcut dinamik UI katmanlari statik yamalardan korundu' % fname)
@@ -374,6 +381,14 @@ if r.returncode != 0:
     log('HATA: %s basarisiz oldu (kod %d). Kurulum iptal.' % (menu_script, r.returncode))
     io.open('apply_report.txt', 'w', encoding='utf-8').write('\n'.join(report))
     sys.exit(4)
+
+if os.path.exists('patch_dom_collector.py'):
+    _r_col = subprocess.run([sys.executable, '-X', 'utf8', 'patch_dom_collector.py'], capture_output=True, encoding='utf-8', errors='replace')
+    log('patch_dom_collector.py -> %s' % (_r_col.stdout or _r_col.stderr).strip().replace('\n', ' | '))
+    if _r_col.returncode != 0:
+        log('HATA: patch_dom_collector.py basarisiz oldu (kod %d). Kurulum iptal.' % _r_col.returncode)
+        io.open('apply_report.txt', 'w', encoding='utf-8').write('\n'.join(report))
+        sys.exit(4)
 
 if CACHE_NLS_TARGET:
     shutil.copy2('nls.messages.json', 'nls.cache.messages.json')
@@ -637,10 +652,6 @@ if ok:
 log('Kurulum: %s [%s]' % ('BASARILI' if ok else 'BASARISIZ', deploy_status))
 
 if ok:
-    os.makedirs('ceviri-son-hali', exist_ok=True)
-    for name in FILES:
-        shutil.copy2(name, os.path.join('ceviri-son-hali', name))
-    log('ceviri-son-hali/ guncellendi')
     try:
         import patch_molten
         _molten_dir = os.path.join(APP, "molten", "dist", "renderer", "assets")
@@ -718,6 +729,58 @@ if ok:
             print(_vp.stdout or _vp.stderr)
             io.open('apply_report.txt', 'w', encoding='utf-8').write('\n'.join(report))
             sys.exit(6)
+
+    # === 9) Surum Farki Ozeti (diff_versions.py) ==============================
+    if os.path.exists('diff_versions.py'):
+        _dv = subprocess.run([sys.executable, '-X', 'utf8', 'diff_versions.py'], capture_output=True, encoding='utf-8', errors='replace')
+        log((_dv.stdout or _dv.stderr).strip().replace('\n', ' | '))
+
+    # === 10) Canli CDP Acilis Kapisi (verify_boot_cdp.py) + Otomatik Rollback =
+    if '--skip-boot-test' not in sys.argv and os.path.exists('verify_boot_cdp.py'):
+        _vb = subprocess.run([sys.executable, '-X', 'utf8', 'verify_boot_cdp.py'], capture_output=True, encoding='utf-8', errors='replace')
+        _vb_out = (_vb.stdout or _vb.stderr).strip().replace('\n', ' | ')
+        log('verify_boot_cdp.py -> %s' % _vb_out)
+        if _vb.returncode != 0:
+            log('KRITIK: CDP acilis testi basarisiz oldu! deploy-rollback/ geri yukleniyor...')
+            try:
+                subprocess.run(['taskkill', '/F', '/IM', 'Cursor.exe'], capture_output=True)
+                _rb_cmds = []
+                for _rn, _rdst in FILES.items():
+                    _rsrc = os.path.join(rollback_dir, _rn)
+                    if os.path.exists(_rsrc):
+                        try:
+                            shutil.copy2(_rsrc, _rdst)
+                        except Exception:
+                            _rb_cmds.append(f'Copy-Item -LiteralPath {ps_quote(_rsrc)} -Destination {ps_quote(_rdst)} -Force')
+                if _rb_cmds:
+                    _rb_ps1 = os.path.abspath('_rollback_boot.ps1')
+                    io.open(_rb_ps1, 'w', encoding='utf-8').write('\n'.join(_rb_cmds))
+                    subprocess.run([
+                        'powershell', '-NoProfile', '-Command',
+                        f'Start-Process -FilePath "powershell.exe" -ArgumentList "-NoProfile","-ExecutionPolicy","Bypass","-File","{_rb_ps1}" -Verb RunAs -Wait'
+                    ])
+                    try:
+                        os.remove(_rb_ps1)
+                    except Exception:
+                        pass
+                _appdata_cursor = os.path.join(os.path.expanduser('~'), 'AppData', 'Roaming', 'Cursor')
+                for _cf in glob.glob(os.path.join(_appdata_cursor, 'Code Cache', 'js', '*')):
+                    try:
+                        os.remove(_cf)
+                    except Exception:
+                        pass
+                if _commit:
+                    shutil.rmtree(os.path.join(_appdata_cursor, 'CachedData', _commit), ignore_errors=True)
+            except Exception as _rbe:
+                log('Rollback uyarisi: %s' % _rbe)
+            io.open('deploy_result.txt', 'w', encoding='utf-8').write('FAIL_BOOT_ROLLED_BACK')
+            io.open('apply_report.txt', 'w', encoding='utf-8').write('\n'.join(report))
+            sys.exit(7)
+
+    os.makedirs('ceviri-son-hali', exist_ok=True)
+    for name in FILES:
+        shutil.copy2(name, os.path.join('ceviri-son-hali', name))
+    log('ceviri-son-hali/ guncellendi')
 else:
     io.open('apply_report.txt', 'w', encoding='utf-8').write('\n'.join(report))
     sys.exit(5)

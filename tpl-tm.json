@@ -1364,5 +1364,7 @@
   "{0} {1} to be authenticated{2}": "Kimliği doğrulanacak {0} {1}{2}",
   "{0} · Authentication required": "{0} · Kimlik doğrulaması gerekli",
   "{0} · Cloud": "{0} · Bulut",
-  "{0} ∙ Side Chat": "{0} ∙ Yan Sohbet"
+  "{0} ∙ Side Chat": "{0} ∙ Yan Sohbet",
+  "{0} is already authenticated": "{0} kimliği zaten doğrulandı",
+  "{0} is authenticated": "{0} kimliği doğrulandı"
 }

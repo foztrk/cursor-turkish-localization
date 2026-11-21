@@ -28,6 +28,81 @@ MAIN_REPS = [
 ]
 
 
+MISSING_IPC_MARKER = '/* CURSOR_TR_MISSING_IPC_V1 */'
+
+MISSING_IPC_BLOCK = r'''
+/* CURSOR_TR_MISSING_IPC_V1 */
+import { ipcMain as __cursorTrIpcMain, app as __cursorTrApp } from "electron";
+import * as __cursorTrFs from "node:fs";
+import * as __cursorTrPath from "node:path";
+import * as __cursorTrOs from "node:os";
+(() => {
+  try {
+    if (globalThis.__cursorTrMissingIpcBound) return;
+    globalThis.__cursorTrMissingIpcBound = true;
+    const repoDir = __cursorTrPath.join(__cursorTrOs.homedir(), "cursor-turkish-localization");
+    const outFile = __cursorTrFs.existsSync(repoDir)
+      ? __cursorTrPath.join(repoDir, "eksik-ekran-metinleri.json")
+      : __cursorTrPath.join(__cursorTrApp.getPath("userData"), "cursor-tr-missing.json");
+    let store = null;
+    let timer = null;
+    const ensureStore = () => {
+      if (store) return store;
+      store = {};
+      try {
+        if (__cursorTrFs.existsSync(outFile)) {
+          const parsed = JSON.parse(__cursorTrFs.readFileSync(outFile, "utf8"));
+          if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) store = parsed;
+        }
+      } catch {}
+      return store;
+    };
+    const flush = () => {
+      timer = null;
+      try {
+        if (!store) return;
+        __cursorTrFs.writeFileSync(outFile, JSON.stringify(store, null, 2), "utf8");
+      } catch {}
+    };
+    __cursorTrIpcMain.on("vscode:cursorTrMissing", (_ev, batch) => {
+      try {
+        if (!Array.isArray(batch) || batch.length === 0) return;
+        const db = ensureStore();
+        let keys = Object.keys(db).length;
+        const now = new Date().toISOString();
+        let dirty = false;
+        for (const item of batch) {
+          if (!item || typeof item.text !== "string") continue;
+          const text = item.text.trim();
+          if (text.length < 2 || text.length > 200) continue;
+          const existing = db[text];
+          if (existing) {
+            existing.count = (existing.count || 1) + 1;
+            existing.lastSeen = now;
+            dirty = true;
+          } else if (keys < 2000) {
+            db[text] = {
+              count: 1,
+              firstSeen: now,
+              lastSeen: now,
+              kind: typeof item.kind === "string" ? item.kind : "text",
+              tag: typeof item.tag === "string" ? item.tag : "",
+            };
+            keys += 1;
+            dirty = true;
+          }
+        }
+        if (dirty && !timer) {
+          timer = setTimeout(flush, 3000);
+          if (typeof timer.unref === "function") timer.unref();
+        }
+      } catch {}
+    });
+  } catch {}
+})();
+'''.lstrip('\n')
+
+
 def patch_main(fname='main.js'):
     if not os.path.exists(fname):
         print(f'{fname} bulunamadi, atlaniyor.')
@@ -35,6 +110,9 @@ def patch_main(fname='main.js'):
 
     with io.open(fname, 'r', encoding='utf-8') as f:
         content = f.read()
+
+    if MISSING_IPC_MARKER in content:
+        content = content[:content.index(MISSING_IPC_MARKER)].rstrip()
 
     orig_len = len(content)
     total_reps = 0
@@ -47,10 +125,13 @@ def patch_main(fname='main.js'):
         else:
             print(f'  [BILGI] Kalip bulunamadi veya zaten uygulanmis: {old_s[:40]}...')
 
+    content = content.rstrip() + '\n\n' + MISSING_IPC_BLOCK
+    total_reps += 1
+
     with io.open(fname, 'w', encoding='utf-8', newline='') as f:
         f.write(content)
 
-    print(f'[{fname}] Toplam {total_reps} degisim uygulandi. (Boyut farki: {len(content) - orig_len} bayt)')
+    print(f'[{fname}] Toplam {total_reps} degisim uygulandi (eksik-ekran IPC dahil). (Boyut farki: {len(content) - orig_len} bayt)')
 
 
 if __name__ == '__main__':

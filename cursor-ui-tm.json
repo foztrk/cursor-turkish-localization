@@ -4127,5 +4127,7 @@
   "— Skipped": "— Atlandı",
   "⏳ Streaming": "⏳ Akış",
   "✓ Complete": "✓ Tamamlandı",
-  "✓ Thanks for the feedback": "✓ Geri bildiriminiz için teşekkürler"
+  "✓ Thanks for the feedback": "✓ Geri bildiriminiz için teşekkürler",
+  "Enables the agent to use custom tools and third-party integrations.": "Ajanın özel araçları ve üçüncü taraf entegrasyonları kullanmasını sağlar.",
+  "Sign in again": "Tekrar oturum aç"
 }

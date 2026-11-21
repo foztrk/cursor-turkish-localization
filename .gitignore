@@ -44,6 +44,9 @@ product.json
 nls.messages.json
 nls.cache.*.json
 YENI-*.txt
+SURUM-FARKI-*.txt
+surum-farki-son.json
+eksik-ekran-metinleri.json
 
 # OS / Editor
 .DS_Store
