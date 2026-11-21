@@ -549,6 +549,12 @@ PROTECTED_PROP_LOGIC_PAIRS = {
     ('title', 'New Agent'),
     ('title', 'Stroke Colors'),
     ('title', 'Text Colors'),
+    ('text', 'Foreground'),
+    ('text', 'ForegroundBright'),
+    ('text', 'Background'),
+    ('text', 'Fill'),
+    ('border', 'Fill'),
+    ('icon', 'ForegroundBright'),
 }
 
 _UI_PROP_NAMES_PAT = (
@@ -671,6 +677,13 @@ def _is_safe_assign_key(val):
     return False
 
 
+_PROTECTED_ASSIGN_VALUES = {v for _, v in PROTECTED_PROP_LOGIC_PAIRS}
+_ASSIGN_SKIP_BEFORE_RE = re.compile(
+    r'(?:throw\s+new\s+[A-Za-z0-9_$]*Error\s*\(|new\s+[A-Za-z0-9_$]*Error\s*\(|\bcase\s+|===|!==|\.get\s*\(|\.has\s*\(|\.set\s*\()\s*$'
+)
+_ASSIGN_SKIP_AFTER_RE = re.compile(r'^\s*(?:===|!==)')
+
+
 def patch_bundle_unified_props(content, unified_dict=None):
     """Bundle (workbench.glass.main.js / workbench.desktop.main.js) uzerinde
     prop-bagimsiz ve degisken-atamasi kapsayan birlesik sozluk eslesmesini uygular."""
@@ -693,7 +706,13 @@ def patch_bundle_unified_props(content, unified_dict=None):
 
     def _repl_assign(m):
         op, q, val = m.group(1), m.group(2), m.group(3)
-        if not _is_safe_assign_key(val):
+        if val in _PROTECTED_ASSIGN_VALUES or not _is_safe_assign_key(val):
+            return m.group(0)
+        before = content[max(0, m.start() - 48):m.start()]
+        if _ASSIGN_SKIP_BEFORE_RE.search(before):
+            return m.group(0)
+        after = content[m.end():min(len(content), m.end() + 8)]
+        if _ASSIGN_SKIP_AFTER_RE.match(after):
             return m.group(0)
         tr = unified_dict.get(val)
         if tr and tr != val:
@@ -788,7 +807,7 @@ def _load_template_tr_dict():
         return {}
 
 
-_TPL_COMP_BEFORE_RE = re.compile(r'(?:===|!==|\bcase\s+)$')
+_TPL_COMP_BEFORE_RE = re.compile(r'(?:===|!==|\bcase\s+|new\s+[A-Za-z0-9_$]*Error\s*\(\s*)$')
 
 
 def patch_template_literals(content, tpl_dict=None):

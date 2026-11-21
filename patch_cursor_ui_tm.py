@@ -12,10 +12,15 @@ VISIBLE_PROPS = [
 ]
 
 VISIBLE_VALUE_RE = re.compile(
-    r'(?P<prefix>(?:"aria-label"|' +
+    r'(?P<prefix>(?P<prop>(?:"aria-label"|\b(?:' +
     '|'.join(re.escape(prop) for prop in VISIBLE_PROPS if prop != 'aria-label') +
-    r'):)(?P<value>"(?:\\.|[^"\\])*")'
+    r'))):)(?P<value>"(?:\\.|[^"\\])*")'
 )
+
+try:
+    from patch_molten import PROTECTED_PROP_LOGIC_PAIRS
+except Exception:
+    PROTECTED_PROP_LOGIC_PAIRS = {('text', 'Foreground')}
 
 
 if __name__ == '__main__':
@@ -28,6 +33,9 @@ if __name__ == '__main__':
             try:
                 english = json.loads(match.group('value'))
             except (TypeError, ValueError):
+                return match.group(0)
+            prop = match.group('prop')
+            if (prop, english) in PROTECTED_PROP_LOGIC_PAIRS:
                 return match.group(0)
             turkish = translations.get(english)
             if not isinstance(turkish, str) or turkish == english:

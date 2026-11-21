@@ -1856,8 +1856,13 @@ PROPS = ('label', 'title', 'placeholder', 'tooltip', 'heading', 'header', 'subti
 
 alternatives = '|'.join(sorted((re.escape(k) for k in MAP), key=len, reverse=True))
 visible_re = re.compile(
-    r'((?:"aria-label"|' + '|'.join(PROPS) + r'):)(["\'])(' + alternatives + r')\2'
+    r'((?P<prop>(?:"aria-label"|\b(?:' + '|'.join(PROPS) + r'))):)(["\'])(' + alternatives + r')\3'
 )
+
+try:
+    from patch_molten import PROTECTED_PROP_LOGIC_PAIRS as _PM_PROTECTED
+except Exception:
+    _PM_PROTECTED = {('text', 'Foreground')}
 
 if __name__ == '__main__':
     total = 0
@@ -1866,7 +1871,7 @@ if __name__ == '__main__':
             continue
         text = io.open(fname, encoding='utf-8').read()
         text, changed = visible_re.subn(
-            lambda m: m.group(1) + m.group(2) + MAP[m.group(3)] + m.group(2), text
+            lambda m: m.group(0) if (m.group('prop'), m.group(4)) in _PM_PROTECTED else m.group(1) + m.group(3) + MAP[m.group(4)] + m.group(3), text
         )
         for source, translated in DIRECT_MAP.items():
             for quote in ('"', "'"):

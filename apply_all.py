@@ -332,6 +332,8 @@ maps = {}
 for f in sorted(glob.glob('tr2/m*.json')):
     for k, v in json.load(io.open(f, encoding='utf-8')).items():
         prop, old = k.split('\t', 1)
+        if (prop, old) in _pm_unified.PROTECTED_PROP_LOGIC_PAIRS:
+            continue
         key = ('"aria-label"' if prop == 'aria-label' else prop) + ':"' + old + '"'
         maps[key] = ('"aria-label"' if prop == 'aria-label' else prop) + ':"' + v + '"'
 
@@ -655,6 +657,23 @@ if ok:
         log('Molten taramasi tamamlandi: kalan aday %d' % len(_molten_cands))
     except Exception as _em:
         log('Molten dagitim sonrasi yamalama uyarisi: %s' % _em)
+    try:
+        _appdata_cursor = os.path.join(os.path.expanduser('~'), 'AppData', 'Roaming', 'Cursor')
+        _cleared_caches = 0
+        for _cf in glob.glob(os.path.join(_appdata_cursor, 'Code Cache', 'js', '*')):
+            try:
+                os.remove(_cf)
+                _cleared_caches += 1
+            except Exception:
+                pass
+        if _commit:
+            _cd_dir = os.path.join(_appdata_cursor, 'CachedData', _commit)
+            if os.path.isdir(_cd_dir):
+                shutil.rmtree(_cd_dir, ignore_errors=True)
+                _cleared_caches += 1
+        log('Electron V8/JS onbellek temizligi: %d oge temizlendi.' % _cleared_caches)
+    except Exception as _ec:
+        log('Onbellek temizleme uyarisi: %s' % _ec)
     try:
         import sqlite3
         _db_path = os.path.join(os.path.expanduser('~'), 'AppData', 'Roaming', 'Cursor', 'User', 'globalStorage', 'state.vscdb')
