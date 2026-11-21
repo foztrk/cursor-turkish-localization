@@ -146,7 +146,7 @@ def _is_untranslated_ui_candidate(v):
 
 def extract_candidates(text):
     """Bundle ve Molten metninden EN_WORD filtresine takilmadan tum Ingilizce gorunen
-    UI prop ve computed prop adaylarini cikarir."""
+    UI prop, computed prop ve ${...} template literal adaylarini cikarir."""
     out = set()
     for m in PROP_RE.finditer(text):
         v = m.group(2)
@@ -156,6 +156,18 @@ def extract_candidates(text):
         v = m.group(2)
         if _is_untranslated_ui_candidate(v):
             out.add(v)
+    try:
+        import patch_molten as _pm_tpl
+        _tpl_known = _pm_tpl._load_template_tr_dict()
+        for m in _pm_tpl._TPL_LITERAL_RE.finditer(text):
+            raw = m.group(1)
+            if "${" not in raw:
+                continue
+            norm, _ = _pm_tpl.normalize_template_literal(raw)
+            if norm and norm not in _tpl_known and _is_untranslated_ui_candidate(re.sub(r'\{\d+\}', 'X', norm)):
+                out.add(norm)
+    except Exception:
+        pass
     return out
 
 

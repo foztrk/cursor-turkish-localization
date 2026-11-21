@@ -493,6 +493,29 @@ MOLTEN_REGEX_REPS = [
     # Kullanım yüzdesi: children:[x,`% used`] -> children:[`%`,x,` kullanıldı`]
     (re.compile(r'children:\[([^\]\[]+?),`% used`\]'),
      r'children:[`%`,\1,` kullanıldı`]'),
+    # Guncelleme butonu minifier-bagimsiz ve kismi-yama uyumlu kurallar
+    (re.compile(r'([a-zA-Z0-9_$]+)=`Update`,([a-zA-Z0-9_$]+)=([a-zA-Z0-9_$]+)\.switchesApp\?'),
+     r'\1=`Güncelle`,\2=\3.switchesApp?'),
+    (re.compile(r'if\(([a-zA-Z0-9_$]+)\)\{([a-zA-Z0-9_$]+)=`Updating`,([a-zA-Z0-9_$]+)='),
+     r'if(\1){\2=`Güncelleniyor`,\3='),
+    (re.compile(r'else if\(([a-zA-Z0-9_$]+)\)\{([a-zA-Z0-9_$]+)=`Installing`,([a-zA-Z0-9_$]+)='),
+     r'else if(\1){\2=`Yükleniyor`,\3='),
+    (re.compile(r'([a-zA-Z0-9_$]+)\.switchesApp\?`Update: restart \$\{([a-zA-Z0-9_$]+)\}`:`Update: restart \$\{\2\} to install`'),
+     r'\1.switchesApp?`Güncelle: ${\2} uygulamasını yeniden başlatın`:`Güncelle: yüklemek için ${\2} uygulamasını yeniden başlatın`'),
+    (re.compile(r'`Updating: \$\{([a-zA-Z0-9_$]+)\} restarts when the update is ready`'),
+     r'`Güncelleniyor: güncelleme hazır olduğunda ${\1} yeniden başlatılır`'),
+    (re.compile(r'([a-zA-Z0-9_$]+)\.switchesApp\?`Restarting \$\{([a-zA-Z0-9_$]+)\}`:`Installing update`'),
+     r'\1.switchesApp?`${\2} yeniden başlatılıyor`:`Güncelleme yükleniyor`'),
+    (re.compile(r'`Restarting \$\{([a-zA-Z0-9_$]+)\}`'),
+     r'`${\1} yeniden başlatılıyor`'),
+    (re.compile(r'return\s*`Restart to update`'),
+     r'return`Yeniden başlatarak güncelle`'),
+    # Ayarlar duzeyi listesi minifier-bagimsiz kural
+    (re.compile(r'\[\{value:`low`,label:`Low`\},\{value:`medium`,label:`Medium`\},\{value:`high`,label:`High`\}\]'),
+     r'[{value:`low`,label:`Düşük`},{value:`medium`,label:`Orta`},{value:`high`,label:`Yüksek`}]'),
+    # Sol alt ayarlar dugmesi (fe=`Settings`)
+    (re.compile(r'([a-zA-Z0-9_$]+)=`Settings`,([a-zA-Z0-9_$]+)=([a-zA-Z0-9_$]+)\?`Close \$\{\1\}`:\1'),
+     r'\1=`Ayarlar`,\2=\3?`Ayarları Kapat`:\1'),
     # Çalışan Modeli Özeti: children:[`New workers use `,v,w]
     (re.compile(r'children:\[`New workers use `,([^\]\[]+)\]'),
      r'children:[`Yeni çalışanlar `,\1,` kullanır`]'),
@@ -680,6 +703,124 @@ def patch_bundle_unified_props(content, unified_dict=None):
         return m.group(0)
 
     content = BUNDLE_ASSIGN_RE.sub(_repl_assign, content)
+    tpl_hits = 0
+    tpl_dict = _load_template_tr_dict()
+    if tpl_dict:
+        content, tpl_hits = patch_template_literals(content, tpl_dict)
+    return content, hits[0] + tpl_hits
+
+
+_TPL_LITERAL_RE = re.compile(r'`((?:\\u[0-9a-fA-F]{4}|\\x[0-9a-fA-F]{2}|[^`\\\n\r]){3,260})`')
+_PH_SLOT_RE = re.compile(r'\{(\d+)\}')
+
+
+def _decode_js_uesc(s):
+    s = re.sub(r'\\u([0-9a-fA-F]{4})', lambda m: chr(int(m.group(1), 16)), s)
+    s = re.sub(r'\\x([0-9a-fA-F]{2})', lambda m: chr(int(m.group(1), 16)), s)
+    return s
+
+
+def normalize_template_literal(raw):
+    """JS template literal icindeki ${expr} bolumlerini {0}, {1} yer tutucularina
+    ayirir (string icindeki suslu parantezleri yok sayar) ve Unicode kacislarini normalize eder."""
+    if "${" not in raw:
+        return None, None
+    exprs = []
+    out = []
+    i = 0
+    n = len(raw)
+    while i < n:
+        if raw[i:i + 2] == "${":
+            depth = 1
+            j = i + 2
+            in_q = None
+            while j < n and depth > 0:
+                ch = raw[j]
+                if in_q:
+                    if ch == "\\":
+                        j += 2
+                        continue
+                    if ch == in_q:
+                        in_q = None
+                else:
+                    if ch in ('"', "'"):
+                        in_q = ch
+                    elif ch == "`":
+                        return None, None
+                    elif ch == "{":
+                        depth += 1
+                    elif ch == "}":
+                        depth -= 1
+                j += 1
+            if depth != 0:
+                return None, None
+            expr = raw[i + 2:j - 1]
+            out.append("{" + str(len(exprs)) + "}")
+            exprs.append(expr)
+            i = j
+        else:
+            out.append(raw[i])
+            i += 1
+    if not exprs or len(exprs) > 4:
+        return None, None
+    static_chk = "".join(
+        p for p in re.split(r'\{\d+\}', "".join(out))
+    )
+    if re.search(r'\{\d+\}', static_chk):
+        return None, None
+    return _decode_js_uesc("".join(out)), exprs
+
+
+def _load_template_tr_dict():
+    tpl_p = os.path.join(BASE_DIR, "tpl-tm.json")
+    if not os.path.exists(tpl_p):
+        return {}
+    try:
+        raw = json.load(io.open(tpl_p, encoding="utf-8"))
+        out = {}
+        for k, v in raw.items():
+            if (isinstance(k, str) and isinstance(v, str) and k != v
+                    and "`" not in v and "$" not in v
+                    and sorted(_PH_SLOT_RE.findall(k)) == sorted(_PH_SLOT_RE.findall(v))):
+                out[k] = v
+        return out
+    except Exception:
+        return {}
+
+
+_TPL_COMP_BEFORE_RE = re.compile(r'(?:===|!==|\bcase\s+)$')
+
+
+def patch_template_literals(content, tpl_dict=None):
+    """Bundle ve Molten icindeki ${...} JS template literallerini degisken adindan
+    bagimsiz olarak ({0}, {1} uzerinden) Turkcelestirir (=== / !== / case korumali)."""
+    if tpl_dict is None:
+        tpl_dict = _load_template_tr_dict()
+    if not tpl_dict:
+        return content, 0
+    hits = [0]
+
+    def _repl_tpl(m):
+        before = content[max(0, m.start() - 12):m.start()]
+        if _TPL_COMP_BEFORE_RE.search(before):
+            return m.group(0)
+        raw = m.group(1)
+        if "${" not in raw:
+            return m.group(0)
+        norm, exprs = normalize_template_literal(raw)
+        if not norm:
+            return m.group(0)
+        tr = tpl_dict.get(norm)
+        if not tr or tr == norm:
+            return m.group(0)
+        try:
+            rendered = _PH_SLOT_RE.sub(lambda sm: "${" + exprs[int(sm.group(1))] + "}", tr)
+        except Exception:
+            return m.group(0)
+        hits[0] += 1
+        return "`" + rendered + "`"
+
+    content = _TPL_LITERAL_RE.sub(_repl_tpl, content)
     return content, hits[0]
 
 
@@ -705,6 +846,7 @@ def patch_molten_dir(molten_dir):
         return 0, 0
     bt_maps = _load_backtick_prop_maps()
     unified_dict = _load_unified_en_tr_dict()
+    tpl_dict = _load_template_tr_dict()
     total_files = 0
     total_mods = 0
     for fname in sorted(os.listdir(molten_dir)):
@@ -752,6 +894,9 @@ def patch_molten_dir(molten_dir):
                     return m.group(0)
                 content = MOLTEN_ASSIGN_BT_RE.sub(_repl_assign_bt, content)
                 mods += prop_hits[0]
+            if tpl_dict:
+                content, c_tpl = patch_template_literals(content, tpl_dict)
+                mods += c_tpl
             try:
                 import patch_tool_labels
                 content, c_tl = patch_tool_labels.patch_text(content)

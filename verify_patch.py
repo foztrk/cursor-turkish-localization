@@ -150,6 +150,8 @@ def main():
         '?"Allow this device?":`Allow \\u201C${t}\\u201D?`',
         'Koordinatör çabası',
         'bu çabayla başlar',
+        'is ready \\u2014 click to restart',
+        'will apply on quit \\u2014 click to restart now',
     ]
     for fb in forbidden_glass:
         if fb in glass:
@@ -161,7 +163,7 @@ def main():
         '?"Yükleniyor":"Güncelle"',
         'children:"Çalışan Modeli"',
         '===void 0?"Eşleştir":"Özel"',
-        '"Otomatik içe aktarmalar geçici olarak devre dışı bırakıldı"',
+        'Otomatik içe aktarmalar geçici olarak devre dışı',
         '"Özel Model Ekle"]',
         '="Telefonunuzdan yerel ajanları kontrol edin"',
         ']:"Diğer Eylemler"}',
@@ -177,10 +179,13 @@ def main():
         '="Bu bilgisayarla bağlantıyı kes"',
         '="Tüm bilgisayarlarla bağlantıyı kes"',
         '="İzin Verme"',
-        '?"Bu cihaza izin verilsin mi?":`\\u201C${t}\\u201D cihazına izin verilsin mi?`',
+        '?"Bu cihaza izin verilsin mi?":',
+        'izin verilsin mi?`',
         '`Son kullanım: ${',
         'Koordinatör Düşünme Düzeyi',
         'bu düşünme düzeyinde başlar',
+        'sürümüne güncelleme hazır — yeniden başlatmak için tıklayın`',
+        'sürümüne güncelleme çıkışta uygulanacak — şimdi yeniden başlatmak için tıklayın`',
     ]
     for rq in required_glass:
         if rq not in glass:
@@ -205,7 +210,7 @@ def main():
         '`Özel Model Ekle`',
         '`Telefonunuzdan yerel ajanları kontrol edin`',
         'children:`Çalışan Modeli`',
-        'p=`Yükleniyor`',
+        '=`Yükleniyor`,',
         '`Eklentiler Ekle`',
         '`Model ekle veya ara`',
         ']:`Diğer Eylemler`}',
@@ -223,6 +228,7 @@ def main():
         'cihazına izin verilsin mi?`',
         '`Koordinatör Düşünme Düzeyi`',
         'bu düşünme düzeyinde başlar',
+        'sürümüne güncelleme hazır — yeniden başlatmak için tıklayın`',
     ]:
         if rq not in molten_all:
             fail(errors, f"Canli Molten icinde beklenen Turkce kalip yok: {rq}")
