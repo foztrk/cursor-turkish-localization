@@ -88,6 +88,10 @@ def _build_known_en():
 
 def _build_known_tr(exact_map):
     tr_set = set(exact_map.values())
+    tr_set.update({
+        'Tema', 'Renkler', 'Hareket', 'Sistem', 'Otomatik', 'Yeni', 'Plan',
+        'Model Listesini Yenile', 'Model Listesi Yenileniyor', 'Kaydedildi',
+    })
     p_nls = os.path.join(BASE, 'nls-tm.json')
     if os.path.exists(p_nls):
         try:
@@ -103,6 +107,21 @@ def _build_known_tr(exact_map):
                 tr_set.add(v.strip())
     except Exception:
         pass
+    try:
+        from patch_glass_nls import GLASS_NLS_MAP
+        for v in GLASS_NLS_MAP.values():
+            if isinstance(v, str) and 2 <= len(v.strip()) <= 180:
+                tr_set.add(v.strip())
+    except Exception:
+        pass
+    import glob as _glob
+    for tf in _glob.glob(os.path.join(BASE, 'tr2', '*.json')):
+        try:
+            for v in json.load(io.open(tf, encoding='utf-8')).values():
+                if isinstance(v, str) and 2 <= len(v.strip()) <= 180:
+                    tr_set.add(v.strip())
+        except Exception:
+            pass
     return sorted(tr_set)
 
 
@@ -144,7 +163,9 @@ def build_collector_script():
         '    }\n'
         f'    const KNOWN_EN = new Set({known_en_json});\n'
         '    KNOWN_EN.add("Cursor"); KNOWN_EN.add("Cursor Agents");\n'
+        '    KNOWN_EN.add("Ctrl"); KNOWN_EN.add("Shift"); KNOWN_EN.add("Alt"); KNOWN_EN.add("Tab"); KNOWN_EN.add("Esc");\n'
         f'    const KNOWN_TR = new Set({known_tr_json});\n'
+        '    const ISSUE_KEY_RE = /^[A-Z]{2,6}-\\d+\\b/;\n'
         '    const SKIP_SELECTOR = [\n'
         '      "head", "title",\n'
         '      ".monaco-editor", ".view-lines", ".xterm", ".terminal-wrapper",\n'
@@ -213,6 +234,7 @@ def build_collector_script():
         '      if (!key || key.length < 2 || key.length > 180) return;\n'
         '      if (seenSet.size >= 1500 || seenSet.has(key)) return;\n'
         '      if (TR_RE.test(key) || KNOWN_EN.has(key) || KNOWN_TR.has(key)) return;\n'
+        '      if (ISSUE_KEY_RE.test(key)) return;\n'
         '      if (PATH_URL_RE.test(key) || CODE_NUM_RE.test(key) || ALL_CAPS_RE.test(key)) return;\n'
         '      const hasSpace = key.includes(" ");\n'
         '      if (hasSpace) {\n'

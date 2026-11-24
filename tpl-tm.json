@@ -1366,5 +1366,10 @@
   "{0} · Cloud": "{0} · Bulut",
   "{0} ∙ Side Chat": "{0} ∙ Yan Sohbet",
   "{0} is already authenticated": "{0} kimliği zaten doğrulandı",
-  "{0} is authenticated": "{0} kimliği doğrulandı"
+  "{0} is authenticated": "{0} kimliği doğrulandı",
+  "Verify extension signatures when installing and loading extensions. May require an editor restart to take effect.{0}": "Uzantıları yüklerken ve çalıştırırken uzantı imzalarını doğrulayın. Değişikliğin etkili olması için düzenleyicinin yeniden başlatılması gerekebilir.{0}",
+  "{0}. Open activity": "{0}. Etkinliği aç",
+  "{0}, select project": "{0}, proje seç",
+  "Show {0} more recent agents": "{0} son ajanı daha göster",
+  "Show {0} more recent agent": "{0} son ajanı daha göster"
 }
