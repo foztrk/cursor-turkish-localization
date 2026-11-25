@@ -64,6 +64,15 @@ import * as __cursorTrOs from "node:os";
         __cursorTrFs.writeFileSync(outFile, JSON.stringify(store, null, 2), "utf8");
       } catch {}
     };
+    const bootFile = __cursorTrFs.existsSync(repoDir)
+      ? __cursorTrPath.join(repoDir, "_boot_status.json")
+      : __cursorTrPath.join(__cursorTrApp.getPath("userData"), "_boot_status.json");
+    __cursorTrIpcMain.on("vscode:cursorTrBootStatus", (_ev, payload) => {
+      try {
+        if (!payload || typeof payload !== "object") return;
+        __cursorTrFs.writeFileSync(bootFile, JSON.stringify(payload, null, 2), "utf8");
+      } catch {}
+    });
     __cursorTrIpcMain.on("vscode:cursorTrMissing", (_ev, batch) => {
       try {
         if (!Array.isArray(batch) || batch.length === 0) return;

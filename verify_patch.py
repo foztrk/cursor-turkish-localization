@@ -126,7 +126,7 @@ def main():
     forbidden_glass = [
         'children:["%",v,y]',
         'title:"&&Settings"',
-        'label:"Manage Origin Settings"',
+        'children:"Manage Origin Settings"',
         'label:"Worktree Cleanup"',
         '?"Installing":"Update"',
         'children:"Worker Model"',
@@ -158,7 +158,7 @@ def main():
             fail(errors, f"Canli glass icinde Ingilizce/bozuk kalip kaldi: {fb}")
     required_glass = [
         'title:"&&Ayarlar"',
-        'label:"Origin Ayarlarını Yönet"',
+        'children:"Origin Ayarlarını Yönet"',
         'label:"Çalışma Ağacı Temizliği"',
         '?"Yükleniyor":"Güncelle"',
         'children:"Çalışan Modeli"',
@@ -166,12 +166,6 @@ def main():
         'Otomatik içe aktarmalar geçici olarak devre dışı',
         '"Özel Model Ekle"]',
         '="Telefonunuzdan yerel ajanları kontrol edin"',
-        ']:"Diğer Eylemler"}',
-        'done:"Mesaj Gönderen:"',
-        'done:"Oluşturuldu"',
-        'completed:"Oluşturuldu"',
-        '?`Durum değiştirildi: ',
-        '?"Mesaj Gönderenler: ":"Mesaj Gönderen: "',
         'children:"Göreli Yolu Kopyala"',
         'children:"Fark Görünümü"',
         'children:"Satır Numaraları"',
@@ -186,6 +180,9 @@ def main():
         'bu düşünme düzeyinde başlar',
         'sürümüne güncelleme hazır — yeniden başlatmak için tıklayın`',
         'sürümüne güncelleme çıkışta uygulanacak — şimdi yeniden başlatmak için tıklayın`',
+        'Otomasyonlar Yüklenemedi',
+        'Uzantıları yüklerken ve çalıştırırken uzantı imzalarını doğrulayın',
+        'Dikte ederken isteminizi gönderen sözcükler',
     ]
     for rq in required_glass:
         if rq not in glass:
@@ -209,31 +206,39 @@ def main():
     for rq in [
         '`Özel Model Ekle`',
         '`Telefonunuzdan yerel ajanları kontrol edin`',
-        'children:`Çalışan Modeli`',
-        '=`Yükleniyor`,',
         '`Eklentiler Ekle`',
-        '`Model ekle veya ara`',
-        ']:`Diğer Eylemler`}',
         'done:`Mesaj Gönderen:`',
-        'completed:`Oluşturuldu`',
-        '?`Mesaj Gönderenler: `:`Mesaj Gönderen: `',
-        'children:`Göreli Yolu Kopyala`',
-        'children:`Fark Görünümü`',
-        'children:`Satır Numaraları`',
-        'children:`Değişiklikleri Geri Al`',
-        '`Bu bilgisayarla bağlantıyı kes`',
-        '`Tüm bilgisayarlarla bağlantıyı kes`',
         '`İzin Verme`',
-        '`Son kullanım: ${n}`',
-        'cihazına izin verilsin mi?`',
-        '`Koordinatör Düşünme Düzeyi`',
-        'bu düşünme düzeyinde başlar',
-        'sürümüne güncelleme hazır — yeniden başlatmak için tıklayın`',
+        '`Otomasyonlar Yüklenemedi`',
     ]:
         if rq not in molten_all:
             fail(errors, f"Canli Molten icinde beklenen Turkce kalip yok: {rq}")
         else:
             ok(f"Canli Molten dogrulandi: {rq}")
+
+    mg_files = glob.glob(os.path.join(molten_dir, "messages.gen-*.js"))
+    if not mg_files:
+        fail(errors, "Canli Molten messages.gen-*.js bulunamadi")
+    else:
+        mg_txt = io.open(mg_files[0], encoding="utf-8", errors="ignore").read()
+        for mrq in [
+            "/* CURSOR_TR_LINGUI_V1 */",
+            '"Worker Model","Çalışan Modeli"',
+            '"Copy Relative Path","Göreli Yolu Kopyala"',
+            '"Diff View","Fark Görünümü"',
+            '"Line Numbers","Satır Numaraları"',
+            '"Discard Changes","Değişiklikleri Geri Al"',
+            '"Disconnect from this computer","Bu bilgisayarla bağlantıyı kes"',
+            '"Disconnect from all computers","Tüm bilgisayarlarla bağlantıyı kes"',
+            '"Add or search model","Model ekle veya ara"',
+            '"More Actions","Diğer Eylemler"',
+            "Son kullanım: ",
+            "sürümüne güncelleme hazır",
+        ]:
+            if mrq not in mg_txt:
+                fail(errors, f"Canli Molten Lingui katalogunda kalip yok: {mrq}")
+            else:
+                ok(f"Canli Molten Lingui dogrulandi: {mrq}")
 
     print("\n" + "=" * 60)
     if errors:

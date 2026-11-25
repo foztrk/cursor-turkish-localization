@@ -47,6 +47,7 @@ YENI-*.txt
 SURUM-FARKI-*.txt
 surum-farki-son.json
 eksik-ekran-metinleri.json
+_boot_status.json
 
 # OS / Editor
 .DS_Store

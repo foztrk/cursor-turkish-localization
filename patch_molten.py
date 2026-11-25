@@ -860,6 +860,86 @@ def _load_backtick_prop_maps():
     return bt_maps
 
 
+LOCALE_BUNDLE_RE = re.compile(
+    r'^(?:de|es|fr|ja|ko|pt|zh-CN|zh-TW|it|ru|pl|cs|nl)\.gen-.*\.js$'
+)
+LINGUI_MARKER = '/* CURSOR_TR_LINGUI_V1 */'
+LINGUI_END_MARKER = '/* END_CURSOR_TR_LINGUI_V1 */'
+_LINGUI_STATIC_ENTRY_RE = re.compile(
+    r'"((?:\\.|[^"\\\n\r]){2,220})":\[`((?:\\u[0-9a-fA-F]{4}|\\x[0-9a-fA-F]{2}|[^`\\\n\r$]){2,220})`\]'
+)
+_LINGUI_EXPORT_RE = re.compile(r'export\{([a-zA-Z0-9_$]+)\s+as\s+messages\};')
+
+LINGUI_DIRECT_REPS = [
+    ('"Last used {ago}":[`Last used `,[`ago`]]',
+     '"Last used {ago}":[`Son kullanım: `,[`ago`]]'),
+    ('"Update is ready \\u2014 click to restart":[`Update is ready \\u2014 click to restart`]',
+     '"Update is ready \\u2014 click to restart":[`Güncelleme hazır — yeniden başlatmak için tıklayın`]'),
+    ('"Update to {version} is ready \\u2014 click to restart":[`Update to `,[`version`],` is ready \\u2014 click to restart`]',
+     '"Update to {version} is ready \\u2014 click to restart":[[`version`],` sürümüne güncelleme hazır — yeniden başlatmak için tıklayın`]'),
+    ('"Allow \\u201C{deviceName}\\u201D?":[`Allow \\u201C`,[`deviceName`],`\\u201D?`]',
+     '"Allow \\u201C{deviceName}\\u201D?":[`“`,[`deviceName`],`” cihazına izin verilsin mi?`]'),
+]
+
+
+def patch_lingui_messages(content, unified_dict):
+    """Molten messages.gen-*.js Lingui katalogunu Turkcelestirir ve unified_dict enjekte eder."""
+    if LINGUI_MARKER in content and LINGUI_END_MARKER in content:
+        content = re.sub(
+            re.escape(LINGUI_MARKER) + r'.*?' + re.escape(LINGUI_END_MARKER) + r'\s*',
+            '',
+            content,
+            flags=re.DOTALL,
+        )
+
+    mods = 0
+    for old_s, new_s in LINGUI_DIRECT_REPS:
+        if old_s in content:
+            c = content.count(old_s)
+            content = content.replace(old_s, new_s)
+            mods += c
+
+    def _repl_entry(m):
+        nonlocal mods
+        raw_key, raw_val = m.group(1), m.group(2)
+        key_dec = _decode_js_uesc(raw_key)
+        val_dec = _decode_js_uesc(raw_val)
+        tr = unified_dict.get(val_dec) or unified_dict.get(key_dec) or unified_dict.get(raw_val)
+        if not tr or tr == val_dec or any(ch in tr for ch in ('`', '$', '\n', '\r')):
+            return m.group(0)
+        safe_tr = tr.replace('\\', '\\\\').replace('`', '\\`')
+        mods += 1
+        return f'"{raw_key}":[`{safe_tr}`]'
+
+    content = _LINGUI_STATIC_ENTRY_RE.sub(_repl_entry, content)
+
+    m_exp = _LINGUI_EXPORT_RE.search(content)
+    if m_exp and unified_dict:
+        var_name = m_exp.group(1)
+        pairs = []
+        seen_k = set()
+        for k, v in unified_dict.items():
+            if not (isinstance(k, str) and isinstance(v, str) and k != v):
+                continue
+            if '\\u' in k or '\\x' in k or '\n' in k or '\r' in k:
+                continue
+            if not (2 <= len(k) <= 220) or k in seen_k:
+                continue
+            seen_k.add(k)
+            pairs.append([k, v])
+        pairs_json = json.dumps(pairs, ensure_ascii=False, separators=(',', ':'))
+        inject = (
+            f'{LINGUI_MARKER}\n'
+            f';for(const [__k,__v] of {pairs_json}){{if(!(__k in {var_name})){var_name}[__k]=[__v];}}\n'
+            f'{LINGUI_END_MARKER}\n'
+        )
+        pos = m_exp.start()
+        content = content[:pos] + inject + content[pos:]
+        mods += len(pairs)
+
+    return content, mods
+
+
 def patch_molten_dir(molten_dir):
     if not os.path.exists(molten_dir):
         return 0, 0
@@ -869,12 +949,21 @@ def patch_molten_dir(molten_dir):
     total_files = 0
     total_mods = 0
     for fname in sorted(os.listdir(molten_dir)):
-        if not fname.endswith(".js"):
+        if not fname.endswith(".js") or LOCALE_BUNDLE_RE.match(fname):
             continue
         p = os.path.join(molten_dir, fname)
         try:
             with io.open(p, "r", encoding="utf-8") as f:
                 content = f.read()
+            if fname.startswith("messages.gen-"):
+                content, mods = patch_lingui_messages(content, unified_dict)
+                if mods > 0:
+                    with io.open(p, "w", encoding="utf-8", newline="") as f:
+                        f.write(content)
+                    total_files += 1
+                    total_mods += mods
+                    print(f"[molten/{fname}] {mods} Lingui mesaji Turkcelestirildi.")
+                continue
             mods = 0
             for pat, rep in MOLTEN_REGEX_REPS:
                 content, c = pat.subn(rep, content)
