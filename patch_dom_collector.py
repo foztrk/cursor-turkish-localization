@@ -22,21 +22,39 @@ PRIORITY_TPL_TOKENS = (
 )
 
 
+def _add_exact_variants(exact, k, v):
+    if (isinstance(k, str) and isinstance(v, str) and k != v
+            and 2 <= len(k) <= 220 and '\n' not in k and '\r' not in k):
+        if re.search(r'[çğıöşüÇĞİÖŞÜ]', k) or k in ('Depolarda ara…', 'Depolarda ara...'):
+            return
+        exact[k] = v
+        if '...' in k:
+            exact.setdefault(k.replace('...', '…'), v.replace('...', '…'))
+        if '…' in k:
+            exact.setdefault(k.replace('…', '...'), v.replace('…', '...'))
+        if '’' in k:
+            exact.setdefault(k.replace('’', "'"), v)
+
+
 def _build_exact_map():
     exact = {}
+    try:
+        import sys as _sys
+        if BASE not in _sys.path:
+            _sys.path.insert(0, BASE)
+        import patch_molten as _pm
+        unified = _pm._load_unified_en_tr_dict()
+        for k, v in unified.items():
+            if '\\u' in k or '\\x' in k:
+                continue
+            _add_exact_variants(exact, k, v)
+    except Exception:
+        pass
     p = os.path.join(BASE, 'cursor-ui-tm.json')
     if os.path.exists(p):
         data = json.load(io.open(p, encoding='utf-8'))
         for k, v in data.items():
-            if (isinstance(k, str) and isinstance(v, str) and k != v
-                    and 2 <= len(k) <= 220 and '\n' not in k and '\r' not in k):
-                exact[k] = v
-                if '...' in k:
-                    exact.setdefault(k.replace('...', '…'), v.replace('...', '…'))
-                if '…' in k:
-                    exact.setdefault(k.replace('…', '...'), v.replace('…', '...'))
-                if '’' in k:
-                    exact.setdefault(k.replace('’', "'"), v)
+            _add_exact_variants(exact, k, v)
     return exact
 
 
@@ -248,8 +266,47 @@ def build_collector_script():
         '      if (!sendTimer) sendTimer = setTimeout(flushMissing, 2000);\n'
         '    }\n'
         '\n'
+        '    function isMultiTextLeaf(el) {\n'
+        '      if (!el || el.nodeType !== 1 || el.childElementCount !== 0 || el.childNodes.length <= 1) return false;\n'
+        '      let textCount = 0;\n'
+        '      for (let i = 0; i < el.childNodes.length; i++) {\n'
+        '        const nt = el.childNodes[i].nodeType;\n'
+        '        if (nt === 3) textCount++;\n'
+        '        else if (nt !== 8) return false;\n'
+        '      }\n'
+        '      return textCount > 1;\n'
+        '    }\n'
+        '\n'
+        '    function translateLeafElement(el) {\n'
+        '      if (!isMultiTextLeaf(el) || isSkipped(el)) return false;\n'
+        '      const raw = el.textContent || "";\n'
+        '      const combined = raw.replace(/\\s+/g, " ").trim();\n'
+        '      if (!combined) return true;\n'
+        '      const tr = translateString(combined);\n'
+        '      if (tr && tr !== combined) {\n'
+        '        let firstSet = false;\n'
+        '        for (let i = 0; i < el.childNodes.length; i++) {\n'
+        '          const n = el.childNodes[i];\n'
+        '          if (n.nodeType !== 3) continue;\n'
+        '          if (!firstSet) {\n'
+        '            if (n.nodeValue !== tr) n.nodeValue = tr;\n'
+        '            firstSet = true;\n'
+        '          } else if (n.nodeValue !== "") {\n'
+        '            n.nodeValue = "";\n'
+        '          }\n'
+        '        }\n'
+        '        return true;\n'
+        '      }\n'
+        '      maybeCollect(combined, "text", el);\n'
+        '      return true;\n'
+        '    }\n'
+        '\n'
         '    function translateTextNode(node) {\n'
         '      if (!node || node.nodeType !== 3 || isSkipped(node)) return;\n'
+        '      if (node.parentElement && isMultiTextLeaf(node.parentElement)) {\n'
+        '        translateLeafElement(node.parentElement);\n'
+        '        return;\n'
+        '      }\n'
         '      const raw = node.nodeValue || "";\n'
         '      const key = raw.trim();\n'
         '      if (!key) return;\n'
@@ -288,12 +345,21 @@ def build_collector_script():
         '        return;\n'
         '      }\n'
         '      if (root.nodeType !== 1 && root.nodeType !== 9) return;\n'
-        '      if (root.nodeType === 1) translateAttrs(root);\n'
+        '      if (root.nodeType === 1) {\n'
+        '        translateAttrs(root);\n'
+        '        if (isMultiTextLeaf(root)) {\n'
+        '          translateLeafElement(root);\n'
+        '          return;\n'
+        '        }\n'
+        '      }\n'
         '      const walker = document.createTreeWalker(root, 5);\n'
         '      let cur;\n'
         '      while ((cur = walker.nextNode())) {\n'
         '        if (cur.nodeType === 3) translateTextNode(cur);\n'
-        '        else translateAttrs(cur);\n'
+        '        else {\n'
+        '          translateAttrs(cur);\n'
+        '          if (isMultiTextLeaf(cur)) translateLeafElement(cur);\n'
+        '        }\n'
         '      }\n'
         '    }\n'
         '\n'

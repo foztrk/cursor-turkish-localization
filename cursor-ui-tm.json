@@ -4400,5 +4400,21 @@
   "The selected environment is still loading. Pick the pool again once it loads.": "Seçili ortam hâlâ yükleniyor. Yüklendikten sonra havuzu tekrar seçin.",
   "Unsupported trigger type for testing": "Test için desteklenmeyen tetikleyici türü",
   "Workflow run completed": "İş akışı çalıştırması tamamlandı",
-  "You can still save your changes.": "Değişikliklerinizi yine de kaydedebilirsiniz."
+  "You can still save your changes.": "Değişikliklerinizi yine de kaydedebilirsiniz.",
+  "Your codebase, prompts, edits and other usage data will be stored and trained on by Cursor to improve the product.": "Kod tabanınız, istemleriniz, düzenlemeleriniz ve diğer kullanım verileriniz, ürünü geliştirmek amacıyla Cursor tarafından saklanacak ve eğitilecektir.",
+  "No always-allowed apps yet. Choose Always Allow when Cursor asks to use an app.": "Henüz her zaman izin verilen uygulama yok. Cursor bir uygulama kullanmak için izin istediğinde Her Zaman İzin Ver seçeneğini seçin.",
+  "Talk with your agents out loud. Turn this off to hide voice chat everywhere you use Cursor.": "Ajanlarınızla sesli konuşun. Cursor'ı kullandığınız her yerde sesli sohbeti gizlemek için bunu kapatın.",
+  "System Default": "Sistem Varsayılanı",
+  "Mark Agent commits as co-authored by Cursor": "Ajan commit'lerini Cursor ortak yazarlı olarak işaretle",
+  "Cursor periodically removes old worktrees to free disk space. Tune how aggressively cleanup runs.": "Cursor, disk alanını boşaltmak için eski çalışma ağaçlarını düzenli olarak kaldırır. Temizliğin ne kadar agresif çalışacağını ayarlayın.",
+  "Maximum number of Cursor-managed worktrees to retain across all workspaces. Older worktrees are removed first.": "Tüm çalışma alanlarında saklanacak Cursor yönetimindeki en fazla çalışma ağacı sayısı. Önce daha eski çalışma ağaçları kaldırılır.",
+  "Maximum total size in GB across all Cursor-managed worktrees. Set to 0 to disable the size limit.": "Cursor yönetimindeki tüm çalışma ağaçlarının GB cinsinden en fazla toplam boyutu. Boyut sınırını devre dışı bırakmak için 0 olarak ayarlayın.",
+  "These domains must be accessible for Cursor to function. Add them to your firewall or proxy allowlist.": "Cursor'ın çalışabilmesi için bu alan adlarına erişilebilmelidir. Bunları güvenlik duvarı veya proxy izin listenize ekleyin.",
+  "Check network connectivity to all Cursor services": "Tüm Cursor hizmetlerine ağ bağlantısını denetle",
+  "Glob patterns for files where Cursor Tab will not suggest": "Cursor Tab'ın öneri sunmayacağı dosyalar için glob desenleri",
+  "Allow agent to switch to modes like Plan or Debug without asking. When off, Cursor asks first, but skips if unanswered within 15 seconds.": "Ajanın sormadan Plan veya Hata Ayıklama gibi modlara geçmesine izin verin. Kapalıyken Cursor önce sorar, ancak 15 saniye içinde yanıtlanmazsa atlar.",
+  "Messages sent while Cursor is working can steer it mid-run without interrupting - turn it on under New Messages in Agents settings": "Cursor çalışırken gönderilen mesajlar, işlemi bölmeden akışı yönlendirebilir — Ajanlar ayarlarındaki Yeni Mesajlar altından etkinleştirin",
+  "Add agents, context, tools": "Ajan, bağlam, araç ekle",
+  "Reset to default": "Varsayılana sıfırla",
+  "Controls which windows Cursor restores on startup": "Cursor'ın başlangıçta hangi pencereleri geri yükleyeceğini denetler"
 }

@@ -123,6 +123,7 @@ def main():
 
     print("\n=== 3. CANLI BUNDLE & REGRESYON DOGRULAMASI ===")
     glass = io.open(live_files["workbench.glass.main.js"], encoding="utf-8").read()
+    glass_code = glass.split("/* CURSOR_TR_LIVE_COLLECTOR_V1 */", 1)[0]
     forbidden_glass = [
         'children:["%",v,y]',
         'title:"&&Settings"',
@@ -154,7 +155,7 @@ def main():
         'will apply on quit \\u2014 click to restart now',
     ]
     for fb in forbidden_glass:
-        if fb in glass:
+        if fb in glass_code:
             fail(errors, f"Canli glass icinde Ingilizce/bozuk kalip kaldi: {fb}")
     required_glass = [
         'title:"&&Ayarlar"',
