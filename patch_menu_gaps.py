@@ -1757,6 +1757,10 @@ OVERLAY = r'''
     if (key.startsWith("Use /ask to research your codebase before starting code changes")) return "Kod değişikliklerine başlamadan önce kod tabanınızı araştırmak için /ask kullanın";
     if (key.startsWith("Ask Mode uses read-only agents to research your codebase")) return "Sor Modu, kod tabanınızı araştırmak için salt okunur ajanlar kullanır; başlamak için Shift+Tab tuşlarına basın";
     if (key.startsWith("Sor Mod uses read-only agents to research your codebase")) return "Sor Modu, kod tabanınızı araştırmak için salt okunur ajanlar kullanır; başlamak için Shift+Tab tuşlarına basın";
+    if (key.startsWith("Sor Mode uses read-only agents to research your codebase")) return "Sor Modu, kod tabanınızı araştırmak için salt okunur ajanlar kullanır; başlamak için Shift+Tab tuşlarına basın";
+    if (key.startsWith("Configure MCPs in your Cursor")) return "Ajanlara araçlara ve verilere erişim vermek için Cursor Ayarları'nda MCP'leri yapılandırın";
+    if (key.startsWith("Use automations to save time on repetitive tasks")) return "Sürekli açık ajanlarla tekrarlayan görevlerde zaman kazanmak için otomasyonları kullanın";
+    if (key.startsWith("Create a Project to give agents a shared assignment")) return "Ajanlara ortak bir görev vermek ve ilerlemelerini tek yerden izlemek için bir Proje oluşturun";
     if (key.startsWith("Cursor can respond with interactive visualizations alongside text")) return "Cursor, metnin yanında etkileşimli görselleştirmelerle yanıt verebilir; başlamak için /canvas kullanın";
     if (key.startsWith("Use /canvas to get interactive visualizations like dashboards from Cursor")) return "/canvas ile Cursor'dan pano gibi etkileşimli görselleştirmeler alın";
     if (key.startsWith("Use /automate to create Cursor Automations without leaving your agent chat")) return "/automate ile ajan sohbetinden ayrılmadan Cursor Otomasyonları oluşturun";
