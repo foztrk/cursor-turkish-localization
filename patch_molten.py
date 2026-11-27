@@ -555,6 +555,8 @@ PROTECTED_PROP_LOGIC_PAIRS = {
     ('text', 'Fill'),
     ('border', 'Fill'),
     ('icon', 'ForegroundBright'),
+    ('assign', 'Chat continued in two places'),
+    ('assign', 'Chat has newer messages elsewhere'),
 }
 
 _UI_PROP_NAMES_PAT = (

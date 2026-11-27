@@ -2749,5 +2749,19 @@
   "{1} couldn't start the repo's Airlock container: {0}": "{1}, deponun Airlock kapsayıcısını başlatamadı: {0}",
   "{1} may still be closing. Wait a moment, then restart.\n\nThis can also happen if the storage file is corrupted, moved, or there are permission issues.\n\nStorage path: {0}": "{1} hala kapanıyor olabilir. Biraz bekleyip yeniden başlatın.\n\nBu durum, depolama dosyası bozulduğunda, taşındığında veya izin sorunları olduğunda da oluşabilir.\n\nDepolama yolu: {0}",
   "{2} couldn't check container {0} for its server: {1}": "{2}, {0} kapsayıcısını sunucusu için denetleyemedi: {1}",
-  "{3} couldn't run the {0} hook at {1}: {2}": "{3}, {1} konumundaki {0} kancasını çalıştıramadı: {2}"
+  "{3} couldn't run the {0} hook at {1}: {2}": "{3}, {1} konumundaki {0} kancasını çalıştıramadı: {2}",
+  "Restart to Switch to Beta Agents Window": "Beta Ajanlar Penceresine Geçmek İçin Yeniden Başlat",
+  "Restart to Switch to Beta Agents Window (1)": "Beta Ajanlar Penceresine Geçmek İçin Yeniden Başlat (1)",
+  "Restart to Switch to Built-in Agents Window": "Yerleşik Ajanlar Penceresine Geçmek İçin Yeniden Başlat",
+  "Restart to Switch to Built-in Agents Window (1)": "Yerleşik Ajanlar Penceresine Geçmek İçin Yeniden Başlat (1)",
+  "Restart {0} to switch to the beta Agents Window": "Beta Ajanlar Penceresine geçmek için {0} uygulamasını yeniden başlatın",
+  "Restart {0} to switch to the beta Agents Window.": "Beta Ajanlar Penceresine geçmek için {0} uygulamasını yeniden başlatın.",
+  "Restart {0} to switch to the built-in Agents Window": "Yerleşik Ajanlar Penceresine geçmek için {0} uygulamasını yeniden başlatın",
+  "Restart {0} to switch to the built-in Agents Window.": "Yerleşik Ajanlar Penceresine geçmek için {0} uygulamasını yeniden başlatın.",
+  "Restarting": "Yeniden Başlatılıyor",
+  "Restarting {0}": "{0} yeniden başlatılıyor",
+  "Restarting {0} to switch to the beta Agents Window": "Beta Ajanlar Penceresine geçmek için {0} yeniden başlatılıyor",
+  "Restarting {0} to switch to the built-in Agents Window": "Yerleşik Ajanlar Penceresine geçmek için {0} yeniden başlatılıyor",
+  "Restarting the terminal because the connection to the shell process was lost...": "Kabuk işlemine olan bağlantı kesildiği için terminal yeniden başlatılıyor...",
+  "The remote extension host terminated unexpectedly. Restarting...": "Uzak uzantı ana bilgisayarı beklenmedik şekilde sonlandı. Yeniden başlatılıyor..."
 }

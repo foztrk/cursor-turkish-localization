@@ -4434,5 +4434,17 @@
   "Create a Project to give agents a shared assignment and track their progress in one place": "Ajanlara ortak bir görev vermek ve ilerlemelerini tek yerden izlemek için bir Proje oluşturun",
   "Tell Cursor to use subagents to break down tasks, do work in parallel, and preserve context": "Cursor'a görevleri bölmek, paralel çalışmak ve bağlamı korumak için alt ajanları kullanmasını söyleyin",
   "Drag and drop agent chats to split your view into tiled panes": "Görünümünüzü döşenmiş panellere bölmek için ajan sohbetlerini sürükleyip bırakın",
-  "Voice mode lets you dictate better prompts for your agents": "Ses modu, ajanlarınız için daha iyi istemleri dikte etmenizi sağlar"
+  "Voice mode lets you dictate better prompts for your agents": "Ses modu, ajanlarınız için daha iyi istemleri dikte etmenizi sağlar",
+  "Automatic Updates": "Otomatik Güncellemeler",
+  "Restart Now": "Şimdi Yeniden Başlat",
+  "Restart required": "Yeniden başlatma gerekli",
+  "Chat is being migrated": "Sohbet taşınıyor",
+  "This chat is currently being migrated into the local agent service. Wait a moment and try sending your message again.": "Bu sohbet şu anda yerel ajan hizmetine taşınıyor. Biraz bekleyip mesajınızı tekrar göndermeyi deneyin.",
+  "This version could not be sent to the local agent service.": "Bu sürüm yerel ajan hizmetine gönderilemedi.",
+  "Waiting for this chat to finish migrating…": "Bu sohbetin taşınmasının bitmesi bekleniyor…",
+  "Continue from the last saved message": "Son kaydedilen mesajdan devam et",
+  "Couldn't continue from the last saved message. Try again.": "Son kaydedilen mesajdan devam edilemedi. Tekrar deneyin.",
+  "Continue from this version": "Bu sürümden devam et",
+  "Chat continued in two places": "Sohbet iki yerde devam ettirildi",
+  "Chat has newer messages elsewhere": "Sohbette başka bir yerde daha yeni mesajlar var"
 }

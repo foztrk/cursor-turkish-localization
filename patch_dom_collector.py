@@ -107,7 +107,7 @@ def _build_known_en():
 def _build_known_tr(exact_map):
     tr_set = set(exact_map.values())
     tr_set.update({
-        'Tema', 'Renkler', 'Hareket', 'Sistem', 'Otomatik', 'Yeni', 'Plan',
+        'Tema', 'Renkler', 'Hareket', 'Sistem', 'Otomatik', 'Yeni', 'Plan', 'Beceriler',
         'Model Listesini Yenile', 'Model Listesi Yenileniyor', 'Kaydedildi',
     })
     p_nls = os.path.join(BASE, 'nls-tm.json')

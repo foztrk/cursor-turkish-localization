@@ -1596,5 +1596,14 @@
   "Your team admin has disabled Private Inference. Restart {0} to apply the change.": "Ekip yöneticiniz Özel Çıkarımı devre dışı bıraktı. Değişikliği uygulamak için {0} uygulamasını yeniden başlatın.",
   "Your team admin has enabled Private Inference. Restart {0} to apply the change.": "Ekip yöneticiniz Özel Çıkarımı etkinleştirdi. Değişikliği uygulamak için {0} uygulamasını yeniden başlatın.",
   "Your team settings determine data sharing with {0}": "{0} ile veri paylaşımını ekip ayarlarınız belirler",
-  "Your team's {0} connector now runs on {1}'s servers.": "Ekibinizin {0} bağlayıcısı artık {1} sunucularında çalışıyor."
+  "Your team's {0} connector now runs on {1}'s servers.": "Ekibinizin {0} bağlayıcısı artık {1} sunucularında çalışıyor.",
+  "Automatically update {0} while you're away": "Siz uzaktayken {0} uygulamasını otomatik olarak güncelleyin",
+  "Configure {0}": "{0} Yapılandır",
+  "Continue from this version (removes {0} {1})": "Bu sürümden devam et ({0} {1} kaldırılır)",
+  "The last messages of this chat were not saved before {0} switched how it runs agents. Continue from the last saved message to keep using this chat.": "Bu sohbetin son mesajları, {0} ajanları çalıştırma yöntemini değiştirmeden önce kaydedilmedi. Bu sohbeti kullanmaya devam etmek için son kaydedilen mesajdan devam edin.",
+  "Open the {0} desktop app on that machine to reconnect.": "Yeniden bağlanmak için o makinede {0} masaüstü uygulamasını açın.",
+  "Restarting {0} to switch to the beta Agents Window": "Beta Ajanlar Penceresine geçmek için {0} yeniden başlatılıyor",
+  "Restarting {0} to switch to the built-in Agents Window": "Yerleşik Ajanlar Penceresine geçmek için {0} yeniden başlatılıyor",
+  "Restart {0} to switch to the beta Agents Window": "Beta Ajanlar Penceresine geçmek için {0} uygulamasını yeniden başlatın",
+  "Restart {0} to switch to the built-in Agents Window": "Yerleşik Ajanlar Penceresine geçmek için {0} uygulamasını yeniden başlatın"
 }
